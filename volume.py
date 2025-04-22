@@ -6,12 +6,12 @@ import keyboard
 
 CHUNK = 1024
 volume = 1.0  # Initial volume (1.0 = 100%)
-
+count = 0
 def on_volume_change(e):
     global volume
     if e.name == 'up' and volume < 2.0:  # Max 2.0 (200% volume)
         volume += 0.1
-    elif e.name == 'down' and volume > 0.0:  # Min 0.0 (mute)
+    elif e.name == 'down' and volume > 0.1:  # Min 0.0 (mute)
         volume -= 0.1
     print(f"\rCurrent volume: {volume:.1f}", end="", flush=True)
 
@@ -38,10 +38,12 @@ with wave.open(sys.argv[1], 'rb') as wf:
 
     try:
         while len(data := wf.readframes(CHUNK)):
+            count += 1
             # Convert bytes to numpy array and adjust volume
             audio_array = np.frombuffer(data, dtype=np.int16)
-            adjusted = np.clip(audio_array * volume, -32768, 32767).astype(np.int16) # -32768 to 32767 are the split range of int16's possible values
+            adjusted = np.clip(audio_array * volume, a_min=-32766, a_max=32767).astype(np.int16) # -32768 to 32767 are the split range of int16's possible values
             stream.write(adjusted.tobytes())
+            print(count)
     except KeyboardInterrupt:
         print("\nStopped by user")
     finally:
