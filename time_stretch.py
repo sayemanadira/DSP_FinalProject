@@ -4,9 +4,8 @@ import pyaudio
 import numpy as np
 import keyboard 
 
-L = 2048
-CHUNK = L
-HOP = L // 2
+CHUNK = L = 2048
+Hs = L // 2
 alpha = 1.0
 window = np.hanning(L)
 output_buffer = None
@@ -29,45 +28,41 @@ with wave.open(sys.argv[1], 'rb') as wf:
         rate=wf.getframerate(),
         output=True
     )
-    num_frames = wf.getnframes()
-    frame_rate = wf.getframerate()
-    duration = num_frames / frame_rate
-
     print("Playing audio. Press:")
     print("- UP arrow to increase stretch factor")
     print("- DOWN arrow to decrease stretch factor")
     print("- CTRL+C to stop")
 
     # Get total frames and calculate positions
-    total_frames = wf.getnframes()
+    num_samples = wf.getnframes()
     pos = 0  # Start at beginning
-    output_buffer = np.zeros(int(HOP * duration))
 
     try:
-        while pos <= total_frames - CHUNK:
+        while pos <= num_samples - CHUNK:
             # Move file pointer to current position
             wf.setpos(pos)
             
             # Read CHUNK frames (with overlap)
             data = wf.readframes(CHUNK)
             
-            # Process data (e.g., apply FFT, volume, effects)
             x = np.frombuffer(data, dtype=np.int16)
             
-            Ha = int(np.round(HOP/alpha))
+            Ha = int(np.round(Hs/alpha))
 
             # 3. Apply OLA
             analysis_buffer = x * window
-            synthesis_buffer = analysis_buffer  # (Add your processing here)
+            synthesis_buffer = analysis_buffer
             
+            numFrames = (num_samples - L) // Ha + 1
+            output_buffer = np.zeros(Hs * (numFrames-1) + L)
+
             # 4. Overlap-add to output
-            output_buffer[:-HOP] = output_buffer[HOP:]  # Shift buffer
-            output_buffer[-HOP:] = 0
+            output_buffer[:-Hs] = output_buffer[Hs:]  # Shift buffer (first half = the second half)
+            output_buffer[-Hs:] = 0
             output_buffer[:L] += synthesis_buffer
 
-
             # 5. Stream the output
-            stream.write(output_buffer[:HOP].astype(np.int16).tobytes())
+            stream.write(output_buffer[:Hs].astype(np.int16).tobytes())
 
             # Advance by analysis hop size
             pos += Ha
