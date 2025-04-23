@@ -6,7 +6,7 @@ import keyboard
 
 CHUNK = 1024
 volume = 1.0  # Initial volume (1.0 = 100%)
-count = 0
+# count = 0
 def on_volume_change(e):
     global volume
     if e.name == 'up' and volume < 2.0:  # Max 2.0 (200% volume)
@@ -36,17 +36,24 @@ with wave.open(sys.argv[1], 'rb') as wf:
     print("- DOWN arrow to decrease volume")
     print("- CTRL+C to stop")
 
+    total_frames = wf.getnframes()
+    pos = 0
     try:
-        while len(data := wf.readframes(CHUNK)):
-            count += 1
+        while pos <= total_frames - CHUNK:
+            # count += 1
+            wf.setpos(pos)
+            data = wf.readframes(CHUNK)
             # Convert bytes to numpy array and adjust volume
             audio_array = np.frombuffer(data, dtype=np.int16)
-            adjusted = np.clip(audio_array * volume, a_min=-32766, a_max=32767).astype(np.int16) # -32768 to 32767 are the split range of int16's possible values
+            adjusted = (audio_array * volume).astype(np.int16)
             stream.write(adjusted.tobytes())
-            print(count)
+            pos += CHUNK
+            # print(count)
     except KeyboardInterrupt:
         print("\nStopped by user")
     finally:
         stream.close()
         p.terminate()
         keyboard.unhook_all()  # Clean up keyboard listeners
+
+
