@@ -36,6 +36,7 @@ with wave.open(sys.argv[1], 'rb') as wf:
     # Get total frames and calculate positions
     num_samples = wf.getnframes()
     pos = 0  # Start at beginning
+    output_buffer = np.zeros(int(L + Hs))
 
     try:
         while pos <= num_samples - CHUNK:
@@ -54,7 +55,7 @@ with wave.open(sys.argv[1], 'rb') as wf:
             synthesis_buffer = analysis_buffer
             
             numFrames = (num_samples - L) // Ha + 1
-            output_buffer = np.zeros(Hs * (numFrames-1) + L)
+            # output_buffer = np.zeros(Hs * (numFrames-1) + L)
 
             # 4. Overlap-add to output
             output_buffer[:-Hs] = output_buffer[Hs:]  # Shift buffer (first half = the second half)
