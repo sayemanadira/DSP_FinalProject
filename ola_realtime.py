@@ -8,7 +8,8 @@ CHUNK = L = 2048
 Hs = L // 2
 alpha = 1.0
 window = np.hanning(L)
-output_buffer = None
+output_buffer = np.zeros(int(L))
+
 
 def on_alpha_change(e):
     global alpha
@@ -36,8 +37,6 @@ with wave.open(sys.argv[1], 'rb') as wf:
     # Get total frames and calculate positions
     num_samples = wf.getnframes()
     pos = 0  # Start at beginning
-    output_buffer = np.zeros(int(L + Hs))
-
     try:
         while pos <= num_samples - CHUNK:
             # Move file pointer to current position
