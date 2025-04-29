@@ -12,7 +12,6 @@ alpha = 1.0
 
 prev_fft = None
 prev_phase = np.zeros(L//2 + 1)
-omega_nom = np.arange(L//2 + 1) * 2 * np.pi * 44100 / L  # 44100 will be updated later with real sampling rate
 
 def on_alpha_change(e):
     global alpha

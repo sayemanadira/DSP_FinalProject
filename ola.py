@@ -4,7 +4,7 @@ import pyaudio
 import numpy as np
 import keyboard 
 
-CHUNK = L = 220
+CHUNK = L = 2048
 Hs = L // 2
 alpha = 1.0
 window = np.hanning(L)
