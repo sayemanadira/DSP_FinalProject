@@ -5,26 +5,20 @@ import numpy as np
 import keyboard 
 import librosa as lb
 from scipy.signal import medfilt
+import scipy.io.wavfile as wavfile
+import time
 
 
 CHUNK = L = 2048
 L_ola = 256
 Hs = L // 4
-Hs_ola = L // 2
-alpha = 1.0
+Hs_ola = L_ola // 2
+alpha = 1.25
 window = np.hanning(L)
 output_buffer = np.zeros(int(L))
 prev_fft = None
 prev_phase = np.zeros(L//2 + 1)
 
-
-def on_alpha_change(e):
-    global alpha
-    if e.name == 'up' and alpha < 2.00:
-        alpha += 0.05
-    elif e.name == 'down' and alpha > 0.10:
-        alpha -=0.05
-    print(f"\rCurrent alpha: {alpha:.2f}", end="", flush=True)
 
 def calc_sum_squared_window(window, hop_length):
     '''
@@ -72,11 +66,8 @@ def invert_stft(S, hop_length, window):
     frames = np.real(frames) # remove imaginary components due to numerical roundoff
     
     # synthesis frames
-    num = window.reshape((-1,1))
     den = calc_sum_squared_window(window, hop_length)
-    #den = np.square(window) + np.square(np.roll(window, hop_length))
     frames = frames * window.reshape((-1,1)) / den.reshape((-1,1))
-    #frames = frames * window.reshape((-1,1))
     
     # reconstruction
     y = np.zeros(hop_length*(frames.shape[1]-1) + L)
@@ -101,85 +92,110 @@ def harmonic_percussive_separation(x, sr=22050, fft_size = 2048, hop_length=512,
     
     return xh, xp, Xh, Xp
 
+def float2pcm(sig, dtype='int16'):
+    # assert sig <= 1 and sig >= -1, "Data must be normalized between -1.0 and 1.0"
+    sig = np.asarray(sig)
+    dtype = np.dtype(dtype)
+    i = np.iinfo(dtype)
+    abs_max = 2 ** (i.bits - 1)
+    offset = i.min + abs_max
+    return (sig * abs_max + offset).clip(i.min, i.max).astype(dtype)
+
+file_name = sys.argv[1]
+audio_data, audio_sr = lb.load(file_name)
+
+# Print iterations progress
+def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, length = 100, fill = '█', printEnd = "\r"):
+    percent = ("{0:." + str(decimals) + "f}").format(100 * (iteration / float(total)))
+    filledLength = int(length * iteration // total)
+    bar = fill * filledLength + '-' * (length - filledLength)
+    print(f'\r{prefix} |{bar}| {percent}% {suffix}', end = printEnd)
+    # Print New Line on Complete
+    if iteration == total: 
+        print()
+
+xh, xp, _, _ = harmonic_percussive_separation(audio_data)
+
+if max(abs(xh)) > 1:
+    xh = xh / max(abs(xh))
+elif max(abs(xp)) > 1:
+    xp = xp / max(abs(xp))
+
+xh = float2pcm(xh).astype(np.int16)
+xp = float2pcm(xp).astype(np.int16)
+
+omega_nom = np.arange(L//2 + 1) * 2 *np.pi * audio_sr / L
+den = calc_sum_squared_window(window, Hs)
+
+
+def on_alpha_change(e):
+    global alpha
+    if e.name == 'up' and alpha < 2.00:
+        alpha += 0.05
+    elif e.name == 'down' and alpha > 0.10:
+        alpha -=0.05
+    print(f"\rCurrent alpha: {alpha:.2f}", end="", flush=True)
+
 keyboard.on_press(on_alpha_change)
 
-with wave.open(sys.argv[1], 'rb') as wf:
-    p = pyaudio.PyAudio()
-    stream = p.open(
-        format=p.get_format_from_width(wf.getsampwidth()),
-        channels=wf.getnchannels(),
-        rate=wf.getframerate(),
-        output=True
-    )
-    print("Playing audio. Press:")
-    print("- UP arrow to increase stretch factor")
-    print("- DOWN arrow to decrease stretch factor")
-    print("- CTRL+C to stop")
+p = pyaudio.PyAudio()
 
-    # Get total frames and calculate positions
-    sr = wf.getframerate()
-    num_samples = wf.getnframes()
-    omega_nom = np.arange(L//2 + 1) * 2 * np.pi * sr / L  # update with real sample rate
-    pos_PV = 0  # Start at beginning
-    pos_OLA = 0
-    analysis_frames_ola = []
-    try:
-        while pos_PV <= num_samples - CHUNK:
-            wf.setpos(pos_PV)
-            # Read CHUNK frames (with overlap)
-            data = wf.readframes(CHUNK)
-            xh, xp, _, _ = harmonic_percussive_separation(data)
-            Ha = int(Hs/alpha)
+print("Playing audio. Press:")
+print("- UP arrow to increase stretch factor")
+print("- DOWN arrow to decrease stretch factor")
+print("- CTRL+C to stop")
+stream = p.open(format=pyaudio.paInt16,
+                channels=1,
+                rate=audio_sr,
+                output=True)
 
-            #OLA within the working window
-            while pos_OLA <= L - L_ola:
-                ola_Ha = int(Hs_ola/alpha)
-                frame = xp[pos_OLA:pos_OLA+L_ola]
-                analysis_frames_ola.append(frame)
-                pos_OLA += ola_Ha
-            
-            if len(x) < L:
-                x = np.pad(x, (0, L - len(x)))  # zero-pad if too short
-            
-            frame = x[:L] * window
-            S = np.fft.rfft(frame)
+pos = 0
+pos_ola = 0
+elapsed_time = []
 
-            # Phase Vocoder analysis
-            if prev_fft is None:
-                w_if = np.zeros_like(omega_nom)
-            else:
-                dphi = np.angle(S) - np.angle(prev_fft)
-                dphi = dphi - omega_nom * (Ha / sr)
-                dphi = (dphi + np.pi) % (2 * np.pi) - np.pi
-                w_if = omega_nom + dphi * (sr / Ha)
+start_time = time.perf_counter()
 
-            prev_phase = prev_phase + w_if * (Hs / sr)
+while pos <= len(xh) - L:
+    Ha = int(Hs/alpha)
+    Ha_ola = int(Hs_ola/alpha)
+    
+    # Phase Vocoder
+    pv_win = xh[pos:pos+L] * window
+    S = np.fft.rfft(pv_win)
+    
+    if prev_fft is not None:
+        dphi = np.angle(S) - np.angle(prev_fft)
+        dphi = dphi - omega_nom * (Ha/audio_sr)
+        dphi = (dphi + np.pi) % (2*np.pi) - np.pi
+        w_if = omega_nom + dphi * (audio_sr/Ha)
+        prev_phase += w_if * (Hs/audio_sr)
+    else:
+        prev_phase = np.angle(S)
+    
+    X_mod = np.abs(S) * np.exp(1j * prev_phase)
+    pv_frame_mod = np.fft.irfft(X_mod)
 
-            X_mod = np.abs(S) * np.exp(1j * prev_phase)
-            frame_mod = np.fft.irfft(X_mod)
+    #shift and add to stream
+    output_buffer[:-Hs] = output_buffer[Hs:]
+    output_buffer[-Hs:] = 0
+    output_buffer += pv_frame_mod * (window.reshape((-1, 1))/den.reshape((-1,1))).flatten()
 
-            # getting synthesis frames for OLA
-            systhesis_frames_ola = np.array(analysis_frames_ola).T * np.hann(L_ola).reshape((-1,1))
+    ratio = Hs//Hs_ola
+    ola_y = np.zeros(L)
+    for i in range(ratio):
+        ola_win = xp[pos + (Ha_ola*i):pos +(Ha_ola*i) + L_ola]
+        ola_win_synth = ola_win * np.hanning(L_ola)
+        offset = i * Hs_ola
+        ola_y[offset:offset + L_ola] += ola_win_synth
+   
+    output_buffer += ola_y
 
-            # Overlap-add
-            output_buffer[:-Hs] = output_buffer[Hs:]  # shift left
-            output_buffer[-Hs:] = 0
-            output_buffer += (frame_mod * window + systhesis_frames_ola)  # apply synthesis window
-
-            # Output
-            output_int16 = np.clip(output_buffer[:Hs], -32768, 32767).astype(np.int16)
-            stream.write(output_int16.tobytes())
-
-            prev_fft = S
-            pos += Ha
-            
-            
-
-            
-
-    except KeyboardInterrupt:
-        print("\nStopped by user")
-    finally:
-        stream.close()
-        p.terminate()
-        keyboard.unhook_all()
+    
+    stream.write(output_buffer[:Hs].astype(np.int16).tobytes())
+    prev_fft = S
+    pos += Ha
+end_time = time.perf_counter()
+stream.stop_stream()
+stream.close()
+print(f"\n Elapsed time: {end_time-start_time} \n")
+p.terminate
