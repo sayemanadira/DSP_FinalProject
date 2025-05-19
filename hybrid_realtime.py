@@ -104,15 +104,6 @@ def float2pcm(sig, dtype='int16'):
 file_name = sys.argv[1]
 audio_data, audio_sr = lb.load(file_name)
 
-# Print iterations progress
-def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, length = 100, fill = '█', printEnd = "\r"):
-    percent = ("{0:." + str(decimals) + "f}").format(100 * (iteration / float(total)))
-    filledLength = int(length * iteration // total)
-    bar = fill * filledLength + '-' * (length - filledLength)
-    print(f'\r{prefix} |{bar}| {percent}% {suffix}', end = printEnd)
-    # Print New Line on Complete
-    if iteration == total: 
-        print()
 
 xh, xp, _, _ = harmonic_percussive_separation(audio_data)
 
@@ -190,7 +181,7 @@ while pos <= len(xh) - L:
    
     output_buffer += ola_y
 
-    
+    output_buffer = np.clip(output_buffer, -32768, 32767)  # 16-bit range
     stream.write(output_buffer[:Hs].astype(np.int16).tobytes())
     prev_fft = S
     pos += Ha
