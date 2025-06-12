@@ -13,7 +13,7 @@ CHUNK = L = 2048
 L_ola = 256
 Hs = L // 4
 Hs_ola = L_ola // 2
-alpha = 1.25
+alpha = 1.0
 window = np.hanning(L)
 output_buffer = np.zeros(int(L))
 prev_fft = None
@@ -105,7 +105,7 @@ file_name = sys.argv[1]
 audio_data, audio_sr = lb.load(file_name)
 
 
-xh, xp, _, _ = harmonic_percussive_separation(audio_data)
+xh, xp, _, _ = harmonic_percussive_separation(x=audio_data, sr=audio_sr)
 
 if max(abs(xh)) > 1:
     xh = xh / max(abs(xh))
@@ -122,9 +122,9 @@ den = calc_sum_squared_window(window, Hs)
 def on_alpha_change(e):
     global alpha
     if e.name == 'up' and alpha < 2.00:
-        alpha += 0.05
+        alpha += 0.01
     elif e.name == 'down' and alpha > 0.10:
-        alpha -=0.05
+        alpha -=0.01
     print(f"\rCurrent alpha: {alpha:.2f}", end="", flush=True)
 
 keyboard.on_press(on_alpha_change)
@@ -142,51 +142,49 @@ stream = p.open(format=pyaudio.paInt16,
 
 pos = 0
 pos_ola = 0
-elapsed_time = []
 
-start_time = time.perf_counter()
+try:
+    while pos <= len(xh) - L:
+        Ha = int(Hs/alpha)
+        Ha_ola = int(Hs_ola/alpha)
+        
+        # Phase Vocoder
+        pv_win = xh[pos:pos+L] * window
+        S = np.fft.rfft(pv_win)
+        
+        if prev_fft is not None:
+            dphi = np.angle(S) - np.angle(prev_fft)
+            dphi = dphi - omega_nom * (Ha/audio_sr)
+            dphi = (dphi + np.pi) % (2*np.pi) - np.pi
+            w_if = omega_nom + dphi * (audio_sr/Ha)
+            prev_phase += w_if * (Hs/audio_sr)
+        else:
+            prev_phase = np.angle(S)
+        
+        X_mod = np.abs(S) * np.exp(1j * prev_phase)
+        pv_frame_mod = np.fft.irfft(X_mod)
 
-while pos <= len(xh) - L:
-    Ha = int(Hs/alpha)
-    Ha_ola = int(Hs_ola/alpha)
+        #shift and add to stream
+        output_buffer[:-Hs] = output_buffer[Hs:]
+        output_buffer[-Hs:] = 0
+        output_buffer += pv_frame_mod * (window.reshape((-1, 1))/den.reshape((-1,1))).flatten()
+
+        ratio = Hs//Hs_ola
+        ola_y = np.zeros(L)
+        for i in range(ratio):
+            ola_win = xp[pos + (Ha_ola*i):pos +(Ha_ola*i) + L_ola]
+            ola_win_synth = ola_win * np.hanning(L_ola)
+            offset = i * Hs_ola
+            ola_y[offset:offset + L_ola] += ola_win_synth
     
-    # Phase Vocoder
-    pv_win = xh[pos:pos+L] * window
-    S = np.fft.rfft(pv_win)
-    
-    if prev_fft is not None:
-        dphi = np.angle(S) - np.angle(prev_fft)
-        dphi = dphi - omega_nom * (Ha/audio_sr)
-        dphi = (dphi + np.pi) % (2*np.pi) - np.pi
-        w_if = omega_nom + dphi * (audio_sr/Ha)
-        prev_phase += w_if * (Hs/audio_sr)
-    else:
-        prev_phase = np.angle(S)
-    
-    X_mod = np.abs(S) * np.exp(1j * prev_phase)
-    pv_frame_mod = np.fft.irfft(X_mod)
+        output_buffer += ola_y
 
-    #shift and add to stream
-    output_buffer[:-Hs] = output_buffer[Hs:]
-    output_buffer[-Hs:] = 0
-    output_buffer += pv_frame_mod * (window.reshape((-1, 1))/den.reshape((-1,1))).flatten()
-
-    ratio = Hs//Hs_ola
-    ola_y = np.zeros(L)
-    for i in range(ratio):
-        ola_win = xp[pos + (Ha_ola*i):pos +(Ha_ola*i) + L_ola]
-        ola_win_synth = ola_win * np.hanning(L_ola)
-        offset = i * Hs_ola
-        ola_y[offset:offset + L_ola] += ola_win_synth
-   
-    output_buffer += ola_y
-
-    output_buffer = np.clip(output_buffer, -32768, 32767)  # 16-bit range
-    stream.write(output_buffer[:Hs].astype(np.int16).tobytes())
-    prev_fft = S
-    pos += Ha
-end_time = time.perf_counter()
+        output_buffer = np.clip(output_buffer, -32768, 32767)  # 16-bit range
+        stream.write(output_buffer[:Hs].astype(np.int16).tobytes())
+        prev_fft = S
+        pos += Ha
+except KeyboardInterrupt:
+    print("\nStream stopped by user!")
 stream.stop_stream()
 stream.close()
-print(f"\n Elapsed time: {end_time-start_time} \n")
 p.terminate
