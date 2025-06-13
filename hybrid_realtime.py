@@ -7,17 +7,19 @@ import librosa as lb
 from scipy.signal import medfilt
 import scipy.io.wavfile as wavfile
 import time
+import csv
 
 
 CHUNK = L = 2048
 L_ola = 256
 Hs = L // 4
 Hs_ola = L_ola // 2
-alpha = 1.0
+alpha = 1.25
 window = np.hanning(L)
 output_buffer = np.zeros(int(L))
 prev_fft = None
 prev_phase = np.zeros(L//2 + 1)
+runtimes = []
 
 
 def calc_sum_squared_window(window, hop_length):
@@ -145,6 +147,7 @@ pos_ola = 0
 
 try:
     while pos <= len(xh) - L:
+        start_time = time.perf_counter()
         Ha = int(Hs/alpha)
         Ha_ola = int(Hs_ola/alpha)
         
@@ -169,6 +172,9 @@ try:
         output_buffer[-Hs:] = 0
         output_buffer += pv_frame_mod * (window.reshape((-1, 1))/den.reshape((-1,1))).flatten()
 
+        end_time = time.perf_counter()
+        runtimes.append(end_time - start_time)
+
         ratio = Hs//Hs_ola
         ola_y = np.zeros(L)
         for i in range(ratio):
@@ -180,7 +186,7 @@ try:
         output_buffer += ola_y
 
         output_buffer = np.clip(output_buffer, -32768, 32767)  # 16-bit range
-        stream.write(output_buffer[:Hs].astype(np.int16).tobytes())
+        # stream.write(output_buffer[:Hs].astype(np.int16).tobytes())
         prev_fft = S
         pos += Ha
 except KeyboardInterrupt:
@@ -188,3 +194,6 @@ except KeyboardInterrupt:
 stream.stop_stream()
 stream.close()
 p.terminate
+with open(f'runtimes_alpha_{alpha:.2f}.csv', 'w', newline='') as f:
+    writer = csv.writer(f)
+    writer.writerows([[t] for t in runtimes])  # Note: wrap each float in a list
