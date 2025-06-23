@@ -7,6 +7,7 @@ from scipy.signal import medfilt
 import time
 import csv
 
+
 class EngineBase:
     def __init__(self, filename, fft_size=2048, on_complete=None):
         self.filename = filename
@@ -29,7 +30,7 @@ class EngineBase:
         self.reset_state()
 
     def set_alpha(self, a):
-        self.alpha = a #ax(0.1, min(a, 4.0))
+        self.alpha = max(0.1, min(a, 2.0))
 
     def load_audio(self, mono=True):
         self.audio_data, self.audio_sr = lb.load(self.filename, sr=None, mono=mono)
@@ -87,9 +88,6 @@ class EngineBase:
             print(f"Audio stream error: {e}")
             # Optionally reinitialize the stream
             self.reinitialize_stream()
-            
-    def on_complete_post(self):
-        self.on_complete()
     
     def start(self):
         self.reset_state()
@@ -103,7 +101,7 @@ class EngineBase:
         self.running = False
         if self.thread:
             self.thread.join()
-            
+
     def _run(self):
         """Override this method in subclasses"""
         raise NotImplementedError("Subclasses must implement _run method")
@@ -135,20 +133,42 @@ class OLAEngine(EngineBase):
                 self.output_buffer[-self.Hs:] = 0
                 self.output_buffer[:self.L] += synthesis_buffer
 
-                # self.stream.write(np.clip(self.output_buffer[:self.Hs], -32768, 32767).astype(np.int16).tobytes())
                 self.stream.write(self.output_buffer[:self.Hs].astype(np.int16).tobytes())
-                # fade_win = np.hanning(self.Hs * 2)[self.Hs:]  # smooth fade-out
-                # chunk = self.output_buffer[:self.Hs] * fade_win
-                # self.stream.write(chunk.astype(np.int16).tobytes())
-                
                 pos += Ha
 
         finally:
             self.close_audio_stream()
             self.wf.close()
-            self.complete = True
-            if self.on_complete:  # call callback
-                self.on_complete_post()
+            if self.on_complete:
+                self.on_complete()
+            complete = True
+    def run_generator(self):
+        """Generator-based version of _run, for Flask streaming"""
+        num_samples = self.wf.getnframes()
+        pos = 0
+        self.reset_state()
+
+        try:
+            while pos <= num_samples - self.L:
+                print(f"Running generator with speed {self.alpha}")
+                
+                self.wf.setpos(pos)
+                data = self.wf.readframes(self.L)
+                x = np.frombuffer(data, dtype=np.int16)
+
+                Ha = int(round(self.Hs / self.alpha))
+
+                analysis_buffer = x * self.window
+                synthesis_buffer = analysis_buffer
+
+                self.output_buffer[:-self.Hs] = self.output_buffer[self.Hs:]
+                self.output_buffer[-self.Hs:] = 0
+                self.output_buffer[:self.L] += synthesis_buffer
+
+                yield self.output_buffer[:self.Hs].astype(np.int16).tobytes()
+                pos += Ha
+        finally:
+            self.wf.close()
 
 
 class PVEngine(EngineBase):
@@ -162,6 +182,7 @@ class PVEngine(EngineBase):
 
         try:
             while self.running and pos <= num_samples - self.L:
+                
                 self.wf.setpos(pos)
                 data = self.wf.readframes(self.L)
                 x = np.frombuffer(data, dtype=np.int16).astype(np.float32)
@@ -200,7 +221,56 @@ class PVEngine(EngineBase):
         finally:
             self.close_audio_stream()
             self.wf.close()
-            self.complete = True
+            if self.on_complete:
+                self.on_complete()
+            complete = True
+    def run_generator(self):
+        """Generator-based version of _run, for Flask streaming"""
+        num_samples = self.wf.getnframes()
+        pos = 0
+        self.reset_state()
+
+        try:
+            while pos <= num_samples - self.L:
+                print(f"Running generator with speed {self.alpha}")
+                
+                self.wf.setpos(pos)
+                data = self.wf.readframes(self.L)
+                x = np.frombuffer(data, dtype=np.int16).astype(np.float32)
+
+                Ha = int(np.round(self.Hs / self.alpha))
+
+                if len(x) < self.L:
+                    x = np.pad(x, (0, self.L - len(x)))
+
+                frame = x[:self.L] * self.window
+                S = np.fft.rfft(frame)
+
+                if self.prev_fft is None:
+                    w_if = np.zeros_like(self.omega_nom)
+                else:
+                    dphi = np.angle(S) - np.angle(self.prev_fft)
+                    dphi = dphi - self.omega_nom * (Ha / self.audio_sr)
+                    dphi = (dphi + np.pi) % (2 * np.pi) - np.pi
+                    w_if = self.omega_nom + dphi * (self.audio_sr / Ha)
+
+                self.prev_phase = self.prev_phase + w_if * (self.Hs / self.audio_sr)
+
+                X_mod = np.abs(S) * np.exp(1j * self.prev_phase)
+                frame_mod = np.fft.irfft(X_mod)
+
+                self.output_buffer[:-self.Hs] = self.output_buffer[self.Hs:]
+                self.output_buffer[-self.Hs:] = 0
+                self.output_buffer += frame_mod * self.window
+
+                output_int16 = np.clip(self.output_buffer[:self.Hs], -32768, 32767).astype(np.int16)
+                yield self.output_buffer[:self.Hs].astype(np.int16).tobytes()
+
+                self.prev_fft = S
+                pos += Ha
+        finally:
+            self.wf.close()
+
 
 def invert_stft(S, hop_length, window):
     L = len(window)
@@ -281,10 +351,17 @@ class HybridEngine(EngineBase):
 
     def _run(self):
         """Threading implementation for consistency with base class"""
-        
+        num_samples = self.wf.getnframes()
         pos = 0
+        self.reset_state()
+
         try:
-            while self.running and pos <= len(self.xh) - self.L:
+            while pos <= num_samples - self.L:
+                print(f"Running generator with speed {self.alpha}")
+                
+                self.wf.setpos(pos)
+                data = self.wf.readframes(self.L)
+                x = np.frombuffer(data, dtype=np.int16).astype(np.float32)
                 start = time.perf_counter()
                 Ha = int(self.Hs / self.alpha)
                 Ha_ola = int(self.Hs_ola / self.alpha)
@@ -321,11 +398,6 @@ class HybridEngine(EngineBase):
                 self.output_buffer += ola_y
 
                 self.output_buffer = np.clip(self.output_buffer, -32768, 32767)
-                # self.stream.write(np.clip(self.output_buffer[:self.Hs], -32768, 32767).astype(np.int16).tobytes())
-                
-                # fade_win = np.hanning(self.Hs * 2)[self.Hs:]  # smooth fade-out
-                # chunk = self.output_buffer[:self.Hs] * fade_win
-                # self.stream.write(chunk.astype(np.int16).tobytes())
                 self.stream.write(self.output_buffer[:self.Hs].astype(np.int16).tobytes())
 
                 self.prev_fft = S
@@ -335,6 +407,59 @@ class HybridEngine(EngineBase):
         finally:
             self.close_audio_stream()
             self.wf.close()
-            self.complete = True
             if self.on_complete:
-                self.on_complete_post()
+                self.on_complete()
+            complete = True
+            
+    def run_generator(self):
+        """Generator-based version of _run, for Flask streaming"""
+        pos = 0
+        self.reset_state()
+
+        try:
+            while pos <= len(self.xh) - self.L:
+                print(f"Running generator with speed {self.alpha}")
+                
+                Ha = int(self.Hs / self.alpha)
+                Ha_ola = int(self.Hs_ola / self.alpha)
+
+                # Harmonic
+                pv_win = self.xh[pos:pos + self.L] * self.window
+                S = np.fft.rfft(pv_win)
+
+                if self.prev_fft is not None:
+                    dphi = np.angle(S) - np.angle(self.prev_fft)
+                    dphi = (dphi - self.omega_nom * (Ha / self.audio_sr) + np.pi) % (2 * np.pi) - np.pi
+                    w_if = self.omega_nom + dphi * (self.audio_sr / Ha)
+                    self.prev_phase += w_if * (self.Hs / self.audio_sr)
+                else:
+                    self.prev_phase = np.angle(S)
+
+                X_mod = np.abs(S) * np.exp(1j * self.prev_phase)
+                pv_frame_mod = np.fft.irfft(X_mod)
+
+                self.output_buffer[:-self.Hs] = self.output_buffer[self.Hs:]
+                self.output_buffer[-self.Hs:] = 0
+                self.output_buffer += pv_frame_mod * (self.window / self.den)
+
+                # Percussive (OLA)
+                ola_y = np.zeros(self.L)
+                ratio = self.Hs // self.Hs_ola
+                for i in range(ratio):
+                    start_i = pos + (Ha_ola * i)
+                    if start_i + self.L_ola > len(self.xp):
+                        continue
+                    ola_win = self.xp[start_i:start_i + self.L_ola]
+                    ola_y[i * self.Hs_ola:i * self.Hs_ola + self.L_ola] += ola_win * np.hanning(self.L_ola)
+
+                self.output_buffer += ola_y
+
+                self.output_buffer = np.clip(self.output_buffer, -32768, 32767)
+
+                # 👇 Yield chunk instead of writing to PyAudio
+                yield self.output_buffer[:self.Hs].astype(np.int16).tobytes()
+
+                self.prev_fft = S
+                pos += Ha
+        finally:
+            self.wf.close()
