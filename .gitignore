@@ -1,0 +1,8 @@
+runtime_analysis/**
+*.wav        # Processed audio output
+*.npy        # Numpy array dumps
+*.csv        # Runtime metrics
+*.log        # Log files
+
+
+samples/**

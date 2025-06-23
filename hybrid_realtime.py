@@ -6,7 +6,6 @@ import keyboard
 import librosa as lb
 from scipy.signal import medfilt
 import scipy.io.wavfile as wavfile
-import time
 import csv
 
 
@@ -14,7 +13,7 @@ CHUNK = L = 2048
 L_ola = 256
 Hs = L // 4
 Hs_ola = L_ola // 2
-alpha = 1.25
+alpha = 0.5
 window = np.hanning(L)
 output_buffer = np.zeros(int(L))
 prev_fft = None
@@ -103,6 +102,7 @@ def float2pcm(sig, dtype='int16'):
     offset = i.min + abs_max
     return (sig * abs_max + offset).clip(i.min, i.max).astype(dtype)
 
+# file_name = 'samples/fred_10sec.wav'
 file_name = sys.argv[1]
 audio_data, audio_sr = lb.load(file_name)
 
@@ -145,16 +145,19 @@ stream = p.open(format=pyaudio.paInt16,
 pos = 0
 pos_ola = 0
 
+
 try:
     while pos <= len(xh) - L:
-        start_time = time.perf_counter()
         Ha = int(Hs/alpha)
         Ha_ola = int(Hs_ola/alpha)
         
-        # Phase Vocoder
+        # start_time = time.perf_counter()
+
+        # Phase Vocoder       
+        # STFT processing
         pv_win = xh[pos:pos+L] * window
         S = np.fft.rfft(pv_win)
-        
+        magnitude = np.abs(S)
         if prev_fft is not None:
             dphi = np.angle(S) - np.angle(prev_fft)
             dphi = dphi - omega_nom * (Ha/audio_sr)
@@ -164,7 +167,7 @@ try:
         else:
             prev_phase = np.angle(S)
         
-        X_mod = np.abs(S) * np.exp(1j * prev_phase)
+        X_mod = magnitude * np.exp(1j * prev_phase)
         pv_frame_mod = np.fft.irfft(X_mod)
 
         #shift and add to stream
@@ -172,8 +175,6 @@ try:
         output_buffer[-Hs:] = 0
         output_buffer += pv_frame_mod * (window.reshape((-1, 1))/den.reshape((-1,1))).flatten()
 
-        end_time = time.perf_counter()
-        runtimes.append(end_time - start_time)
 
         ratio = Hs//Hs_ola
         ola_y = np.zeros(L)
@@ -186,14 +187,13 @@ try:
         output_buffer += ola_y
 
         output_buffer = np.clip(output_buffer, -32768, 32767)  # 16-bit range
-        # stream.write(output_buffer[:Hs].astype(np.int16).tobytes())
+        # runtimes.append(end_time - start_time)
+        stream.write(output_buffer[:Hs].astype(np.int16).tobytes())
         prev_fft = S
         pos += Ha
+
 except KeyboardInterrupt:
     print("\nStream stopped by user!")
 stream.stop_stream()
 stream.close()
 p.terminate
-with open(f'runtimes_alpha_{alpha:.2f}.csv', 'w', newline='') as f:
-    writer = csv.writer(f)
-    writer.writerows([[t] for t in runtimes])  # Note: wrap each float in a list
