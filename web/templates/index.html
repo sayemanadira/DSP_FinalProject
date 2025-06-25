@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Audio Comparison</title>
+    <style>
+        /* ... your styles ... */
+    </style>
+</head>
+<body>
+    <h1>Audio Comparison</h1>
+    <p><strong>Session ID:</strong> {{ session_id }}</p>
+    <p><strong>Filename:</strong> {{ filename }}</p>
+
+    <div class="player-container">
+        {% for name, filename in zip(engine_names,engine_files) %}
+        <div class="player" id="player{{ loop.index0 }}">
+            <h3>Player {{ loop.index }}</h3>
+            <p><strong>Engine:</strong> {{ name }}</p>
+             <audio class="audio" id="audio{{ loop.index0 }}" controls preload="none">
+                <source src="{{ url_for('stream_with_engine', name=name, filename=filename.split('/')[-1]) }}" type="audio/wav" />
+                Your browser does not support the audio element.
+            </audio>
+            
+
+            <div class="controls">
+                <label for="speed{{ loop.index0 }}">Speed Factor: <span id="factorLabel{{ loop.index0 }}">1.0</span></label>
+                <input type="range" id="speed{{ loop.index0 }}" min="0.5" max="2.0" value="1.0" step="0.05"
+                       oninput="updateSpeed({{ loop.index0 }})" />
+            </div>
+
+            <div class="controls">
+                <button type="button" onclick="pickChoice({{ loop.index0 }})" id="pickBtn{{ loop.index0 }}">Pick</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="submit-container">
+        <form action="/submit" method="POST">
+            <input type="hidden" name="choice" id="choiceInput" />
+            <input type="hidden" name="session_id" value="{{ session_id }}" />
+            <button type="submit" id="submitBtn" disabled>Submit</button>
+        </form>
+    </div>
+
+    <script>
+        const numPlayers = {{ engine_names|length }};
+        let currentChoice = -1;
+
+           // label.textContent = factor.toFixed(2);
+        function updateSpeed(index) {
+            const slider = document.getElementById(`speed${index}`);
+            const label = document.getElementById(`factorLabel${index}`);
+            const audio = document.getElementById(`audio${index}`);
+            const factor = parseFloat(slider.value);
+            label.textContent = factor.toFixed(2);
+
+
+            fetch("/update_speed", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    index: index,
+                    speed: factor,
+                    filename: "{{ filename }}"
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Engine updated:", data.message);
+                const originalSrc = audio.src.split("&t=")[0];  // Strip any previous cache-busting
+                audio.pause();
+                audio.src = originalSrc + "&t=" + new Date().getTime(); // New query param to avoid caching
+                audio.load();
+                audio.play();
+            })
+            .catch(error => console.error("Error updating speed:", error));
+        }
+        function pickChoice(index) {
+            for (let i = 0; i < numPlayers; i++) {
+                const btn = document.getElementById(`pickBtn${i}`);
+                const player = document.getElementById(`player${i}`);
+                if (i === index) {
+                    btn.textContent = "Unpick";
+                    btn.classList.add("picked");
+                    currentChoice = index;
+                } else {
+                    btn.textContent = "Pick";
+                    btn.classList.remove("picked");
+                }
+            }
+            document.getElementById("submitBtn").disabled = false;
+            document.getElementById("choiceInput").value = currentChoice;
+        }
+    </script>
+</body>
+</html>
