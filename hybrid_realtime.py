@@ -13,7 +13,7 @@ CHUNK = L = 2048
 L_ola = 256
 Hs = L // 4
 Hs_ola = L_ola // 2
-alpha = 0.5
+alpha = 1.0
 window = np.hanning(L)
 output_buffer = np.zeros(int(L))
 prev_fft = None
@@ -39,6 +39,7 @@ def calc_sum_squared_window(window, hop_length):
         den += np.roll(np.square(window), i*hop_length)
         
     return den
+
 
 def invert_stft(S, hop_length, window):
     '''
@@ -144,6 +145,7 @@ stream = p.open(format=pyaudio.paInt16,
 
 pos = 0
 pos_ola = 0
+
 
 
 try:
