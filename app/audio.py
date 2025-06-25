@@ -14,6 +14,9 @@ class EngineBase:
         self.Hs = self.L // 4
         self.window = np.hanning(self.L)
         self.alpha = 1.0
+        
+        self.chunk_size = 128
+        
         self.output_buffer = np.zeros(self.L)
         self.audio_data = None
         self.audio_sr = None
@@ -40,7 +43,8 @@ class EngineBase:
             format=pyaudio.paInt16,
             channels=1,
             rate=self.audio_sr,
-            output=True
+            output=True,
+            frames_per_buffer=self.chunk_size,
         )
 
     def close_audio_stream(self):
