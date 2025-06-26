@@ -13,7 +13,7 @@ CHUNK = L = 2048
 L_ola = 256
 Hs = L // 4
 Hs_ola = L_ola // 2
-alpha = 1.0
+alpha = 1.25
 window = np.hanning(L)
 output_buffer = np.zeros(int(L))
 prev_fft = None
@@ -146,11 +146,12 @@ stream = p.open(format=pyaudio.paInt16,
 pos = 0
 pos_ola = 0
 
-
+saved_frames = []
+Ha = 0
 
 try:
     while pos <= len(xh) - L:
-        Ha = int(Hs/alpha)
+        Ha = int(round(Hs/alpha))
         Ha_ola = int(Hs_ola/alpha)
         
         # start_time = time.perf_counter()
@@ -191,6 +192,9 @@ try:
         output_buffer = np.clip(output_buffer, -32768, 32767)  # 16-bit range
         # runtimes.append(end_time - start_time)
         stream.write(output_buffer[:Hs].astype(np.int16).tobytes())
+
+        saved_frames.append(output_buffer[:Hs].astype(np.int16).copy())
+
         prev_fft = S
         pos += Ha
 
@@ -199,3 +203,17 @@ except KeyboardInterrupt:
 stream.stop_stream()
 stream.close()
 p.terminate
+
+saving_filepath = 'output/'
+# Save to WAV file if we captured any audio
+if saved_frames:
+    # Concatenate all frames
+    full_audio = np.concatenate(saved_frames)
+    
+    # Save as WAV
+    wavfile.write(saving_filepath + "realtime_test.wav", audio_sr, full_audio)
+    print(f"\nSaved processed audio to {saving_filepath}")
+
+print(f"\nL = {L}")
+print(f"\nHs = {Hs}")
+print(f"\nHa = {Ha}")

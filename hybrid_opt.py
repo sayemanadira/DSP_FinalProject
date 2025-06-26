@@ -13,7 +13,7 @@ CHUNK = L = 2048
 L_ola = 256
 Hs = L // 4
 Hs_ola = L_ola // 2
-alpha = 1
+alpha = 1.25
 window = np.hanning(L)
 output_buffer = np.zeros(int(L))
 prev_fft = None
@@ -167,13 +167,18 @@ stream = p.open(format=pyaudio.paInt16,
 pos = 0
 pos_ola = 0
 
-min_alpha = 0.40
+min_alpha = 0.25
 min_Ha = int(Hs / min_alpha)
 S_lookup = lb.core.stft(audio_data, n_fft=L, hop_length=min_Ha, center=False) # shape = (1 + n_fft/2, n_frames)
 S_phase_lookup = np.angle(S_lookup)
 S_mag_lookup = np.abs(S_lookup)
 w_if_lookup = estimateIF(S_lookup, audio_sr, min_Ha)
 prev_phase = None
+
+# To save audio file
+
+output_filename = f"output_{min_alpha}.wav"  # Name of the output file
+output_frames = []  # List to store audio frames
 
 try:
     while pos <= len(xh) - L:
@@ -217,6 +222,9 @@ try:
         output_buffer = np.clip(output_buffer, -32768, 32767)  # 16-bit range
         # runtimes.append(end_time - start_time)
         stream.write(output_buffer[:Hs].astype(np.int16).tobytes())
+
+        # Store for WAV file
+        output_frames.append(output_buffer[:Hs].astype(np.int16).copy())  # Store the chunk
         # print(pos//Ha)
         # prev_fft = S
         pos += Ha
@@ -226,3 +234,12 @@ except KeyboardInterrupt:
 stream.stop_stream()
 stream.close()
 p.terminate
+
+# Save to WAV file if we captured any audio
+if output_frames:
+    # Concatenate all frames
+    full_audio = np.concatenate(output_frames)
+    
+    # Save as WAV
+    wavfile.write(output_filename, audio_sr, full_audio)
+    print(f"\nSaved processed audio to {output_filename}")
