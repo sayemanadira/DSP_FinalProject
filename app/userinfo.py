@@ -1,6 +1,7 @@
 import glob
 import random
 import datetime
+import time
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
 
@@ -19,7 +20,9 @@ users_collection = client.stuff.users
 
 # === Generate All Possible Tasks (filename + engine pairs) ===
 
-engine_pairs = [("Hybrid","OLA")]
+engine_pairs = [("Hybrid","OLA"),
+                ("Hybrid","OPT0.3")
+                ]
 def get_all_tasks():
     files = sorted(glob.glob('../samples/*.wav'))
     return [(f, sorted(pair)) for f in files for pair in engine_pairs]
@@ -34,7 +37,9 @@ def get_user_info(user_id):
 class UserInfo:
     def __init__(self, user_id):
         self.id = user_id
-        self.completed_tasks = {}  # task_id -> {chosen_engine, timestamp}
+        self.completed_tasks = {}  # task_id -> {chosen_engine, timestamp, duration}
+        self._current_task_id = None
+        self._current_task_start = None  # 🕒 per-task timer
         self._load_or_create_user()
 
     def _load_or_create_user(self):
@@ -53,16 +58,23 @@ class UserInfo:
 
     def log(self, filename, engines, chosen_engine):
         task_id = self._make_task_id(filename, engines)
+        duration = None
+
+        if self._current_task_id == task_id and self._current_task_start:
+            duration = round(time.time() - self._current_task_start, 2)  # ⏱ seconds, rounded
+
         self.completed_tasks[task_id] = {
             "chosen_engine": chosen_engine,
-            "timestamp": datetime.datetime.utcnow().isoformat()
+            "timestamp": datetime.datetime.utcnow().isoformat(),
+            "duration_sec": duration  # 💾 Save time spent
         }
 
         users_collection.update_one(
             {"id": self.id},
             {"$set": {"completed_tasks": self.completed_tasks}}
         )
-        print(f"📥 Logged: {task_id} → {chosen_engine}")
+        print(f"📥 Logged: {task_id} → {chosen_engine} (⏱ {duration}s)")
+
 
     def get_next_task(self):
         all_tasks = get_all_tasks()
@@ -70,8 +82,10 @@ class UserInfo:
         for filename, engines in all_tasks:
             task_id = self._make_task_id(filename, engines)
             if task_id not in self.completed_tasks:
+                self._current_task_id = task_id
+                self._current_task_start = time.time()  # ⏱ Start timer
                 return filename, engines
-        return None  # No remaining tasks
+        return None
 
     def get_seen(self):
         return list(self.completed_tasks.keys())

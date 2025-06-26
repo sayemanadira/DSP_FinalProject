@@ -1,6 +1,7 @@
 from tkinter import Toplevel, Label, Scale, HORIZONTAL, Button, Frame, LEFT, BOTTOM, BOTH, DISABLED, NORMAL
-from audio import OLAEngine,PVEngine, HybridEngine
+from audio import OLAEngine,PVEngine, HybridEngine, OPTEngine
 
+from userinfo import get_user_info
 import random
 import numpy as np
 import math
@@ -9,18 +10,24 @@ import math
 engine_map = {
     "OLA": OLAEngine,
     "PVEngine": PVEngine,
-    "Hybrid": HybridEngine
+    "Hybrid": HybridEngine,
+    "OPT0.3": OPTEngine,
 }
 class Player:
-    def __init__(self, master, on_close=None, userinfo = None):
+    def __init__(self, master, user_id,on_close=None,):
         self.on_close = on_close
         self.window = Toplevel(master)
         self.window.title("Music Control")
         self.window.geometry('900x350')  # Wider to fit all three players
         self.window.protocol("WM_DELETE_WINDOW", self.handle_close)
-
+        
+        self.user_id = user_id
+        self.init_everything()
+        
+    def init_everything(self):
         self.players = []
 
+        self.userinfo = get_user_info(self.user_id)
         # Horizontal container for players
         container = Frame(self.window)
         container.pack(padx=10, pady=10)
@@ -29,15 +36,26 @@ class Player:
         self.current_choice = -1
         
         # Create 3 horizontally-aligned players
-        self.userinfo = userinfo
-        self.filename, engine_pair = userinfo.get_next_task()  # Placeholder for audio file
+        next = self.userinfo.get_next_task()  # Placeholder for audio file
+        if next is None:
+            self.engine=None
+            self.handle_close()
+        self.filename, engine_pair = next
             
-        self.engines = [engine_map[name](self.filename) for name in engine_pair]
+        self.engines = []
         self.engine_names = engine_pair.copy()
+        for name in engine_pair:
+            if name not in engine_map:
+                raise ValueError(f"Unknown engine name: {name}")
+            if name[:3] == "OPT":
+                self.engines.append(engine_map[name](self.filename, min_alpha=float(name[3:])))
+            else:
+                self.engines.append(engine_map[name](self.filename))
         
         permute = np.random.permutation(len(self.engines))
         self.engines = [self.engines[i] for i in permute]
         self.engine_names = [self.engine_names[i] for i in permute]
+
         
         self.alphas = [1.0] * len(self.engines)  # Initial alpha values for each engine
         self.engine = None
@@ -118,7 +136,25 @@ class Player:
             sorted(self.engine_names),
             self.engine_names[choice]
         )
-        self.handle_close()
+        # Stop any running engine
+        if self.engine:
+            self.safe_stop_engine()
+
+        # Destroy all widgets inside the window to reset UI
+        for widget in self.window.winfo_children():
+            widget.destroy()
+        
+        # Reset internal state variables if needed
+        self.players = []
+        self.current_playing = -1
+        self.current_choice = -1
+        self.engines = []
+        self.engine_names = []
+        self.alphas = []
+        self.engine = None
+
+        # Re-initialize everything (build UI again)
+        self.init_everything()
     
     def safe_stop_engine(self):
         if self.engine:
@@ -212,7 +248,6 @@ class Player:
         self.engine.set_alpha(self.alphas[self.current_playing])
         self.engine.start()
         
-
     def handle_close(self):
         if self.engine:
             self.safe_stop_engine()

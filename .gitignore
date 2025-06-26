@@ -5,6 +5,4 @@ runtime_analysis/**
 *.log        # Log files
 
 
-samples/**
-
 echo "hybrid_runtime_pv.py"
