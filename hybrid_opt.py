@@ -161,12 +161,13 @@ print("- CTRL+C to stop")
 stream = p.open(format=pyaudio.paInt16,
                 channels=1,
                 rate=audio_sr,
-                output=True)
+                output=True,
+                frames_per_buffer=128)
 
 pos = 0
 pos_ola = 0
 
-min_alpha = 0.3
+min_alpha = 0.40
 min_Ha = int(Hs / min_alpha)
 S_lookup = lb.core.stft(audio_data, n_fft=L, hop_length=min_Ha, center=False) # shape = (1 + n_fft/2, n_frames)
 S_phase_lookup = np.angle(S_lookup)
@@ -186,12 +187,12 @@ try:
         else:
             nn_frame = int(round(pos / min_Ha))  # lookup is always based on min_Ha
             lb_frame = int(pos/min_Ha)
-            phase_increment = w_if_lookup[:, lb_frame] * (Hs / audio_sr)
+            phase_increment = w_if_lookup[:, lb_frame-1] * (Hs / audio_sr)
             prev_phase += phase_increment  # Update phase correctly for current alpha
             S_mod = S_mag_lookup[:, nn_frame] * np.exp(1j * prev_phase)
 
-        pv_frame_mod = np.fft.irfft(S_mod)
-        
+        pv_frame_mod = np.fft.irfft(S_mod) * (window.reshape((-1, 1))/den.reshape((-1,1))).flatten()
+        # pv_frame_mod = np.fft.irfft(S_mod) * window/den
 
     
         # pv_frame_mod = np.fft.irfft(X_mod)
@@ -201,7 +202,7 @@ try:
         # overlap-add to output buffer
         output_buffer[:-Hs] = output_buffer[Hs:]
         output_buffer[-Hs:] = 0
-        output_buffer += pv_frame_mod * (window.reshape((-1, 1))/den.reshape((-1,1))).flatten()
+        output_buffer += pv_frame_mod
 
         ratio = Hs//Hs_ola
         ola_y = np.zeros(L)
