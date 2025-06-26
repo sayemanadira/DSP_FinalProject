@@ -419,7 +419,7 @@ class OPTEngine(EngineBase):
         self.xp = self.float2pcm(xp).astype(np.int16)
 
         # Precompute STFT, phase and IF lookup for time-varying alpha
-        min_Ha = int(self.Hs / self.min_alpha)
+        min_Ha = int(round(self.Hs / self.min_alpha))
 
         S_lookup = lb.core.stft(x, n_fft=self.L, hop_length=min_Ha, center=False)
         self.S_phase_lookup = np.angle(S_lookup)
@@ -490,14 +490,15 @@ class OPTEngine(EngineBase):
                 else:
                     nn_frame = int(round(pos / min_Ha))
                     lb_frame = int(pos / min_Ha)
-                    phase_increment = self.w_if_lookup[:, lb_frame] * (self.Hs / self.audio_sr)
+                    phase_increment = self.w_if_lookup[:, lb_frame-1] * (self.Hs / self.audio_sr)
                     self.prev_phase += phase_increment
                     S_mod = self.S_mag_lookup[:, nn_frame] * np.exp(1j * self.prev_phase)
 
                 pv_frame_mod = np.fft.irfft(S_mod)
+                pv_frame_mod = self.float2pcm(pv_frame_mod)
                 self.output_buffer[:-self.Hs] = self.output_buffer[self.Hs:]
                 self.output_buffer[-self.Hs:] = 0
-                self.output_buffer += pv_frame_mod * (self.window / self.den)
+                self.output_buffer += pv_frame_mod * (self.window.reshape((-1,1)) / self.den.reshape((-1,1))).flatten()
 
                 # OLA synthesis
                 ola_y = np.zeros(self.L)

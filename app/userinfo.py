@@ -21,8 +21,10 @@ users_collection = client.stuff.users
 # === Generate All Possible Tasks (filename + engine pairs) ===
 
 engine_pairs = [("Hybrid","PV"),
-                ("Hybrid","OPT0.3")
-                ]
+                ("Hybrid","OPT0.25"),
+                ("Hybrid","OPT0.5"),
+                ("Hybrid","OPT1.0"),
+                ("Hybrid","OPT2.0")]
 def get_all_tasks():
     files = sorted(glob.glob('../samples/genres_original/*/*.wav'))
     return [(f, sorted(pair)) for f in files for pair in engine_pairs]

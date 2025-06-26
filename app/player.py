@@ -11,7 +11,10 @@ engine_map = {
     "OLA": OLAEngine,
     "PV": PVEngine,
     "Hybrid": HybridEngine,
-    "OPT0.3": OPTEngine,
+    "OPT0.25": OPTEngine,
+    "OPT0.5": OPTEngine,
+    "OPT1.0": OPTEngine,
+    "OPT2.0": OPTEngine,
 }
 class Player:
     def __init__(self, master, user_id,on_close=None,):
