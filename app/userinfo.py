@@ -20,16 +20,16 @@ users_collection = client.stuff.users
 
 # === Generate All Possible Tasks (filename + engine pairs) ===
 
-engine_pairs = [("Hybrid","OLA"),
+engine_pairs = [("Hybrid","PV"),
                 ("Hybrid","OPT0.3")
                 ]
 def get_all_tasks():
-    files = sorted(glob.glob('../samples/*.wav'))
+    files = sorted(glob.glob('../samples/genres_original/*/*.wav'))
     return [(f, sorted(pair)) for f in files for pair in engine_pairs]
 
 
 def get_user_info(user_id):
-    total_files = sorted(glob.glob('../samples/*.wav'))
+    total_files = sorted(glob.glob('../samples/genres_original/*/*.wav'))
     user = UserInfo(user_id, total_files)
     user.get_seen()
     return user
@@ -84,6 +84,7 @@ class UserInfo:
             if task_id not in self.completed_tasks:
                 self._current_task_id = task_id
                 self._current_task_start = time.time()  # ⏱ Start timer
+                print(filename,engines)
                 return filename, engines
         return None
 

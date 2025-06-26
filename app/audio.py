@@ -7,9 +7,44 @@ from scipy.signal import medfilt
 import time
 import csv
 
+import subprocess
+import tempfile
+import os
+import subprocess
+import tempfile
+import os
+
+def convert_to_pcm16_wav(input_path):
+    # Create a temporary output file with .wav suffix
+    tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".wav")
+    tmp.close()
+    output_path = tmp.name
+
+    # FFmpeg command to convert to 16-bit PCM WAV, mono, 48kHz
+    cmd = [
+        "ffmpeg",
+        "-y",                   # overwrite existing file
+        "-i", input_path,       # input file
+        "-t", "10",
+        "-acodec", "pcm_s16le", # 16-bit PCM
+        "-ac", "1",             # mono
+        "-ar", "22160",         # sample rate 48kHz
+        output_path
+    ]
+
+    try:
+        subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
+        return output_path
+    except subprocess.CalledProcessError as e:
+        print(f"FFmpeg conversion failed for {input_path}: {e}")
+        os.unlink(output_path)  # Clean up temp file
+        raise
+
+    return output_path
+
 class EngineBase:
     def __init__(self, filename, fft_size=2048, on_complete=None):
-        self.filename = filename
+        self.filename = convert_to_pcm16_wav(filename)
         self.L = fft_size
         self.Hs = self.L // 4
         self.window = np.hanning(self.L)
@@ -36,6 +71,7 @@ class EngineBase:
 
     def load_audio(self, mono=True):
         self.audio_data, self.audio_sr = lb.load(self.filename, sr=None, mono=mono)
+        # print(self.audio_sr)
 
     def setup_audio_stream(self):
         self.p = pyaudio.PyAudio()
@@ -74,6 +110,10 @@ class EngineBase:
         
         self.wf = wave.open(self.filename, 'rb')
         self.audio_sr = self.wf.getframerate()
+        
+        # with wave.open(self.filename, 'rb') as wf:
+        #     assert self.wf.getsampwidth() == 2  # 2 bytes = 16 bits
+        #     assert self.wf.getnchannels() == 1
         self.setup_audio_stream()
         
         self.output_buffer = np.zeros(self.L)

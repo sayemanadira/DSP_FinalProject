@@ -9,7 +9,7 @@ import math
 
 engine_map = {
     "OLA": OLAEngine,
-    "PVEngine": PVEngine,
+    "PV": PVEngine,
     "Hybrid": HybridEngine,
     "OPT0.3": OPTEngine,
 }
@@ -171,9 +171,6 @@ class Player:
     def _on_engine_end(self, player, player_idx):
         print(f"Playback ended callback called, player {player} will be called")
         try:
-            if str(player['stop_button']) not in self.window.tk.call("winfo", "children", self.window):
-                print("Button was destroyed, skipping callback.")
-                return
             player['stopped'] = True
             player['stop_button'].config(text="Play")
             player['frame'].config(bg="grey")
@@ -181,6 +178,9 @@ class Player:
                 if self.engine:
                     self.safe_stop_engine()
                 self.current_playing = -1
+            if str(player['stop_button']) not in self.window.tk.call("winfo", "children", self.window):
+                print("Button was destroyed, skipping callback.")
+                return
         except Exception as e:
             print(f"⚠️ Exception in _on_engine_end: {e}")
     
