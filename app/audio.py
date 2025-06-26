@@ -7,9 +7,44 @@ from scipy.signal import medfilt
 import time
 import csv
 
+import subprocess
+import tempfile
+import os
+import subprocess
+import tempfile
+import os
+
+def convert_to_pcm16_wav(input_path):
+    # Create a temporary output file with .wav suffix
+    tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".wav")
+    tmp.close()
+    output_path = tmp.name
+
+    # FFmpeg command to convert to 16-bit PCM WAV, mono, 48kHz
+    cmd = [
+        "ffmpeg",
+        "-y",                   # overwrite existing file
+        "-i", input_path,       # input file
+        "-t", "10",
+        "-acodec", "pcm_s16le", # 16-bit PCM
+        "-ac", "1",             # mono
+        "-ar", "22160",         # sample rate 48kHz
+        output_path
+    ]
+
+    try:
+        subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
+        return output_path
+    except subprocess.CalledProcessError as e:
+        print(f"FFmpeg conversion failed for {input_path}: {e}")
+        os.unlink(output_path)  # Clean up temp file
+        raise
+
+    return output_path
+
 class EngineBase:
     def __init__(self, filename, fft_size=2048, on_complete=None):
-        self.filename = filename
+        self.filename = convert_to_pcm16_wav(filename)
         self.L = fft_size
         self.Hs = self.L // 4
         self.window = np.hanning(self.L)
@@ -36,6 +71,7 @@ class EngineBase:
 
     def load_audio(self, mono=True):
         self.audio_data, self.audio_sr = lb.load(self.filename, sr=None, mono=mono)
+        # print(self.audio_sr)
 
     def setup_audio_stream(self):
         self.p = pyaudio.PyAudio()
@@ -74,6 +110,10 @@ class EngineBase:
         
         self.wf = wave.open(self.filename, 'rb')
         self.audio_sr = self.wf.getframerate()
+        
+        # with wave.open(self.filename, 'rb') as wf:
+        #     assert self.wf.getsampwidth() == 2  # 2 bytes = 16 bits
+        #     assert self.wf.getnchannels() == 1
         self.setup_audio_stream()
         
         self.output_buffer = np.zeros(self.L)
@@ -379,7 +419,7 @@ class OPTEngine(EngineBase):
         self.xp = self.float2pcm(xp).astype(np.int16)
 
         # Precompute STFT, phase and IF lookup for time-varying alpha
-        min_Ha = int(self.Hs / self.min_alpha)
+        min_Ha = int(round(self.Hs / self.min_alpha))
 
         S_lookup = lb.core.stft(x, n_fft=self.L, hop_length=min_Ha, center=False)
         self.S_phase_lookup = np.angle(S_lookup)
@@ -450,14 +490,15 @@ class OPTEngine(EngineBase):
                 else:
                     nn_frame = int(round(pos / min_Ha))
                     lb_frame = int(pos / min_Ha)
-                    phase_increment = self.w_if_lookup[:, lb_frame] * (self.Hs / self.audio_sr)
+                    phase_increment = self.w_if_lookup[:, lb_frame-1] * (self.Hs / self.audio_sr)
                     self.prev_phase += phase_increment
                     S_mod = self.S_mag_lookup[:, nn_frame] * np.exp(1j * self.prev_phase)
 
                 pv_frame_mod = np.fft.irfft(S_mod)
+                pv_frame_mod = self.float2pcm(pv_frame_mod)
                 self.output_buffer[:-self.Hs] = self.output_buffer[self.Hs:]
                 self.output_buffer[-self.Hs:] = 0
-                self.output_buffer += pv_frame_mod * (self.window / self.den)
+                self.output_buffer += pv_frame_mod * (self.window.reshape((-1,1)) / self.den.reshape((-1,1))).flatten()
 
                 # OLA synthesis
                 ola_y = np.zeros(self.L)

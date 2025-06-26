@@ -28,10 +28,10 @@ class MainMenu:
 
         # Insert your commentary/instructions
         instruction_text = (
-            "Welcome! Your job is to listen to the audio samples that use different methods to alter audio playback speed in realtime.\n\n"
-            "Time-scale modification (TSM) is the process of changing the tempo of a music recording without affecting other musical aspects like pitch or sound quality.\n\n"
-            "We are testing which method of TSM sounds the best.\n\n"
-            "You will be continuously given two real-time TSM algorithms, play with the speed slider and pick which one you think sounds better. Note that the selection of algorithms is different on each page.\n\n"
+            "Welcome! Your job is to evaluate the quality of several music signal procesing algorithms.\n\n"
+            "Time-scale modification (TSM) is the process of changing the tempo of a music recording, ideally without affecting other musical aspects like pitch or sound quality.\n\n"
+            "We would like you to evaluate pairs of TSM algorithms by playing with the speed slider, and then select which one sounds better.\n\n"
+            "Note that the selection of algorithms is different on each page.\n\n"
             "Use the play buttons to listen and the pick buttons to make your choice.\n\n"
             "Once you've selected which option you think is better, press Submit to continue."
         )
