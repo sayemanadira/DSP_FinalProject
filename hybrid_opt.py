@@ -167,7 +167,7 @@ stream = p.open(format=pyaudio.paInt16,
 pos = 0
 pos_ola = 0
 
-min_alpha = 0.25
+min_alpha = 2
 min_Ha = int(Hs / min_alpha)
 S_lookup = lb.core.stft(audio_data, n_fft=L, hop_length=min_Ha, center=False) # shape = (1 + n_fft/2, n_frames)
 S_phase_lookup = np.angle(S_lookup)
