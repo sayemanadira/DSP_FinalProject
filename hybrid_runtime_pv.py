@@ -109,7 +109,7 @@ def float2pcm(sig, dtype='int16'):
 
 # Pre-compute values
 # Load audio file
-file_name = 'samples/fred_60sec.wav'
+file_name = 'samples/runtime_samples/fred_10sec.wav'
 audio_data, audio_sr = lb.load(file_name)
 xh, _, _, _ = harmonic_percussive_separation(x=audio_data, sr=audio_sr)
 
@@ -136,7 +136,7 @@ def phase_vocoder_processing(xh_chunk, window, prev_fft, prev_phase, omega_nom, 
     start = time.perf_counter()
     S = np.fft.rfft(pv_win)
     magnitude = np.abs(S)
-    timings['fft'] = time.perf_counter() - start
+    # timings['fft'] = time.perf_counter() - start
     
     # 3. Phase modification
     start = time.perf_counter()
@@ -148,12 +148,12 @@ def phase_vocoder_processing(xh_chunk, window, prev_fft, prev_phase, omega_nom, 
         prev_phase += w_if * (Hs/audio_sr)
     else:
         prev_phase = np.angle(S)
-    timings['phase_mod'] = time.perf_counter() - start
+    timings['phase_calc'] = time.perf_counter() - start
     
     # 4. Reconstruction
     start = time.perf_counter()    
     X_mod = magnitude * np.exp(1j * prev_phase)
-    phase_window = np.fft.irfft(X_mod)
+    phase_window = np.fft.irfft(X_mod) * (window.reshape((-1,1))/den.reshape((-1,1))).flatten()
     timings['reconstruction'] = time.perf_counter() - start
     
     return phase_window, S, prev_phase, timings
@@ -169,8 +169,7 @@ def run_timing_analysis(num_runs=100):
     # Initialize accumulators for cumulative times (per run)
     cumulative_times = {
         'analysis_window': [],
-        'fft': [],
-        'phase_mod': [],
+        'phase_calc': [],
         'reconstruction': [],
         'total_frames': []  # Track frames per run
     }
@@ -185,8 +184,7 @@ def run_timing_analysis(num_runs=100):
         # Initialize per-run cumulative timings
         run_totals = {
             'analysis_window': 0.0,
-            'fft': 0.0,
-            'phase_mod': 0.0,
+            'phase_calc': 0.0,
             'reconstruction': 0.0
         }
         
@@ -216,7 +214,7 @@ def run_timing_analysis(num_runs=100):
     print(f"Number of runs averaged: {num_runs}")
     print("\nAverage Cumulative Time per Stage (ms):")
     
-    for stage in ['analysis_window', 'fft', 'phase_mod', 'reconstruction']:
+    for stage in ['analysis_window', 'phase_calc', 'reconstruction']:
         # Convert to milliseconds and calculate stats
         times_ms = [t * 1000 for t in cumulative_times[stage]]
         avg_time_ms = np.mean(times_ms)
@@ -230,8 +228,9 @@ def run_timing_analysis(num_runs=100):
     total_times = [
         sum(run) for run in zip(
             cumulative_times['analysis_window'],
-            cumulative_times['fft'],
-            cumulative_times['phase_mod'],
+            cumulative_times['phase_calc'],
+            # cumulative_times['fft'],
+            # cumulative_times['phase_mod'],
             cumulative_times['reconstruction']
         )
     ]
@@ -417,7 +416,7 @@ def run_timing_analysis(num_runs=100):
 
 if __name__ == "__main__":
     # Run the timing analysis
-    run_timing_analysis(num_runs=100)
+    run_timing_analysis(num_runs=200)
     
     # Clean up audio resources
     p = pyaudio.PyAudio()

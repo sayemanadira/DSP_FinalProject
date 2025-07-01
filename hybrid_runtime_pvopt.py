@@ -15,6 +15,7 @@ import time
 
 # Constants
 CHUNK = L = 2048
+min_Ha = 2  # Minimum analysis hop size
 L_ola = 256
 Hs = L // 4
 Hs_ola = L_ola // 2
@@ -23,6 +24,27 @@ window = np.hanning(L)
 output_buffer = np.zeros(L)
 prev_fft = None
 prev_phase = np.zeros(L//2 + 1)
+
+def estimateIF(S, sr, hop_samples):
+    '''
+    Estimates the instantaneous frequencies in a STFT matrix.
+    
+    Inputs
+    S: the STFT matrix, should only contain the lower half of the frequency bins
+    sr: sampling rate
+    hop_samples: the hop size of the STFT analysis in samples
+    
+    Returns a matrix containing the estimated instantaneous frequency at each time-frequency bin.
+    This matrix should contain one less column than S.
+    '''
+    hop_sec = hop_samples / sr
+    fft_size = (S.shape[0] - 1) * 2
+    w_nom = np.arange(S.shape[0]) * sr / fft_size * 2 * np.pi
+    w_nom = w_nom.reshape((-1,1))    
+    unwrapped = np.angle(S[:,1:]) - np.angle(S[:,0:-1]) - w_nom * hop_sec
+    wrapped = (unwrapped + np.pi) % (2 * np.pi) - np.pi
+    w_if = w_nom + wrapped / hop_sec
+    return w_if
 
 
 def invert_stft(S, hop_length, window):
@@ -62,27 +84,6 @@ def invert_stft(S, hop_length, window):
         y[offset:offset+L] += frames[:,i]
     
     return y
-
-def estimateIF(S, sr, hop_samples):
-    '''
-    Estimates the instantaneous frequencies in a STFT matrix.
-    
-    Inputs
-    S: the STFT matrix, should only contain the lower half of the frequency bins
-    sr: sampling rate
-    hop_samples: the hop size of the STFT analysis in samples
-    
-    Returns a matrix containing the estimated instantaneous frequency at each time-frequency bin.
-    This matrix should contain one less column than S.
-    '''
-    hop_sec = hop_samples / sr
-    fft_size = (S.shape[0] - 1) * 2
-    w_nom = np.arange(S.shape[0]) * sr / fft_size * 2 * np.pi
-    w_nom = w_nom.reshape((-1,1))    
-    unwrapped = np.angle(S[:,1:]) - np.angle(S[:,0:-1]) - w_nom * hop_sec
-    wrapped = (unwrapped + np.pi) % (2 * np.pi) - np.pi
-    w_if = w_nom + wrapped / hop_sec
-    return w_if
 
 def harmonic_percussive_separation(x, sr=22050, fft_size = 2048, hop_length=512, lh=6, lp=6):
     window = np.hanning(fft_size)
@@ -130,164 +131,99 @@ def float2pcm(sig, dtype='int16'):
 
 # Pre-compute values
 # Load audio file
-file_name = 'samples/fred_60sec.wav'
+file_name = 'samples/runtime_samples/fred_10sec.wav'
 audio_data, audio_sr = lb.load(file_name)
 xh, _, _, _ = harmonic_percussive_separation(x=audio_data, sr=audio_sr)
 
-if max(abs(xh)) > 1:
-    xh = xh / max(abs(xh))
-# elif max(abs(xp)) > 1:
-#     xp = xp / max(abs(xp))
+# if max(abs(xh)) > 1:
+#     xh = xh / max(abs(xh))
+# # elif max(abs(xp)) > 1:
+# #     xp = xp / max(abs(xp))
 
-xh = float2pcm(xh).astype(np.int16)
+# xh = float2pcm(xh).astype(np.int16)
 omega_nom = np.arange(L//2 + 1) * 2 * np.pi * audio_sr / L
 den = np.sum(window**2)  # Simplified denominator calculation
 
-
-min_alpha = 2
-min_Ha = int(Hs / min_alpha)
-S_lookup = lb.core.stft(audio_data, n_fft=L, hop_length=min_Ha, center=False) # shape = (1 + n_fft/2, n_frames)
-S_phase_lookup = np.angle(S_lookup)
-S_mag_lookup = np.abs(S_lookup)
-w_if_lookup = estimateIF(S_lookup, audio_sr, min_Ha)
-prev_phase = None
-
-def phase_vocoder_processing(window, Hs, audio_sr):
-    """Phase Vocoder processing with timing measurements"""
+def phase_vocoder_processing(S_mag_lookup, S_phase_lookup, w_if_lookup, pos, sr):
+    """Process one frame EXACTLY as in hybrid_opt.py"""
+    global prev_phase
+    
     timings = {}
+    Ha = int(Hs/alpha)
+    
+    # 1. Frame lookup and phase calculation
+    start = time.perf_counter()
+    nn_frame = int(round(pos / min_Ha))  # Nearest neighbor for magnitude
+    lb_frame = int(pos/min_Ha)           # Lower bound for phase increment
+    timings['analysis_window'] = time.perf_counter() - start
 
     start = time.perf_counter()
     if pos == 0:
-        prev_phase = S_phase_lookup[:, 0]
-        S_mod = S_mag_lookup[:, 0] * np.exp(1j * prev_phase)
+        phase = S_phase_lookup[:, 0]
     else:
-        nn_frame = int(round(pos / min_Ha))  # lookup is always based on min_Ha
-        lb_frame = int(pos/min_Ha)
-        phase_increment = w_if_lookup[:, lb_frame-1] * (Hs / audio_sr)
-        prev_phase += phase_increment  # Update phase correctly for current alpha
-        S_mod = S_mag_lookup[:, nn_frame] * np.exp(1j * prev_phase)
-    timings['look-up'] = time.perf_counter() - start
+        phase_inc = w_if_lookup[:, lb_frame-1] * (Hs / audio_sr)
+        phase = prev_phase + phase_inc
+    timings['phase_calc'] = time.perf_counter() - start
 
-    # Reconstruction
+    # 2. Reconstruction
     start = time.perf_counter()
-    pv_frame_mod = np.fft.irfft(S_mod) * (window.reshape((-1, 1))/den.reshape((-1,1))).flatten()
-    # pv_frame_mod = np.fft.irfft(S_mod) * window/den
+    S_mod = S_mag_lookup[:, nn_frame] * np.exp(1j * phase)
+    frame = np.fft.irfft(S_mod) * (window.reshape((-1,1))/den.reshape((-1,1))).flatten()
     timings['reconstruction'] = time.perf_counter() - start
-
-    # pv_frame_mod = np.fft.irfft(X_mod)
-    pv_frame_mod = float2pcm(np.array(pv_frame_mod))
-
+    frame = float2pcm(frame)
     
-    # overlap-add to output buffer
-
-    
-    # # 1. Analysis window application
-    # start = time.perf_counter()
-    # Ha = int(Hs/alpha)
-    # pv_win = xh_chunk * window
-    # timings['analysis_window'] = time.perf_counter() - start
-    
-    # # 2. FFT computation
-    # start = time.perf_counter()
-    # S = np.fft.rfft(pv_win)
-    # magnitude = np.abs(S)
-    # timings['fft'] = time.perf_counter() - start
-    
-    # # 3. Phase modification
-    # start = time.perf_counter()
-    # if prev_fft is not None:
-    #     dphi = np.angle(S) - np.angle(prev_fft)
-    #     dphi = dphi - omega_nom * (Ha/audio_sr)
-    #     dphi = (dphi + np.pi) % (2*np.pi) - np.pi
-    #     w_if = omega_nom + dphi * (audio_sr/Ha)
-    #     prev_phase += w_if * (Hs/audio_sr)
-    # else:
-    #     prev_phase = np.angle(S)
-    # timings['phase_mod'] = time.perf_counter() - start
-    
-    # # 4. Reconstruction
-    # start = time.perf_counter()    
-    # X_mod = magnitude * np.exp(1j * prev_phase)
-    # phase_window = np.fft.irfft(X_mod)
-    # timings['reconstruction'] = time.perf_counter() - start
-    
-    return pv_frame_mod, timings
+    prev_phase = phase
+    return frame, timings
 
 
-def run_timing_analysis(num_runs=100):
-    """Run timing analysis on the phase vocoder components.
-    Measures cumulative runtime per stage (analysis, FFT, phase mod, reconstruction)
-    for the entire audio input, averaged over `num_runs` runs.
-    """
-    global pos, prev_fft, prev_phase
+def run_processing(xh, num_runs=100):
+    """Complete processing pipeline matching hybrid_opt.py"""
+    # Precompute STFT tables exactly as in original
+    S_lookup = lb.core.stft(xh, n_fft=L, hop_length=min_Ha, center=False)
+    S_mag_lookup = np.abs(S_lookup)
+    S_phase_lookup = np.angle(S_lookup)
+    w_if_lookup = estimateIF(S_lookup, audio_sr, min_Ha)
     
-    # Initialize accumulators for cumulative times (per run)
     cumulative_times = {
-        'look-up': [],
+        'analysis_window': [],
+        'phase_calc': [],
         'reconstruction': [],
-        'total_frames': []  # Track frames per run
+        'total_frames': 0
     }
     
-    for run in range(num_runs):
-        # Reset state for each run
+    for _ in range(num_runs):
         pos = 0
-        prev_fft = None
-        prev_phase = np.zeros(L//2 + 1)
-        frames_processed = 0
+        run_times = {'analysis_window': 0.0, 'phase_calc': 0.0, 'reconstruction': 0.0}
+        frame_count = 0
         
-        # Initialize per-run cumulative timings
-        run_totals = {
-            'look-up': 0.0,
-            'reconstruction': 0.0,
-        }
-        
-        # Process all frames in the audio input
         while pos <= len(xh) - L:
-            pv_frame, run_timings = phase_vocoder_processing(
-                window, Hs, audio_sr
+            frame, timings = phase_vocoder_processing(S_mag_lookup, S_phase_lookup, 
+                w_if_lookup, pos, audio_sr
             )
             
-            # Accumulate timings for this frame
-            for key in run_totals:
-                run_totals[key] += run_timings[key]
+            # # Overlap-add (matches original)
+            # output_buffer[:-Hs] = output_buffer[Hs:]
+            # output_buffer[-Hs:] = 0
+            # output_buffer += frame
             
-            frames_processed += 1
+            for key in run_times:
+                run_times[key] += timings[key]
+            frame_count += 1
             pos += int(Hs/alpha)
         
-        # Store cumulative times and frame count for this run
-        for key in run_totals:
-            cumulative_times[key].append(run_totals[key])
-        cumulative_times['total_frames'].append(frames_processed)
+        for key in run_times:
+            cumulative_times[key].append(run_times[key])
+        cumulative_times['total_frames'] = frame_count
     
-    # Calculate statistics
-    avg_frames = np.mean(cumulative_times['total_frames'])
-    print("\nPhase Vocoder Timing Analysis (Cumulative per Audio Input):")
-    print(f"Average frames processed per run: {avg_frames:.1f}")
-    print(f"Number of runs averaged: {num_runs}")
-    print("\nAverage Cumulative Time per Stage (ms):")
-    
-    for stage in ['analysis_window', 'fft', 'phase_mod', 'reconstruction']:
-        # Convert to milliseconds and calculate stats
-        times_ms = [t * 1000 for t in cumulative_times[stage]]
-        avg_time_ms = np.mean(times_ms)
-        std_dev_ms = np.std(times_ms)
-        print(
-            f"{stage.replace('_', ' ').title():<18} "
-            f"Avg: {avg_time_ms:.3f} ms ± {std_dev_ms:.3f} ms"
-        )
-    
-    # Calculate total processing time
-    total_times = [
-        sum(run) for run in zip(
-            cumulative_times['analysis_window'],
-            cumulative_times['fft'],
-            cumulative_times['phase_mod'],
-            cumulative_times['reconstruction']
-        )
-    ]
-    avg_total = np.mean(total_times)
-    std_total = np.std(total_times)
-    print(f"\nTotal Avg. Processing Time per Run: {avg_total:.3f} ± {std_total:.3f} seconds")
+    # Reporting (matches hybrid_opt.py format)
+    print("Timing Analysis Results:")
+    for stage in ['analysis_window', 'phase_calc', 'reconstruction']:
+        avg = np.mean(cumulative_times[stage]) * 1000
+        std = np.std(cumulative_times[stage]) * 1000
+        print(f"{stage}: {avg:.3f} ± {std:.3f} ms")
+    print(f"Total frames: {cumulative_times['total_frames']}")
+
+
 
 # def run_timing_analysis(num_runs=100):
 #     """Run timing analysis on the phase vocoder components.
@@ -465,9 +401,17 @@ def run_timing_analysis(num_runs=100):
 #         avg_time = np.mean(timings[key]) * 1000  # Convert to milliseconds
 #         print(f"{key.replace('_', ' ').title():<15} {avg_time:.3f} ms")
 
+# if __name__ == "__main__":
+#     # Run the timing analysis
+#     run_timing_analysis(num_runs=100)
+    
+#     # Clean up audio resources
+#     p = pyaudio.PyAudio()
+#     p.terminate()
+
 if __name__ == "__main__":
     # Run the timing analysis
-    run_timing_analysis(num_runs=100)
+    run_processing(xh, num_runs=200)
     
     # Clean up audio resources
     p = pyaudio.PyAudio()
