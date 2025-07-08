@@ -13,7 +13,7 @@ CHUNK = L = 2048
 L_ola = 256
 Hs = L // 4
 Hs_ola = L_ola // 2
-alpha = 0.75
+alpha = 1.25
 window = np.hanning(L)
 output_buffer = np.zeros(int(L))
 prev_fft = None
@@ -167,7 +167,7 @@ stream = p.open(format=pyaudio.paInt16,
 pos = 0
 pos_ola = 0
 
-beta = 0.125
+beta = 0.5
 # [0.125      0.2102241  0.35355339 0.59460356 1.        ]
 Ha_lookup = int(round(beta*L))
 S_lookup = lb.core.stft(audio_data, n_fft=L, hop_length=Ha_lookup, center=False) # shape = (1 + n_fft/2, n_frames)
@@ -222,7 +222,7 @@ try:
 
         output_buffer = np.clip(output_buffer, -32768, 32767)  # 16-bit range
         # runtimes.append(end_time - start_time)
-        # stream.write(output_buffer[:Hs].astype(np.int16).tobytes())
+        stream.write(output_buffer[:Hs].astype(np.int16).tobytes())
 
         # Store for WAV file
         output_frames.append(output_buffer[:Hs].astype(np.int16).copy())  # Store the chunk
