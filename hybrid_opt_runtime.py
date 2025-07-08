@@ -132,25 +132,30 @@ def measure_main_loop(audio_data, audio_sr, iterations=100):
     omega_nom = np.arange(L//2 + 1) * 2 *np.pi * audio_sr / L
     den = calc_sum_squared_window(window, Hs)
     
-    runtimes = []
+    pv_runtimes = []
+    ola_runtimes = []
+    tot_runtimes = []
     
     print(f"\nMeasuring main loop performance for {iterations} iterations...")
     
+
     for iteration in range(iterations):
         # Reset loop variables
         output_buffer = np.zeros(int(L))
         pos = 0
         prev_phase = None
+        ola_t = 0
+        pv_t = 0
         
         # Only measure the while loop
-        start_time = time.time()
-        
+        start_tot = time.perf_counter()
         # Main loop from hybrid_opt.py
         while pos <= len(xh) - L:
-            alpha = 0.50  # Fixed for consistent measurement
+            alpha = 1.75  # Fixed for consistent measurement
             Ha = int(Hs/alpha)
             Ha_ola = int(Hs_ola/alpha)
-            
+
+            start_t = time.perf_counter()
             if pos == 0:
                 prev_phase = S_phase_lookup[:, 0]
                 S_mod = S_mag_lookup[:, 0] * np.exp(1j * prev_phase)
@@ -162,12 +167,16 @@ def measure_main_loop(audio_data, audio_sr, iterations=100):
                 S_mod = S_mag_lookup[:, nn_frame] * np.exp(1j * prev_phase)
 
             pv_frame_mod = np.fft.irfft(S_mod) * (window.reshape((-1, 1))/den.reshape((-1,1))).flatten()
-            pv_frame_mod = float2pcm(np.array(pv_frame_mod))
             
-            output_buffer[:-Hs] = output_buffer[Hs:]
-            output_buffer[-Hs:] = 0
-            output_buffer += pv_frame_mod
+            pv_t += time.perf_counter() - start_t
 
+            # pv_frame_mod = float2pcm(np.array(pv_frame_mod))
+            # output_buffer[:-Hs] = output_buffer[Hs:]
+            # output_buffer[-Hs:] = 0
+            # output_buffer += pv_frame_mod
+
+
+            start_t = time.perf_counter()
             ratio = Hs//Hs_ola
             ola_y = np.zeros(L)
             for i in range(ratio):
@@ -175,26 +184,29 @@ def measure_main_loop(audio_data, audio_sr, iterations=100):
                 ola_win_synth = ola_win * np.hanning(L_ola)
                 offset = i * Hs_ola
                 ola_y[offset:offset + L_ola] += ola_win_synth
-        
-            output_buffer += ola_y
-            output_buffer = np.clip(output_buffer, -32768, 32767)
-            
+            ola_t += time.perf_counter() - start_t
+            # output_buffer += ola_y
+            # output_buffer = np.clip(output_buffer, -32768, 32767)
             pos += Ha
         
-        end_time = time.time()
-        runtimes.append(end_time - start_time)
-        print(f"Iteration {iteration+1}/{iterations}: {runtimes[-1]:.5f} seconds")
+        # end_time = time.time()
+        tot_runtimes.append(time.perf_counter() - start_tot)
+        pv_runtimes.append(pv_t)
+        ola_runtimes.append(ola_t)
+        # print(f"Iteration {iteration+1}/{iterations}: {tot_runtimes[-1]:.5f} seconds")
     
     # Calculate statistics
-    avg_runtime = statistics.mean(runtimes)
-    std_dev = statistics.stdev(runtimes) if len(runtimes) > 1 else 0
-    
+    avg_runtime_pv = statistics.mean(pv_runtimes)
+    avg_runtime_ola = statistics.mean(ola_runtimes)
+    std_de_pv = statistics.stdev(pv_runtimes) if len(pv_runtimes) > 1 else 0
+    std_de_ola = statistics.stdev(ola_runtimes) if len(ola_runtimes) > 1 else 0
     print("\nMain Loop Results:")
-    print(f"Average runtime: {avg_runtime:.5f} seconds")
-    print(f"Standard deviation: {std_dev:.5f} seconds")
-    print(f"Total loop time for {iterations} iterations: {sum(runtimes):.5f} seconds")
+    print(f"Average runtime (PV): {avg_runtime_pv:.5f} seconds, std ")
+    print(f"Standard deviation (PV): {std_de_pv:.5f} seconds")
+    print(f"Average runtime (OLA): {avg_runtime_ola:.5f} seconds")
+    print(f"Standard deviation (OLA): {std_de_ola:.5f} seconds")
+    print(f"Avg loop time for {iterations} iterations: {statistics.mean(tot_runtimes):.5f} seconds")
     
-    return runtimes
 
 def profile_main_loop(audio_data, audio_sr, output_file="main_loop_profile.prof"):
     """Profile only the main while loop"""
@@ -222,7 +234,7 @@ def profile_main_loop(audio_data, audio_sr, output_file="main_loop_profile.prof"
         prev_phase = None
         
         while pos <= len(xh) - L:
-             alpha = 0.5
+             alpha = 0.75
              Ha = int(round(Hs/alpha))
              Ha_ola = int(Hs_ola/alpha)
             
@@ -312,7 +324,7 @@ def profile_main_loop(audio_data, audio_sr, output_file="main_loop_profile.prof"
 
 if __name__ == "__main__":
     # Load audio file (replace with your 10-second file)
-    audio_file = "samples/runtime_samples/fred_50sec.wav"
+    audio_file = "samples/runtime_samples/fred_10sec.wav"
     audio_data, audio_sr = lb.load(audio_file)
     
     # Global constants from hybrid_opt.py
@@ -325,7 +337,7 @@ if __name__ == "__main__":
     den = calc_sum_squared_window(window, Hs)
     
     # Run measurements
-    runtimes = measure_main_loop(audio_data, audio_sr, iterations=100)
+    measure_main_loop(audio_data, audio_sr, iterations=200)
     
     # Run profiling
     # profile_main_loop(audio_data, audio_sr)
