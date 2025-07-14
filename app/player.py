@@ -96,6 +96,7 @@ class Player:
         for i in range(num_players):
             self.create_player_section(container, i + 1)
             self.engines[i].on_complete = self.make_on_complete(self.players[i], i, self.window)
+            self.set_frame_background(self.players[i]["frame"], "grey")
 
         bottom = Frame(self.window)
         bottom.pack(side=BOTTOM, fill=BOTH, expand=True)
