@@ -7,13 +7,14 @@ import librosa as lb
 from scipy.signal import medfilt
 import scipy.io.wavfile as wavfile
 import csv
+from numba import njit
 
 
 CHUNK = L = 2048
 L_ola = 256
 Hs = L // 4
 Hs_ola = L_ola // 2
-alpha = 1.25
+alpha = 1.00
 window = np.hanning(L)
 window_ola = np.hanning(L_ola)
 output_buffer = np.zeros(int(L))
@@ -21,7 +22,7 @@ prev_fft = None
 prev_phase = np.zeros(L//2 + 1)
 runtimes = []
 
-
+@njit
 def calc_sum_squared_window(window, hop_length):
     '''
     Calculates the denominator term for computing synthesis frames.
@@ -95,6 +96,51 @@ def harmonic_percussive_separation(x, sr=22050, fft_size = 2048, hop_length=512,
     
     return xh, xp, Xh, Xp
 
+@njit(fastmath=True)
+def pv_lookup_numba(pos, S_phase_lookup, S_mag_lookup, prev_phase, Ha_lookup, w_if_lookup, Hs, audio_sr):
+    if pos == 0:
+        prev_phase += S_phase_lookup[:, 0]  # Copy values
+        S_mod = S_mag_lookup[:, 0] * np.exp(1j * prev_phase)
+    else:
+        nn_frame = int(round(pos / Ha_lookup))
+        lb_frame = int(pos/Ha_lookup)
+        phase_increment = w_if_lookup[:, lb_frame-1] * (Hs / audio_sr)
+        prev_phase += phase_increment
+        S_mod = S_mag_lookup[:, nn_frame] * np.exp(1j * prev_phase)
+    return S_mod, prev_phase
+
+@njit
+def ola_numba(xp, pos, Ha_ola, L_ola, window_ola, output_buffer, ratio):
+    for i in range(ratio):
+        ola_win = xp[pos + (Ha_ola*i):pos +(Ha_ola*i) + L_ola]
+        ola_win_synth = ola_win * window_ola
+        offset = i * Hs_ola
+        output_buffer[offset:offset + L_ola] += ola_win_synth
+    return output_buffer
+
+@njit(fastmath=True)
+def estimateIF(S, sr, hop_samples):
+    '''
+    Estimates the instantaneous frequencies in a STFT matrix.
+    
+    Inputs
+    S: the STFT matrix, should only contain the lower half of the frequency bins
+    sr: sampling rate
+    hop_samples: the hop size of the STFT analysis in samples
+    
+    Returns a matrix containing the estimated instantaneous frequency at each time-frequency bin.
+    This matrix should contain one less column than S.
+    '''
+    hop_sec = hop_samples / sr
+    fft_size = (S.shape[0] - 1) * 2
+    w_nom = np.arange(S.shape[0]) * sr / fft_size * 2 * np.pi
+    w_nom = w_nom.reshape((-1,1))    
+    unwrapped = np.angle(S[:,1:]) - np.angle(S[:,0:-1]) - w_nom * hop_sec
+    wrapped = (unwrapped + np.pi) % (2 * np.pi) - np.pi
+    w_if = w_nom + wrapped / hop_sec
+    return w_if
+        
+@njit(nogil=True, fastmath=True)
 def float2pcm(sig, dtype='int16'):
     # assert sig <= 1 and sig >= -1, "Data must be normalized between -1.0 and 1.0"
     sig = np.asarray(sig)
@@ -151,6 +197,15 @@ saved_frames = []
 Ha = 0
 
 ratio = Hs//Hs_ola
+beta = 0.125
+
+#Phase vocoder Look-up
+Ha_lookup = int(round(beta*L))
+S_lookup = lb.core.stft(audio_data, n_fft=L, hop_length=Ha_lookup, center=False) # shape = (1 + n_fft/2, n_frames)
+S_phase_lookup = np.angle(S_lookup)
+S_mag_lookup = np.abs(S_lookup)
+w_if_lookup = estimateIF(S_lookup, audio_sr, Ha_lookup)
+prev_phase = np.zeros(S_lookup.shape[0])  # Match STFT bin count
 
 try:
     while pos <= len(xh) - L:
@@ -161,20 +216,14 @@ try:
 
         # Phase Vocoder       
         # STFT processing
-        pv_win = xh[pos:pos+L] * window
-        S = np.fft.rfft(pv_win)
-        magnitude = np.abs(S)
-        if prev_fft is not None:
-            dphi = np.angle(S) - np.angle(prev_fft)
-            dphi = dphi - omega_nom * (Ha/audio_sr)
-            dphi = (dphi + np.pi) % (2*np.pi) - np.pi
-            w_if = omega_nom + dphi * (audio_sr/Ha)
-            prev_phase += w_if * (Hs/audio_sr)
-        else:
-            prev_phase = np.angle(S)
+        X_mod, prev_phase = pv_lookup_numba(
+                pos, S_phase_lookup, S_mag_lookup, 
+                prev_phase, Ha_lookup, w_if_lookup,
+                Hs, audio_sr  # Add these parameters
+            )
         
-        X_mod = magnitude * np.exp(1j * prev_phase)
         pv_frame_mod = np.fft.irfft(X_mod)
+        pv_frame_mod = float2pcm(np.array(pv_frame_mod))
 
         #shift and add to stream
         output_buffer[:-Hs] = output_buffer[Hs:]
@@ -182,19 +231,11 @@ try:
         output_buffer += pv_frame_mod * (window.reshape((-1, 1))/den.reshape((-1,1))).flatten()
 
 
-        for i in range(ratio):
-            ola_win = xp[pos + (Ha_ola*i):pos +(Ha_ola*i) + L_ola]
-            ola_win_synth = ola_win * window_ola
-            offset = i * Hs_ola
-            output_buffer[offset:offset + L_ola] += ola_win_synth
+        output_buffer = ola_numba(xp, pos, Ha_ola, L_ola, window_ola, output_buffer, ratio)
     
         output_buffer = np.clip(output_buffer, -32768, 32767)  # 16-bit range
         # runtimes.append(end_time - start_time)
         stream.write(output_buffer[:Hs].astype(np.int16).tobytes())
-
-        saved_frames.append(output_buffer[:Hs].astype(np.int16).copy())
-
-        prev_fft = S
         pos += Ha
 
 except KeyboardInterrupt:
@@ -212,7 +253,3 @@ if saved_frames:
     # Save as WAV
     wavfile.write(saving_filepath + "realtime_test.wav", audio_sr, full_audio)
     print(f"\nSaved processed audio to {saving_filepath}")
-
-print(f"\nL = {L}")
-print(f"\nHs = {Hs}")
-print(f"\nHa = {Ha}")

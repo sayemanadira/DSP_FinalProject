@@ -7,13 +7,14 @@ import librosa as lb
 from scipy.signal import medfilt
 import scipy.io.wavfile as wavfile
 import csv
+from numba import njit
 
 
 CHUNK = L = 2048
 L_ola = 256
 Hs = L // 4
 Hs_ola = L_ola // 2
-alpha = 1.25
+alpha = 1.00
 window = np.hanning(L)
 window_ola = np.hanning(L_ola)
 output_buffer = np.zeros(int(L))
@@ -21,7 +22,7 @@ prev_fft = None
 prev_phase = np.zeros(L//2 + 1)
 runtimes = []
 
-
+@njit
 def calc_sum_squared_window(window, hop_length):
     '''
     Calculates the denominator term for computing synthesis frames.
@@ -95,6 +96,31 @@ def harmonic_percussive_separation(x, sr=22050, fft_size = 2048, hop_length=512,
     
     return xh, xp, Xh, Xp
 
+@njit
+def pv_numba(omega_nom, Ha, prev_fft, prev_phase, S):
+    magnitude = np.abs(S)
+    if prev_fft is not None:
+        dphi = np.angle(S) - np.angle(prev_fft)
+        dphi = dphi - omega_nom * (Ha/audio_sr)
+        dphi = (dphi + np.pi) % (2*np.pi) - np.pi
+        w_if = omega_nom + dphi * (audio_sr/Ha)
+        prev_phase += w_if * (Hs/audio_sr)
+    else:
+        prev_phase = np.angle(S)
+    X_mod = magnitude * np.exp(1j * prev_phase)
+    return X_mod, prev_phase
+
+@njit
+def ola_numba(xp, pos, Ha_ola, L_ola, window_ola, output_buffer, ratio):
+    for i in range(ratio):
+        ola_win = xp[pos + (Ha_ola*i):pos +(Ha_ola*i) + L_ola]
+        ola_win_synth = ola_win * window_ola
+        offset = i * Hs_ola
+        output_buffer[offset:offset + L_ola] += ola_win_synth
+    return output_buffer
+
+        
+@njit(nogil=True, fastmath=True)
 def float2pcm(sig, dtype='int16'):
     # assert sig <= 1 and sig >= -1, "Data must be normalized between -1.0 and 1.0"
     sig = np.asarray(sig)
@@ -163,17 +189,7 @@ try:
         # STFT processing
         pv_win = xh[pos:pos+L] * window
         S = np.fft.rfft(pv_win)
-        magnitude = np.abs(S)
-        if prev_fft is not None:
-            dphi = np.angle(S) - np.angle(prev_fft)
-            dphi = dphi - omega_nom * (Ha/audio_sr)
-            dphi = (dphi + np.pi) % (2*np.pi) - np.pi
-            w_if = omega_nom + dphi * (audio_sr/Ha)
-            prev_phase += w_if * (Hs/audio_sr)
-        else:
-            prev_phase = np.angle(S)
-        
-        X_mod = magnitude * np.exp(1j * prev_phase)
+        X_mod, prev_phase = pv_numba(omega_nom, Ha, prev_fft, prev_phase, S)
         pv_frame_mod = np.fft.irfft(X_mod)
 
         #shift and add to stream
@@ -182,18 +198,16 @@ try:
         output_buffer += pv_frame_mod * (window.reshape((-1, 1))/den.reshape((-1,1))).flatten()
 
 
-        for i in range(ratio):
-            ola_win = xp[pos + (Ha_ola*i):pos +(Ha_ola*i) + L_ola]
-            ola_win_synth = ola_win * window_ola
-            offset = i * Hs_ola
-            output_buffer[offset:offset + L_ola] += ola_win_synth
+        output_buffer = ola_numba(xp, pos, Ha_ola, L_ola, window_ola, output_buffer, ratio)
+        # for i in range(ratio):
+        #     ola_win = xp[pos + (Ha_ola*i):pos +(Ha_ola*i) + L_ola]
+        #     ola_win_synth = ola_win * window_ola
+        #     offset = i * Hs_ola
+        #     output_buffer[offset:offset + L_ola] += ola_win_synth
     
         output_buffer = np.clip(output_buffer, -32768, 32767)  # 16-bit range
         # runtimes.append(end_time - start_time)
         stream.write(output_buffer[:Hs].astype(np.int16).tobytes())
-
-        saved_frames.append(output_buffer[:Hs].astype(np.int16).copy())
-
         prev_fft = S
         pos += Ha
 
