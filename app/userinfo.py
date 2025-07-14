@@ -2,11 +2,16 @@ import glob
 import random
 import datetime
 import time
+import os, sys
+
 from pymongo import MongoClient
+# client = AsyncMongoClient()
+# from pymongo import MongoClient
 from pymongo.server_api import ServerApi
 
 # === MongoDB Setup ===
-uri = "mongodb+srv://clarkipeng:s2eNNVECeTuRQN4L@cluster0.bkjusqg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+# uri = "mongodb+srv://clarkipeng:s2eNNVECeTuRQN4L@cluster0.bkjusqg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+uri = "mongodb+srv://app_user:mhL5IrOgOlh1Xp2P@cluster0.bkjusqg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 client = MongoClient(uri, server_api=ServerApi('1'))
 
 try:
@@ -18,20 +23,38 @@ except Exception as e:
 
 users_collection = client.stuff.users
 
+
+# === PyInstaller Helper ===
+def get_resource_path(relative_path):
+    """Get the absolute path to a resource, whether frozen or not."""
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.abspath("."), relative_path)
 # === Generate All Possible Tasks (filename + engine pairs) ===
 
-engine_pairs = [("Hybrid","PV"),
-                ("Hybrid","OPT0.25"),
+engine_pairs = [("Hybrid","Hybrid"),
+                ("Hybrid","PV"),
+                ("Hybrid","OPT0.2"),
+                ("Hybrid","OPT0.3"),
+                ("Hybrid","OPT0.4"),
                 ("Hybrid","OPT0.5"),
-                ("Hybrid","OPT1.0"),
-                ("Hybrid","OPT2.0")]
+                ("Hybrid","OPT0.6"),
+                ("Hybrid","OPT0.7"),]
 def get_all_tasks():
-    files = sorted(glob.glob('../samples/genres_original/*/*.wav'))
+    # Use resource_path to find the samples folder correctly
+    samples_dir = get_resource_path("samples/genres_original")
+    print(os.listdir(samples_dir), samples_dir)
+    glob_pattern = os.path.join(samples_dir, '*/*.wav')
+    files = sorted(glob.glob(glob_pattern))
     return [(f, sorted(pair)) for f in files for pair in engine_pairs]
 
 
 def get_user_info(user_id):
-    total_files = sorted(glob.glob('../samples/genres_original/*/*.wav'))
+    # Use resource_path to find the samples folder correctly
+    samples_dir = get_resource_path("samples/genres_original")
+    print(os.listdir(samples_dir), samples_dir)
+    glob_pattern = os.path.join(samples_dir, '*/*.wav')
+    total_files = sorted(glob.glob(glob_pattern))
     user = UserInfo(user_id, total_files)
     user.get_seen()
     return user

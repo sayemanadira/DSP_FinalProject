@@ -8,3 +8,9 @@ runtime_analysis/**
 echo "hybrid_runtime_pv.py"
 
 output/**
+
+*/__pycache__
+*/.DS_Store
+app/build/
+app/dist/
+app/hooks/

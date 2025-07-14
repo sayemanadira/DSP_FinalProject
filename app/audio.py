@@ -12,7 +12,14 @@ import tempfile
 import os
 import subprocess
 import tempfile
-import os
+import os, sys
+
+# === PyInstaller Helper ===
+def get_resource_path(relative_path):
+    """Get the absolute path to a resource, whether frozen or not."""
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.abspath("."), relative_path)
 
 def convert_to_pcm16_wav(input_path):
     # Create a temporary output file with .wav suffix
@@ -21,8 +28,10 @@ def convert_to_pcm16_wav(input_path):
     output_path = tmp.name
 
     # FFmpeg command to convert to 16-bit PCM WAV, mono, 48kHz
+    ffmpeg_path = get_resource_path("ffmpeg")
+    
     cmd = [
-        "ffmpeg",
+        ffmpeg_path,
         "-y",                   # overwrite existing file
         "-i", input_path,       # input file
         "-t", "10",

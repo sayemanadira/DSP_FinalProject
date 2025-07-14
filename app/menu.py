@@ -28,12 +28,13 @@ class MainMenu:
 
         # Insert your commentary/instructions
         instruction_text = (
-            "Welcome! Your job is to evaluate the quality of several music signal procesing algorithms.\n\n"
-            "Time-scale modification (TSM) is the process of changing the tempo of a music recording, ideally without affecting other musical aspects like pitch or sound quality.\n\n"
-            "We would like you to evaluate pairs of TSM algorithms by playing with the speed slider, and then select which one sounds better.\n\n"
-            "Note that the selection of algorithms is different on each page.\n\n"
-            "Use the play buttons to listen and the pick buttons to make your choice.\n\n"
-            "Once you've selected which option you think is better, press Submit to continue."
+            "Thank you for participating in our study! \n"
+            "Please put your first and last name as your User ID, e.g. \"michaeljackson\" then press \"Enter\" to start.\n\n"
+            "Your task is to compare two audio algorithms that change music speed.\n\n"
+            "1. Use the 'Play' buttons and 'Adjust Speed' sliders to listen to each option.\n"
+            "2. Click 'Pick' for the one that sounds better to you.\n"
+            "3. If they sound the same, use the 'Sound the Same' button.\n"
+            "4. Click 'Submit' to save your choice and move to the next pair."
         )
         self.instructions.insert(END, instruction_text)
         self.instructions.config(state=DISABLED)  # Make it read-only
