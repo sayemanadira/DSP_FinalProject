@@ -1,3 +1,4 @@
+import tkinter as tk
 from tkinter import (
     Toplevel, Label, Scale, HORIZONTAL, Button, Frame,
     LEFT, BOTTOM, BOTH, DISABLED, NORMAL, TOP, CENTER
@@ -55,15 +56,14 @@ class Player:
         self.engines, self.engine_names = self.prepare_engines(engine_pair)
         self.alphas = [1.0] * len(self.engines)
 
+        self.choice_vars = []
         self.setup_players()
 
     def setup_instruction(self):
         instruction_text = (
-            "Thank you for participating in our study! \n"
-            "Your task is to compare two audio algorithms that change music speed.\n\n"
-            "1. Use the 'Play' buttons and 'Adjust Speed' sliders to listen to each option.\n"
-            "2. Click 'Pick' for the one that sounds better to you.\n"
-            "3. If they sound the same, use the 'Sound the Same' button.\n"
+            "1. Try to find the option with the fewest audio artifacts\n"
+            "2. Move the 'Adjust Tempo' slider in real-time while listening\n"
+            "3. Check the box for choice that you most aligned with\n"
             "4. Click 'Submit' to save your choice and move to the next pair."
         )
 
@@ -97,33 +97,37 @@ class Player:
             self.create_player_section(container, i + 1)
             self.engines[i].on_complete = self.make_on_complete(self.players[i], i, self.window)
 
-            # if i == num_players // 2 - 1:
-            #     self.same_btn = Button(container, text="Models Sound the Same", command=self.toggle_same)
-            #     self.same_btn.pack(side=LEFT, padx=20, pady=10)
-
         bottom = Frame(self.window)
         bottom.pack(side=BOTTOM, fill=BOTH, expand=True)
-        
-        controls = Frame(bottom)
-        controls.pack()
 
-        self.pick_buttons = []
-        i=0
-        pick_btn = Button(controls, text=f"Pick Player {i + 1}", command=lambda i=i: self.toggle_choice(i + 1))
-        pick_btn.pack(side=LEFT, padx=10)
-        self.pick_buttons.append(pick_btn)
-        self.same_btn = Button(controls, text="Sound the Same", command=self.toggle_same)
-        self.same_btn.pack(side=LEFT, padx=20)
-        i=1
-        pick_btn = Button(controls, text=f"Pick Player {i + 1}", command=lambda i=i: self.toggle_choice(i + 1))
-        pick_btn.pack(side=LEFT, padx=10)
-        self.pick_buttons.append(pick_btn)
+        # controls = Frame(bottom)
+        # controls.pack()
+        # Create radio-style checkboxes
+        self.choice_vars = [tk.BooleanVar() for _ in range(3)]
 
+        # Container for choices
+        choice_frame = Frame(bottom)
+        choice_frame.pack(pady=10)
+
+        self.choice_checkbuttons = []
+
+        labels = ["Player 1", "Player 2", "Sound the Same"]
+        for i, label in enumerate(labels):
+            cb = tk.Checkbutton(
+                choice_frame,
+                text=label,
+                variable=self.choice_vars[i],
+                command=lambda idx=i: self.handle_choice_selection(idx)
+            )
+            cb.pack(side=LEFT, padx=20)
+            self.choice_checkbuttons.append(cb)
+
+        # Submit button
         self.submit_btn = Button(bottom, text="Submit", command=self.submit_choice, state=DISABLED)
         self.submit_btn.pack(pady=10)
 
     def create_player_section(self, parent, index):
-        frame = Frame(parent, bd=2, relief="groove", padx=10, pady=10, bg="grey")
+        frame = Frame(parent, bd=2, relief="groove", padx=10, pady=10)  # ← no bg argument
         frame.pack(side=LEFT, padx=10, pady=10)
 
         Label(frame, text=f"Player {index}", font=("Arial", 12, "bold")).pack()
@@ -137,7 +141,7 @@ class Player:
             to=math.log(0.5),
             resolution=0.001,
             orient=HORIZONTAL,
-            label="Adjust Speed",
+            label="Adjust Tempo",
             showvalue=0,
             command=lambda val, i=index, fl=factor_label: self.update_alpha(i, math.exp(float(val)), fl)
         )
@@ -147,17 +151,14 @@ class Player:
         play_btn = Button(frame, text="Play", command=lambda i=index: self.toggle_stop(i))
         play_btn.pack(pady=5)
 
-        # pick_btn = Button(frame, text="Pick", command=lambda i=index: self.toggle_choice(i))
-        # pick_btn.pack(pady=5)
-
         self.players.append({
             "frame": frame,
             "factor_slider": slider,
             "stop_button": play_btn,
-            # "choice_button": pick_btn,
             "chose": False,
             "stopped": True,
         })
+
 
     def update_alpha(self, player_idx, value, label):
         label.config(text=f"Factor: {(1 / value):.1f}")
@@ -165,6 +166,13 @@ class Player:
         if self.current_playing == player_idx - 1 and self.engine:
             self.engine.set_alpha(value)
 
+    def set_frame_background(self, frame, color):
+        frame.config(bg=color)
+        for widget in frame.winfo_children():
+            try:
+                widget.config(bg=color)
+            except:
+                pass  # Some widgets may not support bg config (like Scale label), safe to skip
     def toggle_stop(self, player_idx):
         player = self.players[player_idx - 1]
 
@@ -177,7 +185,8 @@ class Player:
 
         player["stopped"] = False
         player["stop_button"].config(text="Stop")
-        player["frame"].config(bg="green")
+        # player["frame"].config(bg="green")
+        self.set_frame_background(player["frame"], "green")
 
         self.current_playing = player_idx - 1
         self.engine = self.engines[self.current_playing]
@@ -187,53 +196,55 @@ class Player:
     def stop_engine(self, player):
         player["stopped"] = True
         player["stop_button"].config(text="Play")
-        player["frame"].config(bg="grey")
+        # player["frame"].config(bg="grey")
+        self.set_frame_background(player["frame"], "grey")
         if self.engine:
             self.safe_stop_engine()
             self.engine = None
         self.current_playing = -1
-
-    def toggle_choice(self, player_idx):
-        idx = player_idx - 1
-        player = self.players[idx]
-
-
-        if self.current_choice == idx:
-            player["chose"] = False
-            self.pick_buttons[player_idx - 1].config(text=f"Pick Player {player_idx}")
+    
+    def handle_choice_selection(self, selected_idx):
+        for i, var in enumerate(self.choice_vars):
+            var.set(i == selected_idx)
+        
+        if selected_idx == 2:
+            self.same_selected = True
             self.current_choice = -1
         else:
-            if self.current_choice != -1:
-                prev = self.players[self.current_choice]
-                prev["chose"] = False
-                self.pick_buttons[self.current_choice].config(text=f"Pick Player {self.current_choice+1}")
+            self.same_selected = False
+            self.current_choice = selected_idx
+        
+        self.submit_btn.config(state=NORMAL)
 
-            player["chose"] = True
-            self.pick_buttons[player_idx - 1].config(text=f"Unpick Player {player_idx}")
+    def toggle_choice(self, player_idx, var):
+        idx = player_idx - 1
+
+        if var.get():
+            # Uncheck all others
+            for i, v in enumerate(self.choice_vars):
+                if i != idx:
+                    v.set(False)
             self.current_choice = idx
-
-        if self.same_selected:
             self.same_selected = False
             self.same_btn.config(text="Sound the Same")
-
-        self.submit_btn.config(state=NORMAL if self.current_choice != -1 else DISABLED)
+            self.submit_btn.config(state=NORMAL)
+        else:
+            self.current_choice = -1
+            self.submit_btn.config(state=DISABLED)
 
     def toggle_same(self):
         self.same_selected = not self.same_selected
 
         if self.same_selected:
-            if self.current_choice != -1:
-                prev = self.players[self.current_choice]
-                prev["chose"] = False
-                # prev["choice_button"].config(text="Pick")
-                self.pick_buttons[self.current_choice].config(text=f"Pick Player {self.current_choice+1}")
-                self.current_choice = -1
-
             self.same_btn.config(text="Not the Same")
+            for var in self.choice_vars:
+                var.set(False)
+            self.current_choice = -1
             self.submit_btn.config(state=NORMAL)
         else:
             self.same_btn.config(text="Sound the Same")
             self.submit_btn.config(state=DISABLED)
+
 
     def submit_choice(self):
         choice = "SAME" if self.same_selected else self.engine_names[self.current_choice]
@@ -256,6 +267,7 @@ class Player:
 
         self.init_everything()
 
+
     def make_on_complete(self, player, idx, window):
         return lambda: window.after(0, lambda: self._on_engine_end(player, idx))
 
@@ -263,7 +275,8 @@ class Player:
         try:
             player["stopped"] = True
             player["stop_button"].config(text="Play")
-            player["frame"].config(bg="grey")
+            # player["frame"].config(bg="grey")
+            self.set_frame_background(player["frame"], "grey")
             if idx == self.current_playing:
                 self.safe_stop_engine()
                 self.current_playing = -1

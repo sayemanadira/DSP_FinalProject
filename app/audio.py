@@ -34,7 +34,7 @@ def convert_to_pcm16_wav(input_path):
         ffmpeg_path,
         "-y",                   # overwrite existing file
         "-i", input_path,       # input file
-        "-t", "10",
+        "-t", "30",
         "-acodec", "pcm_s16le", # 16-bit PCM
         "-ac", "1",             # mono
         "-ar", "22160",         # sample rate 48kHz

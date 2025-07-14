@@ -1,7 +1,7 @@
 # -*- mode: python ; coding: utf-8 -*-
 from PyInstaller.utils.hooks import collect_all
 
-datas = [('samples', 'samples'), ('./ffmpeg', '.')]
+datas = [('samples', 'samples'), ('.\\ffmpeg.exe', '.')]
 binaries = []
 hiddenimports = ['player', 'audio', 'userinfo']
 tmp_ret = collect_all('librosa')
