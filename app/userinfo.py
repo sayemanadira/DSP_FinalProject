@@ -32,14 +32,20 @@ def get_resource_path(relative_path):
     return os.path.join(os.path.abspath("."), relative_path)
 # === Generate All Possible Tasks (filename + engine pairs) ===
 
-engine_pairs = [("Hybrid","Hybrid"),
+engine_pairs = [
+                ("Hybrid","Hybrid"),
                 ("Hybrid","PV"),
-                ("Hybrid","OPT0.2"),
-                ("Hybrid","OPT0.3"),
-                ("Hybrid","OPT0.4"),
-                ("Hybrid","OPT0.5"),
-                ("Hybrid","OPT0.6"),
-                ("Hybrid","OPT0.7"),]
+                ("Hybrid","OPT0.001")
+                # ("Hybrid","OPT0.033"),
+                # ("Hybrid","OPT0.075"),
+                # ("Hybrid","OPT0.125"),
+                # ("Hybrid","OPT0.2"),
+                # ("Hybrid","OPT0.3"),
+                # ("Hybrid","OPT0.4"),
+                # ("Hybrid","OPT0.5"),
+                # ("Hybrid","OPT0.6"),
+                # ("Hybrid","OPT0.7"),
+                ]
 def get_all_tasks():
     # Use resource_path to find the samples folder correctly
     samples_dir = get_resource_path("samples/genres_original")

@@ -394,10 +394,10 @@ class HybridEngine(EngineBase):
                 
 
 class OPTEngine(EngineBase):
-    def __init__(self, filename, min_alpha=0.3, on_complete=None):
+    def __init__(self, filename, beta=0.125, on_complete=None):
         super().__init__(filename, fft_size=2048, on_complete=on_complete)
 
-        self.min_alpha = min_alpha
+        self.beta = beta
         self.L_ola = 256
         self.Hs_ola = self.L_ola // 2
         self.prev_phase = None
@@ -428,12 +428,12 @@ class OPTEngine(EngineBase):
         self.xp = self.float2pcm(xp).astype(np.int16)
 
         # Precompute STFT, phase and IF lookup for time-varying alpha
-        min_Ha = int(round(self.Hs / self.min_alpha))
+        Ha_lookup = int(round(self.beta * self.L))
 
-        S_lookup = lb.core.stft(x, n_fft=self.L, hop_length=min_Ha, center=False)
+        S_lookup = lb.core.stft(x, n_fft=self.L, hop_length=Ha_lookup, center=False)
         self.S_phase_lookup = np.angle(S_lookup)
         self.S_mag_lookup = np.abs(S_lookup)
-        self.w_if_lookup = self.estimate_instantaneous_frequency(S_lookup, self.audio_sr, min_Ha)
+        self.w_if_lookup = self.estimate_instantaneous_frequency(S_lookup, self.audio_sr, Ha_lookup)
 
         self.den = self.calc_sum_squared_window(self.window, self.Hs)
 
@@ -486,19 +486,21 @@ class OPTEngine(EngineBase):
 
     def _run(self):
         pos = 0
-        min_Ha = int(self.Hs / self.min_alpha)
+        Ha_lookup = int(round(self.beta* self.L))
+        ratio = self.Hs // self.Hs_ola
+        windowOLA = np.hanning(self.L_ola)
 
         try:
             while self.running and pos <= len(self.xh) - self.L:
-                Ha = int(self.Hs / self.alpha)
-                Ha_ola = int(self.Hs_ola / self.alpha)
+                Ha = int(round(self.Hs / self.alpha))
+                Ha_ola = int(round(self.Hs_ola / self.alpha))
 
                 if pos == 0:
                     self.prev_phase = self.S_phase_lookup[:, 0]
                     S_mod = self.S_mag_lookup[:, 0] * np.exp(1j * self.prev_phase)
                 else:
-                    nn_frame = int(round(pos / min_Ha))
-                    lb_frame = int(pos / min_Ha)
+                    nn_frame = int(round(pos / Ha_lookup))
+                    lb_frame = int(pos / Ha_lookup)
                     phase_increment = self.w_if_lookup[:, lb_frame-1] * (self.Hs / self.audio_sr)
                     self.prev_phase += phase_increment
                     S_mod = self.S_mag_lookup[:, nn_frame] * np.exp(1j * self.prev_phase)
@@ -510,16 +512,14 @@ class OPTEngine(EngineBase):
                 self.output_buffer += pv_frame_mod * (self.window.reshape((-1,1)) / self.den.reshape((-1,1))).flatten()
 
                 # OLA synthesis
-                ola_y = np.zeros(self.L)
-                ratio = self.Hs // self.Hs_ola
                 for i in range(ratio):
                     start_i = pos + Ha_ola * i
                     if start_i + self.L_ola > len(self.xp):
                         continue
                     ola_win = self.xp[start_i:start_i + self.L_ola]
-                    ola_y[i * self.Hs_ola:i * self.Hs_ola + self.L_ola] += ola_win * np.hanning(self.L_ola)
+                    self.output_buffer[i * self.Hs_ola:i * self.Hs_ola + self.L_ola] += ola_win * windowOLA
 
-                self.output_buffer += ola_y
+                # self.output_buffer += ola_y
                 self.output_buffer = np.clip(self.output_buffer, -32768, 32767)
                 self.stream.write(self.output_buffer[:self.Hs].astype(np.int16).tobytes())
 

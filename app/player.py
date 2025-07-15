@@ -21,6 +21,10 @@ engine_map = {
     "OPT0.5": OPTEngine,
     "OPT0.6": OPTEngine,
     "OPT0.7": OPTEngine,
+    "OPT0.001": OPTEngine,
+    "OPT0.033": OPTEngine,
+    "OPT0.075": OPTEngine,
+    "OPT0.125": OPTEngine,
 }
 
 
@@ -81,7 +85,7 @@ class Player:
             engine_class = engine_map[name]
             if name.startswith("OPT"):
                 alpha = float(name[3:])
-                engines.append(engine_class(self.filename, min_alpha=alpha))
+                engines.append(engine_class(self.filename, beta=alpha))
             else:
                 engines.append(engine_class(self.filename))
 
