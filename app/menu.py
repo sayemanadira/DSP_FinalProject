@@ -29,16 +29,15 @@ class MainMenu:
 
         # Insert your commentary/instructions
         instruction_text = (
-            "Thank you for participating in our study! \n"
-            "You have randomly been assigned a User ID, please do not change this and write it down if you plan to leave and continue the study another time\n\n"
+            "Thank you for participating in our study! \n\n"
+            "You have randomly been assigned a User ID, Please write this down on the provided sticky note in case your session closes unexpectedly\n\n"
             "In this study, you will compare audio algorithms that change music speed without altering the audio quality.\n\n"
             "You will be asked to rate which audio algorithm produces the least amount of artifacts in their output\n\n"
             "1. Use the 'Play' buttons to play the audio samples\n"
 			"2. Use the interactive 'Adjust Tempo' slider to change the musical speed when the snippet is playing.\n"
-            "2. Check the box for the option that sounds better to you.\n"
-            "3. If they sound the same, check the 'Sound the Same' box.\n"
-            "4. Click 'Submit' to save your choice and move to the next pair.\n"
-			"The session lasts 30 minutes. Close the app when you are done.\n"
+            "3. Check the box to indicate which player has the best quality, or whether they both sound the same\n"
+            "4. Click 'Submit' to save your choice and move to the next pair.\n\n"
+			"The session lasts 30 minutes. Close the app when you are done.\n\n"
 			"Questions? Contact us via email or ask us in person!\n"
         )
         self.instructions.insert(END, instruction_text)

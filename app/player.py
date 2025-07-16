@@ -70,9 +70,10 @@ class Player:
 
     def setup_instruction(self):
         instruction_text = (
+            "Which player has better quality?\n"
             "1. Try to find the option with the fewest audio artifacts\n"
             "2. Move the 'Adjust Tempo' slider in real-time while listening\n"
-            "3. Check the box for choice that you most aligned with\n"
+            "3. Check the box to indicate which player has the best quality, or whether they both sound the same\n"
             "4. Click 'Submit' to save your choice and move to the next pair."
         )
 

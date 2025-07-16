@@ -73,6 +73,7 @@ class UserInfo:
         self._current_task_start = None  # 🕒 per-task timer
         self._load_or_create_user()
 
+
     def _load_or_create_user(self):
         row = users_collection.find_one({"id": self.id})
         if row:
@@ -104,7 +105,7 @@ class UserInfo:
             {"id": self.id},
             {"$set": {"completed_tasks": self.completed_tasks}}
         )
-        print(f"📥 Logged: {task_id} → {chosen_engine} (⏱ {duration}s)")
+        # print(f"📥 Logged: {task_id} → {chosen_engine} (⏱ {duration}s)")
 
 
     def get_next_task(self):
