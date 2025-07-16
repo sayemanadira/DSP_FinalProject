@@ -35,16 +35,15 @@ def get_resource_path(relative_path):
 engine_pairs = [
                 ("Hybrid","Hybrid"),
                 ("Hybrid","PV"),
-                ("Hybrid","OPT0.001")
-                # ("Hybrid","OPT0.033"),
-                # ("Hybrid","OPT0.075"),
-                # ("Hybrid","OPT0.125"),
+                ("Hybrid","OPT0.35"),
+                # ("Hybrid","OPT0.08"),
+                ("Hybrid","OPT0.25"),
                 # ("Hybrid","OPT0.2"),
-                # ("Hybrid","OPT0.3"),
-                # ("Hybrid","OPT0.4"),
-                # ("Hybrid","OPT0.5"),
-                # ("Hybrid","OPT0.6"),
-                # ("Hybrid","OPT0.7"),
+                ("Hybrid","OPT0.3"),
+                ("Hybrid","OPT0.4"),
+                ("Hybrid","OPT0.5"),
+                ("Hybrid","OPT0.6"),
+                ("Hybrid","OPT0.7")
                 ]
 def get_all_tasks():
     # Use resource_path to find the samples folder correctly
@@ -52,6 +51,7 @@ def get_all_tasks():
     print(os.listdir(samples_dir), samples_dir)
     glob_pattern = os.path.join(samples_dir, '*/*.wav')
     files = sorted(glob.glob(glob_pattern))
+    # files = ["samples/genres_original/classical/classical.00070.wav"]
     return [(f, sorted(pair)) for f in files for pair in engine_pairs]
 
 

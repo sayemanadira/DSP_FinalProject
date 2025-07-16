@@ -161,22 +161,12 @@ den = calc_sum_squared_window(window, Hs)
 
 #Phase vocoder Look-up
 Ha_lookup = int(round((1 - beta)*L))
-S_lookup = lb.core.stft(audio_data, n_fft=L, hop_length=Ha_lookup, center=False, win_length=L) # shape = (1 + n_fft/2, n_frames)
+S_lookup = lb.core.stft(xh, n_fft=L, hop_length=Ha_lookup, center=False, win_length=L) # shape = (1 + n_fft/2, n_frames)
 S_phase_lookup = np.angle(S_lookup)
 S_mag_lookup = np.abs(S_lookup)
 w_if_lookup = estimateIF(S_lookup, audio_sr, Ha_lookup)
 prev_phase = None
-
-#OLA Look-up (?)
 ratio = Hs//Hs_ola
-Ha_lookup_ola = int(round(beta*L_ola))
-precomp_pos = 0
-OLA_frame_lookup = []
-while precomp_pos <= len(xp) - L_ola:
-    OLA_frame_lookup.append(xp[precomp_pos:precomp_pos+L_ola] * window_ola)
-    precomp_pos += 1
-
-OLA_offsets = [i*Hs_ola for i in range(ratio)]
 
 # To save audio file
 output_filename = f"output/output_{beta}.wav"  # Name of the output file
@@ -205,7 +195,7 @@ try:
         else:
             nn_frame = int(round(pos / Ha_lookup))  # lookup is always based on min_Ha
             lb_frame = int(pos/Ha_lookup)
-            phase_increment = w_if_lookup[:, lb_frame-1] * (Hs / audio_sr)
+            phase_increment = w_if_lookup[:, nn_frame-1] * (Hs / audio_sr)
             prev_phase += phase_increment  # Update phase correctly for current alpha
             S_mod = S_mag_lookup[:, nn_frame] * np.exp(1j * prev_phase)
 
@@ -238,6 +228,9 @@ try:
         # output_frames.append(float2pcm(output_buffer[:Hs]).astype(np.int16).copy())  # Store the chunk
         # print(pos//Ha)
         # prev_fft = S
+    
+        # phase_dev = np.std(np.diff(prev_phase[:bass_bin]))
+        # print(f"Bass phase deviation: {phase_dev:.3f} radians")
         pos += Ha
 
 except KeyboardInterrupt:
