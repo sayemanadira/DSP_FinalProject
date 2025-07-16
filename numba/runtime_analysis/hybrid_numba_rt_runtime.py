@@ -254,20 +254,19 @@ def measure_main_loop_OPT(audio_data, audio_sr, alpha, iterations=100):
         # print(f"Iteration {iteration+1}/{iterations}: {tot_runtimes[-1]:.5f} seconds")
     
     # Calculate statistics
-    avg_runtime_pv = np.mean(pv_runtimes[-100:])
-    avg_runtime_ola = np.mean(ola_runtimes[-100:])
-    std_de_pv = np.std(pv_runtimes[-100:]) if len(pv_runtimes[-100:]) > 1 else 0
-    std_de_ola = np.std(ola_runtimes[-100:]) if len(ola_runtimes[-100:]) > 1 else 0
+    avg_runtime_pv = np.mean(pv_runtimes[-200:])
+    avg_runtime_ola = np.mean(ola_runtimes[-200:])
+    std_de_pv = np.std(pv_runtimes[-200:]) if len(pv_runtimes[-200:]) > 1 else 0
+    std_de_ola = np.std(ola_runtimes[-200:]) if len(ola_runtimes[-200:]) > 1 else 0
     print("\nOPT - Main Loop Results:")
     print(f"Average runtime (PV): {avg_runtime_pv:.5f} seconds, std ")
     print(f"Standard deviation (PV): {std_de_pv:.5f} seconds")
     print(f"Average runtime (OLA): {avg_runtime_ola:.5f} seconds")
     print(f"Standard deviation (OLA): {std_de_ola:.5f} seconds")
-    print(f"Num of iteratons: {len(pv_runtimes[-100:])}")
-    print(f"Avg total time for {iterations} iterations: {statistics.mean(tot_runtimes[-100:]):.5f} seconds")
-    print(f"Std dev total time for {iterations} iterations: {statistics.stdev(tot_runtimes[-100:]):.5f} seconds")
+    num_iterations = len(pv_runtimes[-200:])
+    print(f"Avg total time for {num_iterations} iterations: {statistics.mean(tot_runtimes[-200:]):.5f} seconds")
+    print(f"Std dev total time for {num_iterations} iterations: {statistics.stdev(tot_runtimes[-200:]):.5f} seconds")
 
-print("Precomputing data for measurements...")
     
 # Harmonic-percussive separation (precomputed once)
 
@@ -337,18 +336,18 @@ def measure_main_loop_BASELINE(audio_data, audio_sr, alpha, iterations=100):
         # print(f"Iteration {iteration+1}/{iterations}: {tot_runtimes[-1]:.5f} seconds")
     
     # Calculate statistics
-    avg_runtime_pv = np.mean(pv_runtimes[-100:])
-    avg_runtime_ola = np.mean(ola_runtimes[-100:])
-    std_de_pv = np.std(pv_runtimes[-100:]) if len(pv_runtimes[-100:]) > 1 else 0
-    std_de_ola = np.std(ola_runtimes[-100:]) if len(ola_runtimes[-100:]) > 1 else 0
+    avg_runtime_pv = np.mean(pv_runtimes[-200:])
+    avg_runtime_ola = np.mean(ola_runtimes[-200:])
+    std_de_pv = np.std(pv_runtimes[-200:]) if len(pv_runtimes[-200:]) > 1 else 0
+    std_de_ola = np.std(ola_runtimes[-200:]) if len(ola_runtimes[-200:]) > 1 else 0
     print("\nBASELINE - Main Loop Results:")
     print(f"Average runtime (PV): {avg_runtime_pv:.5f} seconds, std ")
     print(f"Standard deviation (PV): {std_de_pv:.5f} seconds")
     print(f"Average runtime (OLA): {avg_runtime_ola:.5f} seconds")
     print(f"Standard deviation (OLA): {std_de_ola:.5f} seconds")
-    print(f"Num of iteratons: {len(pv_runtimes[-100:])}")
-    print(f"Avg total time for {iterations} iterations: {statistics.mean(tot_runtimes[-100:]):.5f} seconds")
-    print(f"Std dev total time for {iterations} iterations: {statistics.stdev(tot_runtimes[-100:]):.5f} seconds")
+    num_iterations = len(pv_runtimes[-200:])
+    print(f"Avg total time for {num_iterations} iterations: {statistics.mean(tot_runtimes[-200:]):.5f} seconds")
+    print(f"Std dev total time for {num_iterations} iterations: {statistics.stdev(tot_runtimes[-200:]):.5f} seconds")
 
 
 if __name__ == "__main__":
@@ -366,6 +365,6 @@ if __name__ == "__main__":
     den = calc_sum_squared_window(window, Hs)
     
     # Run measurements
-    measure_main_loop_OPT(audio_data, audio_sr, 2.00, iterations=200)
-    measure_main_loop_BASELINE(audio_data, audio_sr, 2.00,iterations=200)
+    measure_main_loop_OPT(audio_data, audio_sr, 1.25, iterations=300)
+    measure_main_loop_BASELINE(audio_data, audio_sr, 1.25,iterations=300)
     

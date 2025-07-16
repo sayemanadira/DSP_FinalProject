@@ -143,7 +143,7 @@ runtimes = []
 pos = 0
 pos_ola = 0
 # Determines the phase vocoder look-up analysis hopsize e.g. beta = 0.125 is 12.5% overlap
-beta = 0.125
+beta = 0.75
 
 xh, xp, _, _ = harmonic_percussive_separation(x=audio_data, sr=audio_sr)
 
@@ -153,15 +153,15 @@ elif max(abs(xp)) > 1:
     xp = xp / max(abs(xp))
 
 # xh = float2pcm(xh).astype(np.int16)
-xp = float2pcm(xp).astype(np.int16)
+# xp = float2pcm(xp).astype(np.int16)
 
 omega_nom = np.arange(L//2 + 1) * 2 *np.pi * audio_sr / L
 den = calc_sum_squared_window(window, Hs)
 
 
 #Phase vocoder Look-up
-Ha_lookup = int(round(beta*L))
-S_lookup = lb.core.stft(audio_data, n_fft=L, hop_length=Ha_lookup, center=False) # shape = (1 + n_fft/2, n_frames)
+Ha_lookup = int(round((1 - beta)*L))
+S_lookup = lb.core.stft(audio_data, n_fft=L, hop_length=Ha_lookup, center=False, win_length=L) # shape = (1 + n_fft/2, n_frames)
 S_phase_lookup = np.angle(S_lookup)
 S_mag_lookup = np.abs(S_lookup)
 w_if_lookup = estimateIF(S_lookup, audio_sr, Ha_lookup)
@@ -196,10 +196,9 @@ stream = p.open(format=pyaudio.paInt16,
 
 try:
     while pos <= len(xh) - L:
-        Ha = int(Hs/alpha)
-        Ha_ola = int(Hs_ola/alpha)
+        Ha = int(round(Hs/alpha))
+        Ha_ola = int(round(Hs_ola/alpha))
         
-
         if pos == 0:
             prev_phase = S_phase_lookup[:, 0]
             S_mod = S_mag_lookup[:, 0] * np.exp(1j * prev_phase)
@@ -210,16 +209,11 @@ try:
             prev_phase += phase_increment  # Update phase correctly for current alpha
             S_mod = S_mag_lookup[:, nn_frame] * np.exp(1j * prev_phase)
 
-        pv_frame_mod = np.fft.irfft(S_mod) * (window.reshape((-1, 1))/den.reshape((-1,1))).flatten()
-        # pv_frame_mod = np.fft.irfft(S_mod) * window/den
-
-    
-        # pv_frame_mod = np.fft.irfft(X_mod)
-        pv_frame_mod = float2pcm(np.array(pv_frame_mod))
+        pv_frame_mod = np.fft.irfft(S_mod)
 
         output_buffer[:-Hs] = output_buffer[Hs:]
         output_buffer[-Hs:] = 0
-        output_buffer += pv_frame_mod
+        output_buffer += pv_frame_mod * (window.reshape((-1, 1))/den.reshape((-1,1))).flatten()
 
         # #TODO: REMINDER - uncomment to try "OLA Lookup"
         # nn_frame_OLA = int(round(pos/Ha_lookup_ola))       
@@ -234,12 +228,14 @@ try:
             output_buffer[offset:offset + L_ola] += ola_win_synth
     
 
-        output_buffer = np.clip(output_buffer, -32768, 32767)  # 16-bit range
+        # output_buffer = np.clip(output_buffer, -32768, 32767)  # 16-bit range
         # runtimes.append(end_time - start_time)
-        stream.write(output_buffer[:Hs].astype(np.int16).tobytes())
+        output_buffer = np.clip(output_buffer, -1.0, 1.0)  # Float32 clipping
+        stream.write(float2pcm(output_buffer[:Hs]).astype(np.int16).tobytes())  # Convert to int16 at last moment
+        # stream.write(output_buffer[:Hs].astype(np.int16).tobytes())
 
         # Store for WAV file
-        output_frames.append(output_buffer[:Hs].astype(np.int16).copy())  # Store the chunk
+        # output_frames.append(float2pcm(output_buffer[:Hs]).astype(np.int16).copy())  # Store the chunk
         # print(pos//Ha)
         # prev_fft = S
         pos += Ha

@@ -13,7 +13,7 @@ CHUNK = L = 2048
 L_ola = 256
 Hs = L // 4
 Hs_ola = L_ola // 2
-alpha = 1.25
+alpha = 1.00
 window = np.hanning(L)
 window_ola = np.hanning(L_ola)
 output_buffer = np.zeros(int(L))
@@ -116,8 +116,8 @@ if max(abs(xh)) > 1:
 elif max(abs(xp)) > 1:
     xp = xp / max(abs(xp))
 
-xh = float2pcm(xh).astype(np.int16)
-xp = float2pcm(xp).astype(np.int16)
+# xh = float2pcm(xh).astype(np.int16)
+# xp = float2pcm(xp).astype(np.int16)
 
 omega_nom = np.arange(L//2 + 1) * 2 *np.pi * audio_sr / L
 den = calc_sum_squared_window(window, Hs)
@@ -142,7 +142,8 @@ print("- CTRL+C to stop")
 stream = p.open(format=pyaudio.paInt16,
                 channels=1,
                 rate=audio_sr,
-                output=True)
+                output=True,
+                frames_per_buffer=512)
 
 pos = 0
 pos_ola = 0
@@ -155,13 +156,13 @@ ratio = Hs//Hs_ola
 try:
     while pos <= len(xh) - L:
         Ha = int(round(Hs/alpha))
-        Ha_ola = int(Hs_ola/alpha)
+        Ha_ola = int(round(Hs_ola/alpha))
         
         # start_time = time.perf_counter()
 
         # Phase Vocoder       
         # STFT processing
-        pv_win = xh[pos:pos+L] * window
+        pv_win = xh[pos:pos+L]
         S = np.fft.rfft(pv_win)
         magnitude = np.abs(S)
         if prev_fft is not None:
@@ -183,17 +184,17 @@ try:
 
 
         for i in range(ratio):
-            ola_win = xp[pos + (Ha_ola*i):pos +(Ha_ola*i) + L_ola]
-            ola_win_synth = ola_win * window_ola
+            ola_win_synth = xp[pos + (Ha_ola*i):pos +(Ha_ola*i) + L_ola] * window_ola
             offset = i * Hs_ola
             output_buffer[offset:offset + L_ola] += ola_win_synth
     
-        output_buffer = np.clip(output_buffer, -32768, 32767)  # 16-bit range
+        output_buffer = np.clip(output_buffer, -1.0, 1.0)  # FLoat range
         # runtimes.append(end_time - start_time)
-        stream.write(output_buffer[:Hs].astype(np.int16).tobytes())
+        stream.write(float2pcm(output_buffer[:Hs]).astype(np.int16).tobytes())
 
-        saved_frames.append(output_buffer[:Hs].astype(np.int16).copy())
+        # saved_frames.append(output_buffer[:Hs].astype(np.int16).copy())
 
+        # print(output_buffer)
         prev_fft = S
         pos += Ha
 
@@ -213,6 +214,6 @@ if saved_frames:
     wavfile.write(saving_filepath + "realtime_test.wav", audio_sr, full_audio)
     print(f"\nSaved processed audio to {saving_filepath}")
 
-print(f"\nL = {L}")
-print(f"\nHs = {Hs}")
-print(f"\nHa = {Ha}")
+# print(f"\nL = {L}")
+# print(f"\nHs = {Hs}")
+# print(f"\nHa = {Ha}")
