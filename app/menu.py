@@ -3,6 +3,7 @@ from player import Player
 from userinfo import get_user_info
 from tkinter import Menu, Label, Entry, Button, Text, END, DISABLED, NORMAL
 import random
+import time
 
 class MainMenu:
     def __init__(self, root):
@@ -58,8 +59,10 @@ class MainMenu:
 
     def open_music_control(self, user_id):
         if self.player_window is None or not self.player_window.window.winfo_exists():
-            self.player_window = Player(self.root,  user_id = user_id,on_close=self.on_player_close)
+            self.player_window = Player(self.root,  user_id = user_id, time_start = time.time(),on_close=self.on_player_close)
 
-    def on_player_close(self):
+    def on_player_close(self,):
+        self.txt.delete(0, END)  # Delete all existing text
+        self.txt.insert(0, random.randint(1,1000000))  # Insert new text at the beginning
         self.root.deiconify()  # Show the main menu again when player is closed
 

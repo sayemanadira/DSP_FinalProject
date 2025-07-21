@@ -6,9 +6,12 @@ from tkinter import (
 import random
 import math
 import numpy as np
+import time
 
 from audio import OLAEngine, PVEngine, HybridEngine, OPTEngine
 from userinfo import get_user_info
+
+TIME_LIM=1
 
 # Mapping engine names to classes
 engine_map = {
@@ -34,9 +37,10 @@ engine_map = {
 
 
 class Player:
-    def __init__(self, master, user_id, on_close=None):
+    def __init__(self, master, user_id, time_start, on_close=None):
         self.user_id = user_id
         self.on_close = on_close
+        self.start_time = time_start
 
         self.window = Toplevel(master)
         self.window.title("Music Control")
@@ -54,6 +58,7 @@ class Player:
         self.same_selected = False
         self.engine = None
 
+        self.setup_timer()
         self.setup_instruction()
         task = self.userinfo.get_next_task()
 
@@ -68,6 +73,39 @@ class Player:
         self.choice_vars = []
         self.setup_players()
 
+
+    def setup_timer(self):
+        """Creates and places the timer label in the top-right corner."""
+        # Frame to hold the timer, allowing it to be placed on the right
+        header_frame = Frame(self.window)
+        header_frame.pack(fill='x', padx=10, pady=5)
+
+        # This label is just a spacer to push the timer to the right
+        Label(header_frame, text="").pack(side=LEFT, expand=True)
+
+        self.timer_label = Label(header_frame, text="Time: 00:00", font=("Arial", 10))
+        self.timer_label.pack(side=LEFT)
+
+        # Start the timer update loop
+        self.update_timer()
+    
+    def update_timer(self):
+        """Updates the timer label every second."""
+        try:
+            elapsed_seconds = int(time.time() - self.start_time)
+            minutes = elapsed_seconds // 60
+            seconds = elapsed_seconds % 60
+            time_string = f"Time: {minutes:02d}:{seconds:02d}"
+            if (minutes>TIME_LIM):
+                time_string  = "Times Up!"
+                self.timer_label.config(font=("Arial", 20),fg='f00')
+            self.timer_label.config(text=time_string)
+            
+            # Schedule the next update in 1000ms (1 second)
+            self.window.after(1000, self.update_timer)
+        except tk.TclError:
+            # This can happen if the window is destroyed while an update is scheduled
+            pass
     def setup_instruction(self):
         instruction_text = (
             "Which player has better quality?\n"
@@ -276,7 +314,13 @@ class Player:
         self.same_selected = False
         self.same_btn = None
 
-        self.init_everything()
+        elapsed_seconds = int(time.time() - self.start_time)
+        minutes = elapsed_seconds // 60
+        seconds = elapsed_seconds % 60
+        if (minutes>TIME_LIM):
+            self.handle_close()
+        else:
+            self.init_everything()
 
 
     def make_on_complete(self, player, idx, window):

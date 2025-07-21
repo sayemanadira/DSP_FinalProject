@@ -35,11 +35,11 @@ def get_resource_path(relative_path):
 engine_pairs = [
                 ("Hybrid","Hybrid"),
                 ("Hybrid","PV"),
-                ("Hybrid","OPT0.35"),
                 # ("Hybrid","OPT0.08"),
-                ("Hybrid","OPT0.25"),
                 # ("Hybrid","OPT0.2"),
+                ("Hybrid","OPT0.25"),
                 ("Hybrid","OPT0.3"),
+                ("Hybrid","OPT0.35"),
                 ("Hybrid","OPT0.4"),
                 ("Hybrid","OPT0.5"),
                 ("Hybrid","OPT0.6"),
