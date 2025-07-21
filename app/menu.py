@@ -31,10 +31,10 @@ class MainMenu:
         instruction_text = (
             "Thank you for participating in our study! \n\n"
             "You have randomly been assigned a User ID, Please write this down on the provided sticky note in case your session closes unexpectedly\n\n"
-            "In this study, you will compare audio algorithms that change music speed without altering the audio quality.\n\n"
+            "In this study, you will compare audio algorithms that modify the tempo of a music recording.  An ideal algorithm would change the tempo of the music without affecting the audio quality or introducing any noticeable artifacts.\n\n"
             "You will be asked to rate which audio algorithm produces the least amount of artifacts in their output\n\n"
             "1. Use the 'Play' buttons to play the audio samples\n"
-			"2. Use the interactive 'Adjust Tempo' slider to change the musical speed when the snippet is playing.\n"
+			"2. Use the interactive 'Adjust Tempo' slider to change the tempo while the snippet is playing.\n"
             "3. Check the box to indicate which player has the best quality, or whether they both sound the same\n"
             "4. Click 'Submit' to save your choice and move to the next pair.\n\n"
 			"The session lasts 30 minutes. Close the app when you are done.\n\n"

@@ -1,4 +1,4 @@
-pyinstaller main.spec
+pyinstaller main_mac.spec
 #pyinstaller main.py --onefile --collect-all librosa \
 #--collect-all scipy \
 #--collect-all pymongo \
