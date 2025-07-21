@@ -11,7 +11,7 @@ import time
 from audio import OLAEngine, PVEngine, HybridEngine, OPTEngine
 from userinfo import get_user_info
 
-TIME_LIM=1
+TIME_LIM=30
 
 # Mapping engine names to classes
 engine_map = {
@@ -96,7 +96,7 @@ class Player:
             minutes = elapsed_seconds // 60
             seconds = elapsed_seconds % 60
             time_string = f"Time: {minutes:02d}:{seconds:02d}"
-            if (minutes>TIME_LIM):
+            if (minutes>=TIME_LIM):
                 time_string  = "Times Up!"
                 self.timer_label.config(font=("Arial", 20),fg='f00')
             self.timer_label.config(text=time_string)
@@ -316,8 +316,7 @@ class Player:
 
         elapsed_seconds = int(time.time() - self.start_time)
         minutes = elapsed_seconds // 60
-        seconds = elapsed_seconds % 60
-        if (minutes>TIME_LIM):
+        if (minutes>=TIME_LIM):
             self.handle_close()
         else:
             self.init_everything()
