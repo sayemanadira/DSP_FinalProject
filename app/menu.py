@@ -64,7 +64,7 @@ class MainMenu:
         self.instructions.insert("end", "Important: Bonus for Careful Listening!\n\n", "bold")
         self.instructions.insert(
             "end",
-            "Throughout the study, we have included some control comparisons where one answer choice is 100% correct. We will be raffling off "
+            "Throughout the study, we have included a few control questions. We will be raffling off "
         )
         self.instructions.insert("end", "five $10 gift cards", "bold")
         self.instructions.insert(

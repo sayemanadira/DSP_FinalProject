@@ -144,7 +144,7 @@ class Player:
         label_bold_font = tkfont.Font(family=label_font.actual("family"), size=label_font.actual("size"), weight="bold")
         
         bonus_text = (
-            "\nRemember: Correctly finding the most control comparisons where one answer choice is 100% correct\n"
+            "\nRemember: Correctly answering the most control questions\n"
             "makes you eligible for one of five $10 gift cards!"
         )
         Label(instruction_frame, text=bonus_text, justify=CENTER, font=label_bold_font).pack()
@@ -359,6 +359,9 @@ class Player:
 
     def _on_engine_end(self, player, idx):
         try:
+            if not player["frame"].winfo_exists():
+                return  # Exit early, the UI has been destroyed
+            
             player["stopped"] = True
             player["stop_button"].config(text="Play")
             # player["frame"].config(bg="grey")

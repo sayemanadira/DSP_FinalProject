@@ -43,3 +43,357 @@ INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres
 INFO:root:engine reset state
 INFO:root:engine reset state
 INFO:__main__:Finished
+INFO:__main__:Started
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/metal/metal.00015.wav,['Hybrid', 'Hybrid']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: Hybrid
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/metal/metal.00015.wav, ['Hybrid', 'Hybrid'], Hybrid
+INFO:player:finished logging choice: Hybrid
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/jazz/jazz.00057.wav,['Hybrid', 'OPT0.1']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:⚠️ Error on playback end: invalid command name ".!toplevel.!frame3.!frame.!button"
+INFO:player:start logging choice: Hybrid
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/jazz/jazz.00057.wav, ['Hybrid', 'OPT0.1'], Hybrid
+INFO:player:finished logging choice: Hybrid
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/hiphop/hiphop.00084.wav,['Hybrid', 'Hybrid']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: Hybrid
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/hiphop/hiphop.00084.wav, ['Hybrid', 'Hybrid'], Hybrid
+INFO:player:finished logging choice: Hybrid
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/blues/blues.00043.wav,['Hybrid', 'OPT0.2']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: Hybrid
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/blues/blues.00043.wav, ['Hybrid', 'OPT0.2'], Hybrid
+INFO:player:finished logging choice: Hybrid
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/rock/rock.00038.wav,['Hybrid', 'Hybrid']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: Hybrid
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/rock/rock.00038.wav, ['Hybrid', 'Hybrid'], Hybrid
+INFO:player:finished logging choice: Hybrid
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/blues/blues.00090.wav,['Hybrid', 'OPT0.9']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: OPT0.9
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/blues/blues.00090.wav, ['Hybrid', 'OPT0.9'], OPT0.9
+INFO:player:finished logging choice: OPT0.9
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/disco/disco.00078.wav,['Hybrid', 'PV']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: Hybrid
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/disco/disco.00078.wav, ['Hybrid', 'PV'], Hybrid
+INFO:player:finished logging choice: Hybrid
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/metal/metal.00034.wav,['Hybrid', 'OPT0.1']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: OPT0.1
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/metal/metal.00034.wav, ['Hybrid', 'OPT0.1'], OPT0.1
+INFO:player:finished logging choice: OPT0.1
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/blues/blues.00063.wav,['Hybrid', 'OPT0.7']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: Hybrid
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/blues/blues.00063.wav, ['Hybrid', 'OPT0.7'], Hybrid
+INFO:player:finished logging choice: Hybrid
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/metal/metal.00000.wav,['Hybrid', 'OPT0.5']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: OPT0.5
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/metal/metal.00000.wav, ['Hybrid', 'OPT0.5'], OPT0.5
+INFO:player:finished logging choice: OPT0.5
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/rock/rock.00035.wav,['Hybrid', 'OPT0.7']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: Hybrid
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/rock/rock.00035.wav, ['Hybrid', 'OPT0.7'], Hybrid
+INFO:player:finished logging choice: Hybrid
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/country/country.00066.wav,['Hybrid', 'OPT0.3']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: OPT0.3
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/country/country.00066.wav, ['Hybrid', 'OPT0.3'], OPT0.3
+INFO:player:finished logging choice: OPT0.3
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/reggae/reggae.00007.wav,['Hybrid', 'OPT0.1']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: OPT0.1
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/reggae/reggae.00007.wav, ['Hybrid', 'OPT0.1'], OPT0.1
+INFO:player:finished logging choice: OPT0.1
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/disco/disco.00091.wav,['Hybrid', 'OPT0.3']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: OPT0.3
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/disco/disco.00091.wav, ['Hybrid', 'OPT0.3'], OPT0.3
+INFO:player:finished logging choice: OPT0.3
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/disco/disco.00071.wav,['Hybrid', 'OPT0.7']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: Hybrid
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/disco/disco.00071.wav, ['Hybrid', 'OPT0.7'], Hybrid
+INFO:player:finished logging choice: Hybrid
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/rock/rock.00037.wav,['Hybrid', 'OPT0.3']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: Hybrid
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/rock/rock.00037.wav, ['Hybrid', 'OPT0.3'], Hybrid
+INFO:player:finished logging choice: Hybrid
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/rock/rock.00061.wav,['Hybrid', 'OPT0.2']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/rock/rock.00061.wav, ['Hybrid', 'OPT0.2'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/rock/rock.00092.wav,['Hybrid', 'PV']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/rock/rock.00092.wav, ['Hybrid', 'PV'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/metal/metal.00065.wav,['Hybrid', 'OPT0.7']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: OPT0.7
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/metal/metal.00065.wav, ['Hybrid', 'OPT0.7'], OPT0.7
+INFO:player:finished logging choice: OPT0.7
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/rock/rock.00058.wav,['Hybrid', 'OPT0.9']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/rock/rock.00058.wav, ['Hybrid', 'OPT0.9'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/classical/classical.00064.wav,['Hybrid', 'OPT0.3']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:⚠️ Error on playback end: invalid command name ".!toplevel.!frame79.!frame.!button"
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/classical/classical.00064.wav, ['Hybrid', 'OPT0.3'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/reggae/reggae.00025.wav,['Hybrid', 'Hybrid']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/reggae/reggae.00025.wav, ['Hybrid', 'Hybrid'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/blues/blues.00084.wav,['Hybrid', 'Hybrid']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/blues/blues.00084.wav, ['Hybrid', 'Hybrid'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/pop/pop.00050.wav,['Hybrid', 'Hybrid']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/pop/pop.00050.wav, ['Hybrid', 'Hybrid'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/disco/disco.00089.wav,['Hybrid', 'PV']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: Hybrid
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/disco/disco.00089.wav, ['Hybrid', 'PV'], Hybrid
+INFO:player:finished logging choice: Hybrid
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/metal/metal.00060.wav,['Hybrid', 'Hybrid']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/metal/metal.00060.wav, ['Hybrid', 'Hybrid'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/hiphop/hiphop.00052.wav,['Hybrid', 'OPT0.7']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: OPT0.7
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/hiphop/hiphop.00052.wav, ['Hybrid', 'OPT0.7'], OPT0.7
+INFO:player:finished logging choice: OPT0.7
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/reggae/reggae.00007.wav,['Hybrid', 'OPT0.9']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/reggae/reggae.00007.wav, ['Hybrid', 'OPT0.9'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/classical/classical.00043.wav,['Hybrid', 'OPT0.3']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/classical/classical.00043.wav, ['Hybrid', 'OPT0.3'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/reggae/reggae.00007.wav,['Hybrid', 'OPT0.3']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/reggae/reggae.00007.wav, ['Hybrid', 'OPT0.3'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/metal/metal.00076.wav,['Hybrid', 'OPT0.1']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/metal/metal.00076.wav, ['Hybrid', 'OPT0.1'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/classical/classical.00011.wav,['Hybrid', 'OPT0.3']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:⚠️ Error on playback end: invalid command name ".!toplevel.!frame123.!frame2.!button"
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/classical/classical.00011.wav, ['Hybrid', 'OPT0.3'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/hiphop/hiphop.00017.wav,['Hybrid', 'OPT0.5']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:⚠️ Error on playback end: invalid command name ".!toplevel.!frame127.!frame2.!button"
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/hiphop/hiphop.00017.wav, ['Hybrid', 'OPT0.5'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/metal/metal.00061.wav,['Hybrid', 'OPT0.3']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/metal/metal.00061.wav, ['Hybrid', 'OPT0.3'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/rock/rock.00053.wav,['Hybrid', 'OPT0.3']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:__main__:Started
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/reggae/reggae.00054.wav,['Hybrid', 'OPT0.1']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/reggae/reggae.00054.wav, ['Hybrid', 'OPT0.1'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/pop/pop.00019.wav,['Hybrid', 'PV']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/pop/pop.00019.wav, ['Hybrid', 'PV'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/classical/classical.00028.wav,['Hybrid', 'OPT0.9']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:__main__:Finished
