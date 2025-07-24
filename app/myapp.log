@@ -1,0 +1,45 @@
+INFO:__main__:Started
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:__main__:Started
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:__main__:Finished
+INFO:__main__:Started
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:__main__:Started
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/metal/metal.00049.wav,['Hybrid', 'PV']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: Hybrid
+INFO:userinfo:logging /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/metal/metal.00049.wav, ['Hybrid', 'PV'], Hybrid
+INFO:player:finished logging choice: Hybrid
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/metal/metal.00056.wav,['Hybrid', 'OPT0.5']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:__main__:Finished
+INFO:__main__:Started
+INFO:__main__:Started
+INFO:__main__:Started
+INFO:__main__:Started
+INFO:__main__:Started
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/jazz/jazz.00024.wav,['Hybrid', 'OPT0.5']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:__main__:Finished

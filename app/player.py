@@ -3,6 +3,7 @@ from tkinter import (
     Toplevel, Label, Scale, HORIZONTAL, Button, Frame,
     LEFT, BOTTOM, BOTH, DISABLED, NORMAL, TOP, CENTER
 )
+import tkinter.font as tkfont
 import random
 import math
 import numpy as np
@@ -10,6 +11,9 @@ import time
 
 from audio import OLAEngine, PVEngine, HybridEngine, OPTEngine
 from userinfo import get_user_info
+
+import logging
+logger = logging.getLogger(__name__)
 
 TIME_LIM=30
 
@@ -27,6 +31,8 @@ engine_map = {
     "OPT0.5": OPTEngine,
     "OPT0.6": OPTEngine,
     "OPT0.7": OPTEngine,
+    "OPT0.8": OPTEngine,
+    "OPT0.9": OPTEngine,
     # "OPT0.25": OPTEngine,
     # "OPT0.9": OPTEngine,
     # "OPT0.1": OPTEngine,
@@ -44,7 +50,7 @@ class Player:
 
         self.window = Toplevel(master)
         self.window.title("Music Control")
-        self.window.geometry("900x500")
+        self.window.geometry("1400x1400")
         self.window.protocol("WM_DELETE_WINDOW", self.handle_close)
 
         self.init_everything()
@@ -107,17 +113,41 @@ class Player:
             # This can happen if the window is destroyed while an update is scheduled
             pass
     def setup_instruction(self):
-        instruction_text = (
+        # instruction_text = (
+        #     "Which player has better quality?\n"
+        #     "1. Try to find the option with the fewest audio artifacts\n"
+        #     "2. Move the 'Adjust Tempo' slider in real-time while listening\n"
+        #     "3. Check the box to indicate which player has the best quality, or whether they both sound the same\n"
+        #     "4. Click 'Submit' to save your choice and move to the next pair."
+        # )
+
+        # frame = Frame(self.window)
+        # frame.pack(padx=10, pady=5, fill="x")
+        # Label(frame, text=instruction_text, justify=CENTER).pack(side=TOP)
+        
+        instruction_frame = Frame(self.window)
+        instruction_frame.pack(padx=10, pady=5, fill="x")
+
+        # Normal instructions
+        instruction_text_part1 = (
             "Which player has better quality?\n"
             "1. Try to find the option with the fewest audio artifacts\n"
             "2. Move the 'Adjust Tempo' slider in real-time while listening\n"
             "3. Check the box to indicate which player has the best quality, or whether they both sound the same\n"
             "4. Click 'Submit' to save your choice and move to the next pair."
         )
+        Label(instruction_frame, text=instruction_text_part1, justify=CENTER).pack()
 
-        frame = Frame(self.window)
-        frame.pack(padx=10, pady=5, fill="x")
-        Label(frame, text=instruction_text, justify=CENTER).pack(side=TOP)
+        # Bolded bonus information
+        # Note: We create a new bold font object specifically for this label.
+        label_font = tkfont.nametofont(Label(instruction_frame).cget("font"))
+        label_bold_font = tkfont.Font(family=label_font.actual("family"), size=label_font.actual("size"), weight="bold")
+        
+        bonus_text = (
+            "\nRemember: Correctly finding the most control comparisons where one answer choice is 100% correct\n"
+            "makes you eligible for one of five $10 gift cards!"
+        )
+        Label(instruction_frame, text=bonus_text, justify=CENTER, font=label_bold_font).pack()
 
     def prepare_engines(self, engine_pair):
         engines = []
@@ -297,7 +327,9 @@ class Player:
 
     def submit_choice(self):
         choice = "SAME" if self.same_selected else self.engine_names[self.current_choice]
+        logger.info(f"start logging choice: {choice}")
         self.userinfo.log(self.filename, sorted(self.engine_names), choice)
+        logger.info(f"finished logging choice: {choice}")
         if self.engine:
             self.safe_stop_engine()
 
@@ -335,7 +367,7 @@ class Player:
                 self.safe_stop_engine()
                 self.current_playing = -1
         except Exception as e:
-            print(f"⚠️ Error on playback end: {e}")
+            logger.info(f"⚠️ Error on playback end: {e}")
 
     def safe_stop_engine(self):
         if self.engine:

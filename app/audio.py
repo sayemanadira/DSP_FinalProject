@@ -14,6 +14,9 @@ import subprocess
 import tempfile
 import os, sys
 
+import logging
+logger = logging.getLogger(__name__)
+
 # === PyInstaller Helper ===
 def get_resource_path(relative_path):
     """Get the absolute path to a resource, whether frozen or not."""
@@ -42,10 +45,11 @@ def convert_to_pcm16_wav(input_path):
     ]
 
     try:
+        logger.info(f"FFmpeg conversion running for {input_path}: {e}")
         subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
         return output_path
     except subprocess.CalledProcessError as e:
-        print(f"FFmpeg conversion failed for {input_path}: {e}")
+        logger.info(f"FFmpeg conversion failed for {input_path}: {e}")
         os.unlink(output_path)  # Clean up temp file
         raise
 
@@ -80,8 +84,9 @@ class EngineBase:
         self.alpha = a #ax(0.1, min(a, 4.0))
 
     def load_audio(self):
+        logging.info(f'engine loading {self.filename}')
         self.audio_data, self.audio_sr = lb.load(self.filename, sr=None)
-        # print(self.audio_sr)
+        # logger.info(self.audio_sr)
 
     def setup_audio_stream(self):
         self.p = pyaudio.PyAudio()
@@ -121,6 +126,7 @@ class EngineBase:
         return den
 
     def reset_state(self):
+        logging.info(f'engine reset state')
         
         self.wf = wave.open(self.filename, 'rb')
         # self.audio_sr = self.wf.getframerate()
@@ -143,7 +149,7 @@ class EngineBase:
                 elif not paused and not self.stream.is_active():
                     self.stream.start_stream()
         except OSError as e:
-            print(f"Audio stream error: {e}")
+            logger.info(f"Audio stream error: {e}")
             # Optionally reinitialize the stream
             self.reinitialize_stream()
             
@@ -598,11 +604,11 @@ class OPTEngine(EngineBase):
 
                 # Store for WAV file
                 # output_frames.append(float2pcm(output_buffer[:Hs]).astype(np.int16).copy())  # Store the chunk
-                # print(pos//Ha)
+                # logger.info(pos//Ha)
                 # prev_fft = S
             
                 # phase_dev = np.std(np.diff(prev_phase[:bass_bin]))
-                # print(f"Bass phase deviation: {phase_dev:.3f} radians")
+                # logger.info(f"Bass phase deviation: {phase_dev:.3f} radians")
                 pos += Ha
         finally:
             self.close_audio_stream()

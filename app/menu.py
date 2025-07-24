@@ -27,22 +27,60 @@ class MainMenu:
         # Instruction Text box (read-only)
         self.instructions = Text(self.root, height=40, width=80, wrap='word')
         self.instructions.grid(column=0, row=1, columnspan=3, padx=10, pady=10)
+        self.instructions.config(state="normal") 
 
-        # Insert your commentary/instructions
-        instruction_text = (
+        # --- This is the robust way to create a bold style ---
+        # 1. Get the default font from the Text widget
+        # You might need to import tkinter.font as tkfont at the top of your file
+        import tkinter.font as tkfont
+        default_font = tkfont.nametofont(self.instructions.cget("font"))
+        
+        # 2. Create a new font object for the bold style
+        bold_font = tkfont.Font(family=default_font.actual("family"),
+                               size=default_font.actual("size"),
+                               weight="bold")
+        
+        # 3. Configure a "bold" tag with this new font object
+        self.instructions.tag_configure("bold", font=bold_font)
+        # --- End of robust styling section ---
+
+        # Clear existing text if necessary
+        self.instructions.delete("1.0", "end")
+
+        # Insert the instructional text in segments
+        self.instructions.insert(
+            "end",
             "Thank you for participating in our study! \n\n"
             "You have randomly been assigned a User ID, Please write this down on the provided sticky note in case your session closes unexpectedly\n\n"
             "In this study, you will compare audio algorithms that modify the tempo of a music recording.  An ideal algorithm would change the tempo of the music without affecting the audio quality or introducing any noticeable artifacts.\n\n"
             "You will be asked to rate which audio algorithm produces the least amount of artifacts in their output\n\n"
             "1. Use the 'Play' buttons to play the audio samples\n"
-			"2. Use the interactive 'Adjust Tempo' slider to change the tempo while the snippet is playing.\n"
+            "2. Use the interactive 'Adjust Tempo' slider to change the tempo while the snippet is playing.\n"
             "3. Check the box to indicate which player has the best quality, or whether they both sound the same\n"
             "4. Click 'Submit' to save your choice and move to the next pair.\n\n"
-			"The session lasts 30 minutes. Close the app when you are done.\n\n"
-			"Questions? Contact us via email or ask us in person!\n"
         )
-        self.instructions.insert(END, instruction_text)
-        self.instructions.config(state=DISABLED)  # Make it read-only
+        
+        # Insert the new section, applying the "bold" tag where needed
+        self.instructions.insert("end", "Important: Bonus for Careful Listening!\n\n", "bold")
+        self.instructions.insert(
+            "end",
+            "Throughout the study, we have included some control comparisons where one answer choice is 100% correct. We will be raffling off "
+        )
+        self.instructions.insert("end", "five $10 gift cards", "bold")
+        self.instructions.insert(
+            "end",
+            " to the participants who correctly identify the most of these baseline examples. Good luck!\n\n"
+        )
+
+        # Insert the final part of the text
+        self.instructions.insert(
+            "end",
+            "The session lasts 30 minutes. Close the app when you are done.\n\n"
+            "Questions? Contact us via email or ask us in person!\n"
+        )
+
+        # Make the entire text widget read-only again
+        self.instructions.config(state="disabled")
         
         self.txt = Entry(self.root, width=15)
         self.txt.insert(0,random.randint(1,1000000))

@@ -9,6 +9,8 @@ from pymongo import MongoClient
 # from pymongo import MongoClient
 from pymongo.server_api import ServerApi
 
+import logging
+logger = logging.getLogger(__name__)
 # === MongoDB Setup ===
 # uri = "mongodb+srv://clarkipeng:s2eNNVECeTuRQN4L@cluster0.bkjusqg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 uri = "mongodb+srv://app_user:mhL5IrOgOlh1Xp2P@cluster0.bkjusqg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
@@ -16,10 +18,10 @@ client = MongoClient(uri, server_api=ServerApi('1'))
 
 try:
     client.admin.command('ping')
-    print("✅ Connected to MongoDB!")
-    print("Collections:", client.stuff.list_collection_names())
+    logger.info("✅ Connected to MongoDB!")
+    logger.info(f"Collections: {client.stuff.list_collection_names()}")
 except Exception as e:
-    print(e)
+    logger.info(e)
 
 users_collection = client.stuff.users
 
@@ -37,18 +39,19 @@ engine_pairs = [
                 ("Hybrid","PV"),
                 # ("Hybrid","OPT0.08"),
                 # ("Hybrid","OPT0.2"),
-                ("Hybrid","OPT0.25"),
+                ("Hybrid","OPT0.1"),
+                ("Hybrid","OPT0.2"),
                 ("Hybrid","OPT0.3"),
-                ("Hybrid","OPT0.35"),
-                ("Hybrid","OPT0.4"),
                 ("Hybrid","OPT0.5"),
-                ("Hybrid","OPT0.6"),
-                ("Hybrid","OPT0.7")
+                ("Hybrid","OPT0.7"),
+                ("Hybrid","OPT0.9"),
                 ]
 def get_all_tasks():
+    logger.info(f"getting all tasks")
+    
     # Use resource_path to find the samples folder correctly
     samples_dir = get_resource_path("samples/genres_original")
-    print(os.listdir(samples_dir), samples_dir)
+    logger.info(f'{os.listdir(samples_dir)}, {samples_dir}')
     glob_pattern = os.path.join(samples_dir, '*/*.wav')
     files = sorted(glob.glob(glob_pattern))
     # files = ["samples/genres_original/classical/classical.00070.wav"]
@@ -56,13 +59,16 @@ def get_all_tasks():
 
 
 def get_user_info(user_id):
+    logger.info(f"obtaining user info {user_id}")
     # Use resource_path to find the samples folder correctly
     samples_dir = get_resource_path("samples/genres_original")
-    print(os.listdir(samples_dir), samples_dir)
+    logger.info(f"{os.listdir(samples_dir)}, {samples_dir}")
     glob_pattern = os.path.join(samples_dir, '*/*.wav')
     total_files = sorted(glob.glob(glob_pattern))
     user = UserInfo(user_id, total_files)
     user.get_seen()
+    
+    logger.info(f"obtained user {user}")
     return user
 
 class UserInfo:
@@ -83,12 +89,14 @@ class UserInfo:
                 "id": self.id,
                 "completed_tasks": {}
             })
-            print(f"🆕 Created new user '{self.id}'")
+            logger.info(f"🆕 Created new user '{self.id}'")
 
     def _make_task_id(self, filename, engines):
         return f"{filename}|{'|'.join(sorted(engines))}"
 
     def log(self, filename, engines, chosen_engine):
+        logger.info(f"logging {filename}, {engines}, {chosen_engine}")
+        
         task_id = self._make_task_id(filename, engines)
         duration = None
 
@@ -105,10 +113,12 @@ class UserInfo:
             {"id": self.id},
             {"$set": {"completed_tasks": self.completed_tasks}}
         )
-        # print(f"📥 Logged: {task_id} → {chosen_engine} (⏱ {duration}s)")
+        # logger.info(f"📥 Logged: {task_id} → {chosen_engine} (⏱ {duration}s)")
 
 
     def get_next_task(self):
+        logger.info(f"Get next task")
+        
         all_tasks = get_all_tasks()
         random.shuffle(all_tasks)
         for filename, engines in all_tasks:
@@ -116,7 +126,7 @@ class UserInfo:
             if task_id not in self.completed_tasks:
                 self._current_task_id = task_id
                 self._current_task_start = time.time()  # ⏱ Start timer
-                print(filename,engines)
+                logger.info(f"{filename},{engines}")
                 return filename, engines
         return None
 
