@@ -14,6 +14,8 @@ import subprocess
 import tempfile
 import os, sys
 
+import random 
+
 import logging
 logger = logging.getLogger(__name__)
 
@@ -56,13 +58,18 @@ def convert_to_pcm16_wav(input_path):
     return output_path
 
 class EngineBase:
-    def __init__(self, filename, fft_size=2048, on_complete=None):
+    def __init__(self, filename, gain=None, fft_size=2048, on_complete=None):
         # self.filename = convert_to_pcm16_wav(filename)
         self.filename = filename
         self.L = fft_size
         self.Hs = self.L // 4
         self.window = np.hanning(self.L)
         self.alpha = 1.0
+        self.gain = gain
+        
+        if self.gain is None:
+            self.gain = random.uniform(0.5, 1)
+            logger.info(f"using gain {self.gain:.3f}")
         
         self.chunk_size = 512
         
@@ -175,8 +182,8 @@ class EngineBase:
 
 
 class OLAEngine(EngineBase):
-    def __init__(self, filename, on_complete=None):
-        super().__init__(filename, fft_size=256, on_complete=on_complete)
+    def __init__(self, filename, gain=None, on_complete=None):
+        super().__init__(filename, gain, fft_size=256, on_complete=on_complete)
         self.Hs = self.L // 2
         
 
@@ -200,11 +207,10 @@ class OLAEngine(EngineBase):
                 self.output_buffer[-self.Hs:] = 0
                 self.output_buffer[:self.L] += synthesis_buffer
 
-                # self.stream.write(np.clip(self.output_buffer[:self.Hs], -32768, 32767).astype(np.int16).tobytes())
-                self.stream.write(self.output_buffer[:self.Hs].astype(np.int16).tobytes())
-                # fade_win = np.hanning(self.Hs * 2)[self.Hs:]  # smooth fade-out
-                # chunk = self.output_buffer[:self.Hs] * fade_win
-                # self.stream.write(chunk.astype(np.int16).tobytes())
+                chunk_to_write = self.output_buffer[:self.Hs]
+                chunk_with_gain = chunk_to_write * self.gain
+                final_chunk = np.clip(chunk_with_gain, -1.0, 1.0)
+                self.stream.write(self.float2pcm(final_chunk).astype(np.int16).tobytes())
                 
                 pos += Ha
 
@@ -217,8 +223,8 @@ class OLAEngine(EngineBase):
 
 
 class PVEngine(EngineBase):
-    def __init__(self, filename, on_complete=None):
-        super().__init__(filename, fft_size=2048, on_complete=on_complete)
+    def __init__(self, filename, gain=None, on_complete=None):
+        super().__init__(filename, gain=None, fft_size=2048, on_complete=on_complete)
         self.omega_nom = np.arange(self.L // 2 + 1) * 2 * np.pi * self.audio_sr / self.L
         
     def _run(self):
@@ -256,7 +262,12 @@ class PVEngine(EngineBase):
                 self.output_buffer[-self.Hs:] = 0
                 self.output_buffer += frame_mod * self.window
 
-                output_int16 = np.clip(self.output_buffer[:self.Hs], -32768, 32767).astype(np.int16)
+                # chunk_to_write = self.output_buffer[:self.Hs]
+                # chunk_with_gain = chunk_to_write * self.gain
+                # final_chunk = np.clip(chunk_with_gain, -1.0, 1.0)
+                # self.stream.write(self.float2pcm(final_chunk).astype(np.int16).tobytes())
+                
+                output_int16 = np.clip(self.output_buffer[:self.Hs] * self.gain, -32768, 32767).astype(np.int16)
                 self.stream.write(output_int16.tobytes())
 
                 self.prev_fft = S
@@ -313,8 +324,8 @@ def harmonic_percussive_separation(x, sr=22050, fft_size=2048, hop_length=512, l
 
 
 class HybridEngine(EngineBase):
-    def __init__(self, filename, on_complete=None):
-        super().__init__(filename, fft_size=2048, on_complete=on_complete)
+    def __init__(self, filename, gain=None, on_complete=None):
+        super().__init__(filename, gain=None, fft_size=2048, on_complete=on_complete)
         
         self.omega_nom = None
         self.den = None
@@ -393,7 +404,10 @@ class HybridEngine(EngineBase):
                 # fade_win = np.hanning(self.Hs * 2)[self.Hs:]  # smooth fade-out
                 # chunk = self.output_buffer[:self.Hs] * fade_win
                 # self.stream.write(chunk.astype(np.int16).tobytes())
-                self.stream.write(self.float2pcm(self.output_buffer[:self.Hs]).astype(np.int16).tobytes())
+                chunk_to_write = self.output_buffer[:self.Hs]
+                chunk_with_gain = chunk_to_write * self.gain
+                final_chunk = np.clip(chunk_with_gain, -1.0, 1.0)
+                self.stream.write(self.float2pcm(final_chunk).astype(np.int16).tobytes())
 
                 self.prev_fft = S
                 pos += Ha
@@ -408,8 +422,8 @@ class HybridEngine(EngineBase):
                 
 
 class OPTEngine(EngineBase):
-    def __init__(self, filename, beta=0.25, on_complete=None):
-        super().__init__(filename, fft_size=2048, on_complete=on_complete)
+    def __init__(self, filename, gain=None, beta=0.25, on_complete=None):
+        super().__init__(filename, gain=None, fft_size=2048, on_complete=on_complete)
 
         self.beta = beta
         self.L_ola = 256
@@ -571,7 +585,7 @@ class OPTEngine(EngineBase):
                     prev_phase = self.S_phase_lookup[:, 0]
                     S_mod = self.S_mag_lookup[:, 0] * np.exp(1j * prev_phase)
                 else:
-                    nn_frame = int(round(pos / Ha_lookup))  # lookup is always based on min_Ha
+                    nn_frame = min(int(round(pos / Ha_lookup)), self.S_mag_lookup.shape[1] - 1)  # lookup is always based on min_Ha
                     lb_frame = int(pos/Ha_lookup)
                     phase_increment = self.w_if_lookup[:, nn_frame-1] * (self.Hs / self.audio_sr)
                     prev_phase += phase_increment  # Update phase correctly for current alpha
@@ -595,11 +609,10 @@ class OPTEngine(EngineBase):
                     offset = i *self.Hs_ola
                     self.output_buffer[offset:offset + self.L_ola] += ola_win_synth
             
-
-                # output_buffer = np.clip(output_buffer, -32768, 32767)  # 16-bit range
-                # runtimes.append(end_time - start_time)
-                self.output_buffer = np.clip(self.output_buffer, -1.0, 1.0)  # Float32 clipping
-                self.stream.write(self.float2pcm(self.output_buffer[:self.Hs]).astype(np.int16).tobytes())  # Convert to int16 at last moment
+                chunk_to_write = self.output_buffer[:self.Hs]
+                chunk_with_gain = chunk_to_write * self.gain
+                final_chunk = np.clip(chunk_with_gain, -1.0, 1.0)
+                self.stream.write(self.float2pcm(final_chunk).astype(np.int16).tobytes())
                 # stream.write(output_buffer[:Hs].astype(np.int16).tobytes())
 
                 # Store for WAV file
