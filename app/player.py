@@ -74,7 +74,10 @@ class Player:
 
         self.filename, engine_pair = task
         self.engines, self.engine_names = self.prepare_engines(engine_pair)
-        self.alphas = [1.0] * len(self.engines)
+        
+        random_alpha = math.exp(float(random.random() * (math.log(2) - math.log(0.5))) + math.log(0.5))
+        logger.info(f"RANDOM ALPHA {random_alpha}")
+        self.alphas = [random_alpha] * len(self.engines)
 
         self.choice_vars = []
         self.setup_players()
@@ -175,6 +178,8 @@ class Player:
             self.create_player_section(container, i + 1)
             self.engines[i].on_complete = self.make_on_complete(self.players[i], i, self.window)
             self.set_frame_background(self.players[i]["frame"], "grey")
+            
+            self.update_alpha(i, self.alphas[i])
 
         bottom = Frame(self.window)
         bottom.pack(side=BOTTOM, fill=BOTH, expand=True)
@@ -211,39 +216,43 @@ class Player:
 
         Label(frame, text=f"Player {index}", font=("Arial", 12, "bold")).pack()
 
-        factor_label = Label(frame, text="Factor: 1.0")
-        factor_label.pack()
-
-        slider = Scale(
-            frame,
-            from_=math.log(2),
-            to=math.log(0.5),
-            resolution=0.001,
-            orient=HORIZONTAL,
-            label="Adjust Tempo",
-            showvalue=0,
-            command=lambda val, i=index, fl=factor_label: self.update_alpha(i, math.exp(float(val)), fl)
-        )
-        slider.set(math.log(1.0))
-        slider.pack()
+        # factor_label = Label(frame, text="Factor: 1.0")
+        # factor_label.pack()
+        
+        # slider = Scale(
+        #     frame,
+        #     from_=math.log(2),
+        #     to=math.log(0.5),
+        #     resolution=0.001,
+        #     orient=HORIZONTAL,
+        #     label="Adjust Tempo",
+        #     showvalue=0,
+        #     command=lambda val, i=index, fl=factor_label: self.update_alpha(i, math.exp(float(val)), fl)
+        # )
+        # slider.set(math.log(1.0))
+        # slider.pack()
 
         play_btn = Button(frame, text="Play", command=lambda i=index: self.toggle_stop(i))
         play_btn.pack(pady=5)
 
         self.players.append({
             "frame": frame,
-            "factor_slider": slider,
+            # "factor_slider": slider,
             "stop_button": play_btn,
             "chose": False,
             "stopped": True,
         })
 
 
-    def update_alpha(self, player_idx, value, label):
-        label.config(text=f"Factor: {(1 / value):.1f}")
+    def update_alpha(self, player_idx, value):
         self.alphas[player_idx - 1] = value
         if self.current_playing == player_idx - 1 and self.engine:
             self.engine.set_alpha(value)
+    # def update_alpha(self, player_idx, value, label):
+    #     label.config(text=f"Factor: {(1 / value):.1f}")
+    #     self.alphas[player_idx - 1] = value
+    #     if self.current_playing == player_idx - 1 and self.engine:
+    #         self.engine.set_alpha(value)
 
     def set_frame_background(self, frame, color):
         frame.config(bg=color)

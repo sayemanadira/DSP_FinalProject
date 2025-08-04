@@ -190,7 +190,7 @@ class OLAEngine(EngineBase):
     def _run(self):
 
         num_samples = self.wf.getnframes()
-        pos = 0
+        pos = int(random.random() * self.Hs)
 
         try:
             while self.running and pos <= num_samples - self.L:
@@ -229,7 +229,7 @@ class PVEngine(EngineBase):
         
     def _run(self):
         num_samples = self.wf.getnframes()
-        pos = 0
+        pos = int(random.random() * self.Hs)
 
         try:
             while self.running and pos <= num_samples - self.L:
@@ -361,7 +361,7 @@ class HybridEngine(EngineBase):
     def _run(self):
         """Threading implementation for consistency with base class"""
         
-        pos = 0
+        pos = int(random.random() * self.Hs)
         try:
             while self.running and pos <= len(self.xh) - self.L:
                 Ha = int(self.Hs / self.alpha)
@@ -526,7 +526,7 @@ class OPTEngine(EngineBase):
         return y
 
     def _run(self):
-        pos = 0
+        pos = int(random.random() * self.Hs)
         Ha_lookup = int(self.beta* self.L)
         ratio = self.Hs // self.Hs_ola
         windowOLA = np.hanning(self.L_ola)
