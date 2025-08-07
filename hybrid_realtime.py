@@ -111,16 +111,10 @@ audio_data, audio_sr = lb.load(file_name)
 
 xh, xp, _, _ = harmonic_percussive_separation(x=audio_data, sr=audio_sr)
 
-if max(abs(xh)) > 1:
-    xh = xh / max(abs(xh))
-elif max(abs(xp)) > 1:
-    xp = xp / max(abs(xp))
-
-# xh = float2pcm(xh).astype(np.int16)
-# xp = float2pcm(xp).astype(np.int16)
-
 omega_nom = np.arange(L//2 + 1) * 2 *np.pi * audio_sr / L
 den = calc_sum_squared_window(window, Hs)
+# norm = (window / np.sqrt(np.mean(window**2)))
+
 
 
 def on_alpha_change(e):
@@ -181,6 +175,7 @@ try:
         output_buffer[:-Hs] = output_buffer[Hs:]
         output_buffer[-Hs:] = 0
         output_buffer += pv_frame_mod * (window.reshape((-1, 1))/den.reshape((-1,1))).flatten()
+        # output_buffer += pv_frame_mod * norm
 
 
         for i in range(ratio):
@@ -189,10 +184,10 @@ try:
             output_buffer[offset:offset + L_ola] += ola_win_synth
     
         output_buffer = np.clip(output_buffer, -1.0, 1.0)  # FLoat range
-        # runtimes.append(end_time - start_time)
         stream.write(float2pcm(output_buffer[:Hs]).astype(np.int16).tobytes())
 
-        # saved_frames.append(output_buffer[:Hs].astype(np.int16).copy())
+        # To save
+        saved_frames.append(output_buffer[:Hs].copy())
 
         # print(output_buffer)
         prev_fft = S
@@ -205,15 +200,13 @@ stream.close()
 p.terminate
 
 saving_filepath = 'output/'
-# Save to WAV file if we captured any audio
 if saved_frames:
     # Concatenate all frames
     full_audio = np.concatenate(saved_frames)
-    
+    # Ensure audio is in range [-1, 1]
+    full_audio = np.clip(full_audio, -1.0, 1.0)
+    # Convert to int16 for WAV file
+    full_audio_int16 = float2pcm(full_audio, dtype='int16')
     # Save as WAV
-    wavfile.write(saving_filepath + "realtime_test.wav", audio_sr, full_audio)
+    wavfile.write(saving_filepath + "realtime_test.wav", audio_sr, full_audio_int16)
     print(f"\nSaved processed audio to {saving_filepath}")
-
-# print(f"\nL = {L}")
-# print(f"\nHs = {Hs}")
-# print(f"\nHa = {Ha}")

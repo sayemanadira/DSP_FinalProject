@@ -26,37 +26,6 @@ def get_resource_path(relative_path):
         return os.path.join(sys._MEIPASS, relative_path)
     return os.path.join(os.path.abspath("."), relative_path)
 
-def convert_to_pcm16_wav(input_path):
-    # Create a temporary output file with .wav suffix
-    tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".wav")
-    tmp.close()
-    output_path = tmp.name
-
-    # FFmpeg command to convert to 16-bit PCM WAV, mono, 22.5kHz
-    ffmpeg_path = get_resource_path("ffmpeg")
-    
-    cmd = [
-        ffmpeg_path,
-        "-y",                   # overwrite existing file
-        "-i", input_path,       # input file
-        # "-t", "30",
-        "-acodec", "pcm_s16le", # 16-bit PCM
-        "-ac", "1",             # mono
-        "-ar", "22050",         # sample rate 22.5
-        output_path
-    ]
-
-    try:
-        logger.info(f"FFmpeg conversion running for {input_path}: {e}")
-        subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
-        return output_path
-    except subprocess.CalledProcessError as e:
-        logger.info(f"FFmpeg conversion failed for {input_path}: {e}")
-        os.unlink(output_path)  # Clean up temp file
-        raise
-
-    return output_path
-
 class EngineBase:
     def __init__(self, filename, gain=None, fft_size=2048, on_complete=None):
         # self.filename = convert_to_pcm16_wav(filename)
@@ -92,7 +61,7 @@ class EngineBase:
 
     def load_audio(self):
         logging.info(f'engine loading {self.filename}')
-        self.audio_data, self.audio_sr = lb.load(self.filename, sr=None)
+        self.audio_data, self.audio_sr = lb.load(self.filename, sr=22050)
         # logger.info(self.audio_sr)
 
     def setup_audio_stream(self):
@@ -136,8 +105,8 @@ class EngineBase:
         logging.info(f'engine reset state')
         
         self.wf = wave.open(self.filename, 'rb')
-        # self.audio_sr = self.wf.getframerate()
-        _, self.audio_sr = lb.load(self.filename)
+        self.audio_sr = self.wf.getframerate()
+        _, self.audio_sr = lb.load(self.filename, sr=22050)
         
         # with wave.open(self.filename, 'rb') as wf:
         #     assert self.wf.getsampwidth() == 2  # 2 bytes = 16 bits
@@ -190,7 +159,7 @@ class OLAEngine(EngineBase):
     def _run(self):
 
         num_samples = self.wf.getnframes()
-        pos = 0
+        pos = int(random.random() * self.Hs)
 
         try:
             while self.running and pos <= num_samples - self.L:
@@ -229,7 +198,7 @@ class PVEngine(EngineBase):
         
     def _run(self):
         num_samples = self.wf.getnframes()
-        pos = 0
+        pos = int(random.random() * self.Hs)
 
         try:
             while self.running and pos <= num_samples - self.L:
@@ -341,19 +310,12 @@ class HybridEngine(EngineBase):
         self.setup_audio_stream()
 
     def separate_hpss(self):
-        x, self.audio_sr = lb.load(self.filename)
+        x, self.audio_sr = lb.load(self.filename, sr=22050)
         
         xh, xp = harmonic_percussive_separation(x, self.audio_sr)
-        if max(abs(xh)) > 1: 
-            xh /= max(abs(xh))
-        if max(abs(xp)) > 1: 
-            xp /= max(abs(xp))
         
         self.xh = xh
         self.xp = xp
-
-        # self.xh = self.float2pcm(xh).astype(np.int16)
-        # self.xp = self.float2pcm(xp).astype(np.int16)
 
         self.omega_nom = np.arange(self.L // 2 + 1) * 2 * np.pi * self.audio_sr / self.L
         self.den = self.calc_sum_squared_window(self.window, self.Hs)
@@ -361,12 +323,15 @@ class HybridEngine(EngineBase):
     def _run(self):
         """Threading implementation for consistency with base class"""
         
-        pos = 0
+        pos = int(random.random() * self.Hs)
+        ratio = self.Hs // self.Hs_ola
+        windowOLA = np.hanning(self.L_ola)
         try:
             while self.running and pos <= len(self.xh) - self.L:
                 Ha = int(self.Hs / self.alpha)
                 Ha_ola = int(self.Hs_ola / self.alpha)
 
+                #TODO: Uncomment when done with comparing OLA parts
                 # Phase Vocoder (harmonic)
                 pv_win = self.xh[pos:pos + self.L] * self.window
                 S = np.fft.rfft(pv_win)
@@ -385,29 +350,18 @@ class HybridEngine(EngineBase):
                 self.output_buffer[:-self.Hs] = self.output_buffer[self.Hs:]
                 self.output_buffer[-self.Hs:] = 0
                 self.output_buffer += pv_frame_mod * (self.window / self.den)
-
+                
                 # OLA (percussive)
-                ola_y = np.zeros(self.L)
-                ratio = self.Hs // self.Hs_ola
                 for i in range(ratio):
                     start_i = pos + (Ha_ola * i)
                     if start_i + self.L_ola > len(self.xp):
                         continue
                     ola_win = self.xp[start_i:start_i + self.L_ola]
-                    ola_y[i * self.Hs_ola:i * self.Hs_ola + self.L_ola] += ola_win * np.hanning(self.L_ola)
-
-                self.output_buffer += ola_y
+                    self.output_buffer[i * self.Hs_ola:i * self.Hs_ola + self.L_ola] += ola_win * windowOLA
 
                 self.output_buffer = np.clip(self.output_buffer, -1.0, 1.0)
-                # self.stream.write(np.clip(self.output_buffer[:self.Hs], -32768, 32767).astype(np.int16).tobytes())
                 
-                # fade_win = np.hanning(self.Hs * 2)[self.Hs:]  # smooth fade-out
-                # chunk = self.output_buffer[:self.Hs] * fade_win
-                # self.stream.write(chunk.astype(np.int16).tobytes())
-                chunk_to_write = self.output_buffer[:self.Hs]
-                chunk_with_gain = chunk_to_write * self.gain
-                final_chunk = np.clip(chunk_with_gain, -1.0, 1.0)
-                self.stream.write(self.float2pcm(final_chunk).astype(np.int16).tobytes())
+                self.stream.write(self.float2pcm(self.output_buffer[:self.Hs]).astype(np.int16).tobytes())
 
                 self.prev_fft = S
                 pos += Ha
@@ -429,6 +383,7 @@ class OPTEngine(EngineBase):
         self.L_ola = 256
         self.Hs_ola = self.L_ola // 2
         self.prev_phase = np.zeros(self.L//2 + 1)
+        self.PHASE_DIFF_THRESHOLD = 0.02  # radians 
         self.S_lookup = None
         self.S_phase_lookup = None
         self.S_mag_lookup = None
@@ -444,17 +399,11 @@ class OPTEngine(EngineBase):
         self.setup_audio_stream()
 
     def prepare_hpss(self):
-        x, self.audio_sr = lb.load(self.filename)
-
+        x, self.audio_sr = lb.load(self.filename, sr=22050)
+        self.audio_data = x
         # HPSS separation
         xh, xp = self.harmonic_percussive_separation(x, self.audio_sr)
-        if np.max(np.abs(xh)) > 1:
-            xh /= np.max(np.abs(xh))
-        if np.max(np.abs(xp)) > 1:
-            xp /= np.max(np.abs(xp))
-
-        # self.xh = self.float2pcm(xh).astype(np.int16)
-        # self.xp = self.float2pcm(xp).astype(np.int16)
+        
         self.xh = xh
         self.xp = xp
 
@@ -462,8 +411,18 @@ class OPTEngine(EngineBase):
         Ha_lookup = int(round(self.beta * self.L))
 
         self.S_lookup = lb.core.stft(self.xh, n_fft=self.L, hop_length=Ha_lookup, win_length=self.L, center=False, dtype=np.complex64)
+        
+        #Normalization
+        S_lookup_temp = lb.core.stft(self.audio_data, n_fft=self.L, hop_length=Ha_lookup, center=False, win_length=self.L) # shape = (1 + n_fft/2, n_frames)
+        S_mag_temp = np.abs(S_lookup_temp)
+
+
         self.S_phase_lookup = np.angle(self.S_lookup)
         self.S_mag_lookup = np.abs(self.S_lookup)
+        
+        norm_factor = 1 + (np.max(self.S_mag_lookup)/np.max(S_mag_temp))
+
+        self.S_mag_lookup = self.S_mag_lookup * norm_factor
         self.w_if_lookup = self.estimate_instantaneous_frequency(self.S_lookup, self.audio_sr, Ha_lookup)
 
         self.den = self.calc_sum_squared_window(self.window, self.Hs)
@@ -491,13 +450,15 @@ class OPTEngine(EngineBase):
         return xh, xp
 
     def estimate_instantaneous_frequency(self, S, sr, hop_samples):
+        assert sr == 22050 and S.ndim == 2, "Input must be 2D STFT at 22.05 kHz"
         hop_sec = hop_samples / sr
         fft_size = (S.shape[0] - 1) * 2
         w_nom = np.arange(S.shape[0]) * sr / fft_size * 2 * np.pi
         w_nom = w_nom.reshape((-1, 1))
         unwrapped = np.angle(S[:, 1:]) - np.angle(S[:, 0:-1]) - w_nom * hop_sec
         wrapped = (unwrapped + np.pi) % (2 * np.pi) - np.pi
-        return w_nom + wrapped / hop_sec
+        w_if = w_nom + wrapped / max(hop_sec, 1e-6)  # Prevent division by extremely small values
+        return w_if
 
     def invert_stft(self, S, hop_length, window):
         L = len(window)
@@ -526,102 +487,52 @@ class OPTEngine(EngineBase):
         return y
 
     def _run(self):
-        pos = 0
+        pos = int(random.random() * self.Hs)
         Ha_lookup = int(self.beta* self.L)
         ratio = self.Hs // self.Hs_ola
         windowOLA = np.hanning(self.L_ola)
-
-        # try:
-        #     while self.running and pos <= len(self.xh) - self.L:
-        #         Ha = int(round(self.Hs / self.alpha))
-        #         Ha_ola = int(round(self.Hs_ola / self.alpha))
-
-        
-        #         if pos == 0:
-        #             prev_phase = self.S_phase_lookup[:, 0]
-        #             S_mod = self.S_mag_lookup[:, 0] * np.exp(1j * prev_phase)
-        #         else:
-        #             nn_frame = int(round(pos / Ha_lookup))  # lookup is always based on min_Ha
-        #             lb_frame = int(pos/Ha_lookup)
-        #             phase_increment = self.w_if_lookup[:, lb_frame] * (self.Hs / self.audio_sr)
-        #             prev_phase += phase_increment  # Update phase correctly for current alpha
-        #             S_mod = self.S_mag_lookup[:, nn_frame] * np.exp(1j * prev_phase)
-
-        #         pv_frame_mod = np.fft.irfft(S_mod)
-        #         # if pos == 0:
-        #         #     prev_phase = self.S_phase_lookup[:, 0]
-        #         #     S_mod = self.S_mag_lookup[:, 0] * np.exp(1j * prev_phase)
-        #         # else:
-        #         #     # Phase increment calculated with respect to Ha_lookup (fixed analysis hop)
-        #         #     delta_phase = self.w_if_lookup[:, nn_frame] * (self.Hs / self.audio_sr)
-        #         #     prev_phase += delta_phase
-        #         #     S_mod = self.S_mag_lookup[:, nn_frame + 1] * np.exp(1j * prev_phase)
-
-        #         # pv_frame_mod = np.fft.irfft(S_mod)
-        #         self.output_buffer[:-self.Hs] = self.output_buffer[self.Hs:]
-        #         self.output_buffer[-self.Hs:] = 0
-        #         self.output_buffer += pv_frame_mod * (self.window.reshape((-1,1)) / self.den.reshape((-1,1))).flatten()
-
-        #         # OLA synthesis
-        #         for i in range(ratio):
-        #             start_i = pos + Ha_ola * i
-        #             if start_i + self.L_ola > len(self.xp):
-        #                 continue
-        #             ola_win = self.xp[start_i:start_i + self.L_ola]
-        #             self.output_buffer[i * self.Hs_ola:i * self.Hs_ola + self.L_ola] += ola_win * windowOLA
-
-        #         # self.output_buffer += ola_y
-        #         self.output_buffer = np.clip(self.output_buffer, -1.0, 1.0)
-        #         self.stream.write(self.float2pcm(self.output_buffer[:self.Hs]).astype(np.int16).tobytes())
-
-        #         pos += Ha
+        norm = (self.window / np.sqrt(np.mean(self.window**2))) * 1 / np.sqrt(1.3)
 
         try:
             while self.running and pos <= len(self.xh) - self.L:
                 Ha = int(round(self.Hs/self.alpha))
                 Ha_ola = int(round(self.Hs_ola/self.alpha))
                 
+                #TODO: Uncomment when done with comparing OLA parts
                 if pos == 0:
                     prev_phase = self.S_phase_lookup[:, 0]
                     S_mod = self.S_mag_lookup[:, 0] * np.exp(1j * prev_phase)
                 else:
-                    nn_frame = min(int(round(pos / Ha_lookup)), self.S_mag_lookup.shape[1] - 1)  # lookup is always based on min_Ha
-                    lb_frame = int(pos/Ha_lookup)
-                    phase_increment = self.w_if_lookup[:, nn_frame-1] * (self.Hs / self.audio_sr)
+                    frame_idx = min(int(np.floor(pos / self.Ha_lookup)), self.S_mag_lookup.shape[1] - 1)
+            
+                    # Get PHASE TRANSITION index (previous to current frame)
+                    phase_trans_idx = min(int(np.floor((pos - Ha) / self.Ha_lookup)), self.w_if_lookup.shape[1] - 1)
+            
+                    phase_increment = self.w_if_lookup[:, phase_trans_idx] * (self.Hs / self.audio_sr)
                     prev_phase += phase_increment  # Update phase correctly for current alpha
-                    S_mod = self.S_mag_lookup[:, nn_frame] * np.exp(1j * prev_phase)
+                    S_mod = self.S_mag_lookup[:, frame_idx] * np.exp(1j * prev_phase)
 
                 pv_frame_mod = np.fft.irfft(S_mod)
 
                 self.output_buffer[:-self.Hs] = self.output_buffer[self.Hs:]
                 self.output_buffer[-self.Hs:] = 0
-                self.output_buffer += pv_frame_mod * (self.window.reshape((-1, 1))/self.den.reshape((-1,1))).flatten()
+                self.output_buffer += pv_frame_mod * (self.window / self.den)
 
                 # #TODO: REMINDER - uncomment to try "OLA Lookup"
                 # nn_frame_OLA = int(round(pos/Ha_lookup_ola))       
             
                 # for offset in OLA_offsets:
                 #     output_buffer[offset: offset+L_ola] += OLA_frame_lookup[nn_frame_OLA]
-                    
-                # #TODO: Uncomment when NO LOOK-UP
+                
+                #TODO: Uncomment when NO LOOK-UP
                 for i in range(ratio):
                     ola_win_synth = self.xp[pos + (Ha_ola*i):pos +(Ha_ola*i) + self.L_ola] * windowOLA
                     offset = i *self.Hs_ola
                     self.output_buffer[offset:offset + self.L_ola] += ola_win_synth
             
-                chunk_to_write = self.output_buffer[:self.Hs]
-                chunk_with_gain = chunk_to_write * self.gain
-                final_chunk = np.clip(chunk_with_gain, -1.0, 1.0)
-                self.stream.write(self.float2pcm(final_chunk).astype(np.int16).tobytes())
-                # stream.write(output_buffer[:Hs].astype(np.int16).tobytes())
-
-                # Store for WAV file
-                # output_frames.append(float2pcm(output_buffer[:Hs]).astype(np.int16).copy())  # Store the chunk
-                # logger.info(pos//Ha)
-                # prev_fft = S
+                self.output_buffer = np.clip(self.output_buffer, -1.0, 1.0)  # Float32 clipping
+                self.stream.write(self.float2pcm(self.output_buffer[:self.Hs]).astype(np.int16).tobytes())  # Convert to int16 at last moment
             
-                # phase_dev = np.std(np.diff(prev_phase[:bass_bin]))
-                # logger.info(f"Bass phase deviation: {phase_dev:.3f} radians")
                 pos += Ha
         finally:
             self.close_audio_stream()

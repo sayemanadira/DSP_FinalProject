@@ -3,14 +3,18 @@ runtime_analysis/**
 *.npy        # Numpy array dumps
 *.csv        # Runtime metrics
 *.log        # Log files
-
+*.png        # Plot files
+*.txt        # Text files
 
 echo "hybrid_runtime_pv.py"
 
 output/**
+volume_issue
 
 */__pycache__
 */.DS_Store
 app/build/
 app/dist/
 app/hooks/
+TimeStretching_solns.ipynb
+final_project.ipynb

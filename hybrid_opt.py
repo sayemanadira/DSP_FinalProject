@@ -8,7 +8,6 @@ from scipy.signal import medfilt
 import scipy.io.wavfile as wavfile
 import csv
 
-
 def calc_sum_squared_window(window, hop_length):
     '''
     Calculates the denominator term for computing synthesis frames.
@@ -27,6 +26,22 @@ def calc_sum_squared_window(window, hop_length):
         den += np.roll(np.square(window), i*hop_length)
         
     return den
+
+def calc_sum_squared_window_any(window, hop_length):
+    """
+    Calculates the denominator for OLA normalization for any hop length.
+    Unlike the original version, it does not require hop_length to divide len(window).
+    """
+    win_len = len(window)
+    max_offset = win_len + hop_length
+    den = np.zeros(max_offset)
+
+    for shift in range(0, max_offset, hop_length):
+        start = shift
+        end = shift + win_len
+        den[start:end] += window**2
+
+    return den[:win_len]
 
 def estimateIF(S, sr, hop_samples):
     '''
@@ -121,11 +136,8 @@ def on_alpha_change(e):
 
 keyboard.on_press(on_alpha_change)
 
-
-# file_name = 'samples/fred_10sec.wav'
 file_name = sys.argv[1]
 audio_data, audio_sr = lb.load(file_name)
-
 
 # Constants
 CHUNK = L = 2048
@@ -136,6 +148,7 @@ alpha = 1.00
 window = np.hanning(L)
 window_ola = np.hanning(L_ola)
 output_buffer = np.zeros(int(L))
+normalization = np.zeros(int(L))
 prev_fft = None
 prev_phase = np.zeros(L//2 + 1)
 runtimes = []
@@ -143,30 +156,46 @@ runtimes = []
 pos = 0
 pos_ola = 0
 # Determines the phase vocoder look-up analysis hopsize e.g. beta = 0.125 is 12.5% overlap
-beta = 0.75
+beta = 0.05
+gain = 0
 
 xh, xp, _, _ = harmonic_percussive_separation(x=audio_data, sr=audio_sr)
 
-if max(abs(xh)) > 1:
-    xh = xh / max(abs(xh))
-elif max(abs(xp)) > 1:
-    xp = xp / max(abs(xp))
-
-# xh = float2pcm(xh).astype(np.int16)
-# xp = float2pcm(xp).astype(np.int16)
-
 omega_nom = np.arange(L//2 + 1) * 2 *np.pi * audio_sr / L
-den = calc_sum_squared_window(window, Hs)
 
 
 #Phase vocoder Look-up
-Ha_lookup = int(round((1 - beta)*L))
+Ha_lookup = int(round((beta)*L))
+den = calc_sum_squared_window(window, Hs)
+
 S_lookup = lb.core.stft(xh, n_fft=L, hop_length=Ha_lookup, center=False, win_length=L) # shape = (1 + n_fft/2, n_frames)
 S_phase_lookup = np.angle(S_lookup)
 S_mag_lookup = np.abs(S_lookup)
+
 w_if_lookup = estimateIF(S_lookup, audio_sr, Ha_lookup)
 prev_phase = None
 ratio = Hs//Hs_ola
+
+# def get_exact_norm(window, Hs, beta):
+#     """Returns the exact normalization factor for perfect volume matching"""
+#     L = len(window)
+#     Ha_lookup = int(beta * L)
+    
+#     # 1. Compute ACTUAL overlap count
+#     actual_overlaps = L / Ha_lookup
+    
+#     # 2. Compute BASELINE overlap count (for β=0.25)
+#     baseline_overlaps = L / Hs  # Typically 4 for Hs=L/4
+    
+#     # 3. Energy compensation factor (FIXED)
+#     # We need to ensure RMS matches, so we must account for the window's energy
+#     window_energy = np.sum(window ** 2)  # Total energy in window
+#     energy_ratio = np.sqrt(baseline_overlaps / actual_overlaps * (L / window_energy))
+    
+#     # 4. Final normalization (scales window to correct RMS)
+#     return window * energy_ratio
+
+# norm = get_exact_norm(window, Hs, beta)
 
 # To save audio file
 output_filename = f"output/output_{beta}.wav"  # Name of the output file
@@ -193,44 +222,52 @@ try:
             prev_phase = S_phase_lookup[:, 0]
             S_mod = S_mag_lookup[:, 0] * np.exp(1j * prev_phase)
         else:
-            nn_frame = int(round(pos / Ha_lookup))  # lookup is always based on min_Ha
-            lb_frame = int(pos/Ha_lookup)
-            phase_increment = w_if_lookup[:, nn_frame-1] * (Hs / audio_sr)
+            # nn_frame = int(round(pos / Ha_lookup))  # lookup is always on Ha_lookup
+            # lb_frame = min(int(pos/Ha_lookup), w_if_lookup.shape[1] - 1)
+            # Get current frame index (for magnitude)
+            frame_idx = min(int(round(pos / Ha_lookup)), S_mag_lookup.shape[1] - 1)
+            
+            # Get PHASE TRANSITION index (previous to current frame)
+            phase_trans_idx = min(int(round((pos - Ha) / Ha_lookup)), w_if_lookup.shape[1] - 1)
+            
+            phase_increment = w_if_lookup[:, phase_trans_idx] * (Hs / audio_sr)
             prev_phase += phase_increment  # Update phase correctly for current alpha
-            S_mod = S_mag_lookup[:, nn_frame] * np.exp(1j * prev_phase)
+            S_mod = S_mag_lookup[:, frame_idx] * np.exp(1j * prev_phase)
 
         pv_frame_mod = np.fft.irfft(S_mod)
 
         output_buffer[:-Hs] = output_buffer[Hs:]
         output_buffer[-Hs:] = 0
-        output_buffer += pv_frame_mod * (window.reshape((-1, 1))/den.reshape((-1,1))).flatten()
+        if beta == 0.25:
+            gain = 1.38
+            output_buffer += pv_frame_mod * ((window.reshape((-1,1))/(den.reshape((-1,1)))).flatten() * gain)
+        else:
+            gain = 2
+            output_buffer += pv_frame_mod * ((window.reshape((-1,1))/(den.reshape((-1,1)))).flatten() * gain)
 
+        # gain = (window / den)[:len(pv_frame_mod)]
+        # output_buffer[:len(gain)] += pv_frame_mod[:len(gain)] * gain
+        # # output_buffer += pv_frame_mod * norm
+        
         # #TODO: REMINDER - uncomment to try "OLA Lookup"
         # nn_frame_OLA = int(round(pos/Ha_lookup_ola))       
     
         # for offset in OLA_offsets:
         #     output_buffer[offset: offset+L_ola] += OLA_frame_lookup[nn_frame_OLA]
             
-        # #TODO: Uncomment when NO LOOK-UP
+        #TODO: Uncomment when NO LOOK-UP
         for i in range(ratio):
             ola_win_synth = xp[pos + (Ha_ola*i):pos +(Ha_ola*i) + L_ola] * window_ola
             offset = i * Hs_ola
             output_buffer[offset:offset + L_ola] += ola_win_synth
-    
+            
 
-        # output_buffer = np.clip(output_buffer, -32768, 32767)  # 16-bit range
-        # runtimes.append(end_time - start_time)
         output_buffer = np.clip(output_buffer, -1.0, 1.0)  # Float32 clipping
         stream.write(float2pcm(output_buffer[:Hs]).astype(np.int16).tobytes())  # Convert to int16 at last moment
-        # stream.write(output_buffer[:Hs].astype(np.int16).tobytes())
 
         # Store for WAV file
-        # output_frames.append(float2pcm(output_buffer[:Hs]).astype(np.int16).copy())  # Store the chunk
-        # print(pos//Ha)
-        # prev_fft = S
-    
-        # phase_dev = np.std(np.diff(prev_phase[:bass_bin]))
-        # print(f"Bass phase deviation: {phase_dev:.3f} radians")
+        output_frames.append(float2pcm(output_buffer[:Hs]).astype(np.int16).copy())  # Store the chunk
+
         pos += Ha
 
 except KeyboardInterrupt:
@@ -247,3 +284,7 @@ if output_frames:
     # Save as WAV
     wavfile.write(output_filename, audio_sr, full_audio)
     print(f"\nSaved processed audio to {output_filename}")
+
+# input_rms = np.sqrt(np.mean(xh**2))
+# output_rms = np.sqrt(np.mean(np.array(output_frames)**2))
+# print(f"Input RMS: {input_rms:.3f}, Output RMS: {output_rms:.3f}")
