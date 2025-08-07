@@ -323,9 +323,7 @@ class HybridEngine(EngineBase):
     def _run(self):
         """Threading implementation for consistency with base class"""
         
-        pos = int(random.random() * self.Hs)
-        ratio = self.Hs // self.Hs_ola
-        windowOLA = np.hanning(self.L_ola)
+        pos = 0
         try:
             while self.running and pos <= len(self.xh) - self.L:
                 Ha = int(self.Hs / self.alpha)
