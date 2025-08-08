@@ -2168,3 +2168,81 @@ INFO:audio:using gain 0.760
 INFO:root:engine reset state
 INFO:player:RANDOM ALPHA 1.6603481602234116
 INFO:root:engine reset state
+INFO:__main__:Started
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/metal/metal.00080.wav,['Hybrid', 'OPT0.25']
+INFO:audio:using gain 0.734
+INFO:root:engine reset state
+INFO:audio:using gain 0.999
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 1.0400690372726642
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:__main__:Started
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/blues/blues.00013.wav,['Hybrid', 'OPT0.25']
+INFO:audio:using gain 0.859
+INFO:root:engine reset state
+INFO:audio:using gain 0.655
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 1.37331196381777
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:__main__:Started
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/hiphop/hiphop.00099.wav,['Hybrid', 'OPT0.25']
+INFO:audio:using gain 0.677
+INFO:root:engine reset state
+INFO:audio:using gain 0.543
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 1.4368861044628343
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:__main__:Started
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/jazz/jazz.00076.wav,['Hybrid', 'OPT0.25']
+INFO:audio:using gain 0.696
+INFO:root:engine reset state
+INFO:audio:using gain 0.822
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 0.6967624841715326
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:__main__:Started
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/hiphop/hiphop.00030.wav,['Hybrid', 'OPT0.25']
+INFO:audio:using gain 0.784
+INFO:root:engine reset state
+INFO:audio:using gain 0.674
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 0.6407095845866324
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:__main__:Started
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/clarkpeng/Documents/MIR/DSP_FinalProject/app/samples/genres_original/blues/blues.00099.wav,['Hybrid', 'OPT0.25']
+INFO:audio:using gain 0.618
+INFO:root:engine reset state
+INFO:audio:using gain 0.713
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 0.8768372631623359
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
