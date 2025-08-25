@@ -136,6 +136,20 @@ def on_alpha_change(e):
 
 keyboard.on_press(on_alpha_change)
 
+def manual_stft_numpy(xh, beta, L=2048, sr=22050):
+        Ha_lookup = int(round(beta * L))
+        window = np.hanning(L)
+        n_frames = int(np.round((len(xh) - L) / Ha_lookup))
+        k_bins = 1 + L // 2
+        S_lookup = np.zeros((k_bins, n_frames), dtype=np.complex64)
+        for i in range(n_frames):
+            start = i * Ha_lookup
+            end = start + L
+            if end > len(xh):
+                break
+            S_lookup[:, i] = np.fft.rfft(xh[start:end])
+        return S_lookup
+
 file_name = sys.argv[1]
 audio_data, audio_sr = lb.load(file_name)
 
@@ -156,7 +170,7 @@ runtimes = []
 pos = 0
 pos_ola = 0
 # Determines the phase vocoder look-up analysis hopsize e.g. beta = 0.125 is 12.5% overlap
-beta = 0.05
+beta = 0.24
 gain = 0
 
 xh, xp, _, _ = harmonic_percussive_separation(x=audio_data, sr=audio_sr)
@@ -168,7 +182,8 @@ omega_nom = np.arange(L//2 + 1) * 2 *np.pi * audio_sr / L
 Ha_lookup = int(round((beta)*L))
 den = calc_sum_squared_window(window, Hs)
 
-S_lookup = lb.core.stft(xh, n_fft=L, hop_length=Ha_lookup, center=False, win_length=L) # shape = (1 + n_fft/2, n_frames)
+S_lookup = manual_stft_numpy(xh, beta)
+# S_lookup = lb.core.stft(xh, n_fft=L, hop_length=Ha_lookup, center=False, win_length=L) # shape = (1 + n_fft/2, n_frames)
 S_phase_lookup = np.angle(S_lookup)
 S_mag_lookup = np.abs(S_lookup)
 

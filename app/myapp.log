@@ -2168,3 +2168,4 @@ INFO:audio:using gain 0.760
 INFO:root:engine reset state
 INFO:player:RANDOM ALPHA 1.6603481602234116
 INFO:root:engine reset state
+INFO:__main__:Started

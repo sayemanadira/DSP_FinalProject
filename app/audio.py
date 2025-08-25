@@ -395,6 +395,20 @@ class OPTEngine(EngineBase):
         super().reset_state()
         self.prev_phase = None
         self.setup_audio_stream()
+    
+    def manual_stft_numpy(xh, beta, L=2048, sr=22050):
+        Ha_lookup = int(round(beta * L))
+        window = np.hanning(L)
+        n_frames = int(np.round((len(xh) - L) / Ha_lookup))
+        k_bins = 1 + L // 2
+        S_lookup = np.zeros((k_bins, n_frames), dtype=np.complex64)
+        for i in range(n_frames):
+            start = i * Ha_lookup
+            end = start + L
+            if end > len(xh):
+                break
+            S_lookup[:, i] = np.fft.rfft(xh[start:end])
+        return S_lookup
 
     def prepare_hpss(self):
         x, self.audio_sr = lb.load(self.filename, sr=22050)
@@ -408,19 +422,12 @@ class OPTEngine(EngineBase):
         # Precompute STFT, phase and IF lookup for time-varying alpha
         Ha_lookup = int(round(self.beta * self.L))
 
-        self.S_lookup = lb.core.stft(self.xh, n_fft=self.L, hop_length=Ha_lookup, win_length=self.L, center=False, dtype=np.complex64)
+        # self.S_lookup = lb.core.stft(self.xh, n_fft=self.L, hop_length=Ha_lookup, win_length=self.L, center=False, dtype=np.complex64)
         
-        #Normalization
-        S_lookup_temp = lb.core.stft(self.audio_data, n_fft=self.L, hop_length=Ha_lookup, center=False, win_length=self.L) # shape = (1 + n_fft/2, n_frames)
-        S_mag_temp = np.abs(S_lookup_temp)
-
-
+        self.S_lookup = self.manual_stft_numpy(self.xh, self.beta)
         self.S_phase_lookup = np.angle(self.S_lookup)
         self.S_mag_lookup = np.abs(self.S_lookup)
         
-        norm_factor = 1 + (np.max(self.S_mag_lookup)/np.max(S_mag_temp))
-
-        self.S_mag_lookup = self.S_mag_lookup * norm_factor
         self.w_if_lookup = self.estimate_instantaneous_frequency(self.S_lookup, self.audio_sr, Ha_lookup)
 
         self.den = self.calc_sum_squared_window(self.window, self.Hs)
