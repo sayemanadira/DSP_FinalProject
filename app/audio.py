@@ -159,7 +159,7 @@ class OLAEngine(EngineBase):
     def _run(self):
 
         num_samples = self.wf.getnframes()
-        pos = int(random.random() * self.Hs)
+        pos = int(random.random() * len(self.window))
 
         try:
             while self.running and pos <= num_samples - self.L:
@@ -198,7 +198,7 @@ class PVEngine(EngineBase):
         
     def _run(self):
         num_samples = self.wf.getnframes()
-        pos = int(random.random() * self.Hs)
+        pos = int(random.random() * len(self.window))
 
         try:
             while self.running and pos <= num_samples - self.L:
@@ -323,7 +323,9 @@ class HybridEngine(EngineBase):
     def _run(self):
         """Threading implementation for consistency with base class"""
         
-        pos = 0
+        pos = int(random.random() * len(self.window))
+        ratio = self.Hs // self.Hs_ola
+        windowOLA = np.hanning(self.L_ola)
         try:
             while self.running and pos <= len(self.xh) - self.L:
                 Ha = int(self.Hs / self.alpha)
@@ -492,30 +494,26 @@ class OPTEngine(EngineBase):
         return y
 
     def _run(self):
-        pos = int(random.random() * self.Hs)
+        pos = int(random.random() * len(self.window))
         Ha_lookup = int(self.beta* self.L)
         ratio = self.Hs // self.Hs_ola
         windowOLA = np.hanning(self.L_ola)
         norm = (self.window / np.sqrt(np.mean(self.window**2))) * 1 / np.sqrt(1.3)
+        self.prev_phase = np.zeros(self.S_phase_lookup[:, 0].shape)
 
         try:
             while self.running and pos <= len(self.xh) - self.L:
                 Ha = int(round(self.Hs/self.alpha))
                 Ha_ola = int(round(self.Hs_ola/self.alpha))
                 
-                #TODO: Uncomment when done with comparing OLA parts
-                if pos == 0:
-                    prev_phase = self.S_phase_lookup[:, 0]
-                    S_mod = self.S_mag_lookup[:, 0] * np.exp(1j * prev_phase)
-                else:
-                    frame_idx = min(int(np.floor(pos / self.Ha_lookup)), self.S_mag_lookup.shape[1] - 1)
-            
-                    # Get PHASE TRANSITION index (previous to current frame)
-                    phase_trans_idx = min(int(np.floor((pos - Ha) / self.Ha_lookup)), self.w_if_lookup.shape[1] - 1)
-            
-                    phase_increment = self.w_if_lookup[:, phase_trans_idx] * (self.Hs / self.audio_sr)
-                    prev_phase += phase_increment  # Update phase correctly for current alpha
-                    S_mod = self.S_mag_lookup[:, frame_idx] * np.exp(1j * prev_phase)
+                frame_idx = min(int(np.floor(pos / Ha_lookup)), self.S_mag_lookup.shape[1] - 1)
+        
+                # Get PHASE TRANSITION index (previous to current frame)
+                phase_trans_idx = min(int(np.floor((pos - Ha) / Ha_lookup)), self.w_if_lookup.shape[1] - 1)
+        
+                phase_increment = self.w_if_lookup[:, phase_trans_idx] * (self.Hs / self.audio_sr)
+                self.prev_phase += phase_increment  # Update phase correctly for current alpha
+                S_mod = self.S_mag_lookup[:, frame_idx] * np.exp(1j * self.prev_phase)
 
                 pv_frame_mod = np.fft.irfft(S_mod)
 
