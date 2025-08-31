@@ -20,7 +20,7 @@ TIME_LIM=30
 # Mapping engine names to classes
 engine_map = {
     # "OLA": OLAEngine,
-    # "PV": PVEngine,
+    "PV": PVEngine,
     "Hybrid": HybridEngine,
     # "OPT0.1": OPTEngine,
     # "OPT0.2": OPTEngine,
@@ -28,7 +28,7 @@ engine_map = {
     # "OPT0.3": OPTEngine,
     # "OPT0.35": OPTEngine,
     # "OPT0.4": OPTEngine,
-    # "OPT0.5": OPTEngine,
+    "OPT0.5": OPTEngine,
     # "OPT0.6": OPTEngine,
     # "OPT0.7": OPTEngine,
     # "OPT0.8": OPTEngine,
@@ -38,7 +38,8 @@ engine_map = {
     # "OPT0.1": OPTEngine,
     # "OPT0.08": OPTEngine,
     # "OPT0.075": OPTEngine,
-    # "OPT0.125": OPTEngine,
+    "OPT0.125": OPTEngine,
+    "OPT0.0625": OPTEngine,
 }
 
 

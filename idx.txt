@@ -1,0 +1,2584 @@
+COLA: True
+Frame idx: 1, Phase transition idx: 1
+Frame idx: 2, Phase transition idx: 2
+Frame idx: 3, Phase transition idx: 3
+Frame idx: 4, Phase transition idx: 4
+Frame idx: 5, Phase transition idx: 5
+Frame idx: 6, Phase transition idx: 6
+Frame idx: 7, Phase transition idx: 7
+Frame idx: 8, Phase transition idx: 8
+Frame idx: 9, Phase transition idx: 9
+Frame idx: 10, Phase transition idx: 10
+Frame idx: 11, Phase transition idx: 11
+Frame idx: 12, Phase transition idx: 12
+Frame idx: 13, Phase transition idx: 13
+Frame idx: 14, Phase transition idx: 14
+Frame idx: 15, Phase transition idx: 15
+Frame idx: 16, Phase transition idx: 16
+Frame idx: 17, Phase transition idx: 17
+Frame idx: 18, Phase transition idx: 18
+Frame idx: 19, Phase transition idx: 19
+Frame idx: 20, Phase transition idx: 20
+Frame idx: 21, Phase transition idx: 21
+Frame idx: 22, Phase transition idx: 22
+Frame idx: 23, Phase transition idx: 23
+Frame idx: 24, Phase transition idx: 24
+Frame idx: 25, Phase transition idx: 25
+Frame idx: 26, Phase transition idx: 26
+Frame idx: 27, Phase transition idx: 27
+Frame idx: 28, Phase transition idx: 28
+Frame idx: 29, Phase transition idx: 29
+Frame idx: 30, Phase transition idx: 30
+Frame idx: 31, Phase transition idx: 31
+Frame idx: 32, Phase transition idx: 32
+Frame idx: 33, Phase transition idx: 33
+Frame idx: 34, Phase transition idx: 34
+Frame idx: 35, Phase transition idx: 35
+Frame idx: 36, Phase transition idx: 36
+Frame idx: 37, Phase transition idx: 37
+Frame idx: 38, Phase transition idx: 38
+Frame idx: 39, Phase transition idx: 39
+Frame idx: 40, Phase transition idx: 40
+Frame idx: 41, Phase transition idx: 41
+Frame idx: 42, Phase transition idx: 42
+Frame idx: 43, Phase transition idx: 43
+Frame idx: 44, Phase transition idx: 44
+Frame idx: 45, Phase transition idx: 45
+Frame idx: 46, Phase transition idx: 46
+Frame idx: 47, Phase transition idx: 47
+Frame idx: 48, Phase transition idx: 48
+Frame idx: 49, Phase transition idx: 49
+Frame idx: 50, Phase transition idx: 50
+Frame idx: 51, Phase transition idx: 51
+Frame idx: 52, Phase transition idx: 52
+Frame idx: 53, Phase transition idx: 53
+Frame idx: 54, Phase transition idx: 54
+Frame idx: 55, Phase transition idx: 55
+Frame idx: 56, Phase transition idx: 56
+Frame idx: 57, Phase transition idx: 57
+Frame idx: 58, Phase transition idx: 58
+Frame idx: 59, Phase transition idx: 59
+Frame idx: 60, Phase transition idx: 60
+Frame idx: 61, Phase transition idx: 61
+Frame idx: 62, Phase transition idx: 62
+Frame idx: 63, Phase transition idx: 63
+Frame idx: 64, Phase transition idx: 64
+Frame idx: 65, Phase transition idx: 65
+Frame idx: 66, Phase transition idx: 66
+Frame idx: 67, Phase transition idx: 67
+Frame idx: 68, Phase transition idx: 68
+Frame idx: 69, Phase transition idx: 69
+Frame idx: 70, Phase transition idx: 70
+Frame idx: 71, Phase transition idx: 71
+Frame idx: 72, Phase transition idx: 72
+Frame idx: 73, Phase transition idx: 73
+Frame idx: 74, Phase transition idx: 74
+Frame idx: 75, Phase transition idx: 75
+Frame idx: 76, Phase transition idx: 76
+Frame idx: 77, Phase transition idx: 77
+Frame idx: 78, Phase transition idx: 78
+Frame idx: 79, Phase transition idx: 79
+Frame idx: 80, Phase transition idx: 80
+Frame idx: 81, Phase transition idx: 81
+Frame idx: 82, Phase transition idx: 82
+Frame idx: 83, Phase transition idx: 83
+Frame idx: 84, Phase transition idx: 84
+Frame idx: 85, Phase transition idx: 85
+Frame idx: 86, Phase transition idx: 86
+Frame idx: 87, Phase transition idx: 87
+Frame idx: 88, Phase transition idx: 88
+Frame idx: 89, Phase transition idx: 89
+Frame idx: 90, Phase transition idx: 90
+Frame idx: 91, Phase transition idx: 91
+Frame idx: 92, Phase transition idx: 92
+Frame idx: 93, Phase transition idx: 93
+Frame idx: 94, Phase transition idx: 94
+Frame idx: 95, Phase transition idx: 95
+Frame idx: 96, Phase transition idx: 96
+Frame idx: 97, Phase transition idx: 97
+Frame idx: 98, Phase transition idx: 98
+Frame idx: 99, Phase transition idx: 99
+Frame idx: 100, Phase transition idx: 100
+Frame idx: 101, Phase transition idx: 101
+Frame idx: 102, Phase transition idx: 102
+Frame idx: 103, Phase transition idx: 103
+Frame idx: 104, Phase transition idx: 104
+Frame idx: 105, Phase transition idx: 105
+Frame idx: 106, Phase transition idx: 106
+Frame idx: 107, Phase transition idx: 107
+Frame idx: 108, Phase transition idx: 108
+Frame idx: 109, Phase transition idx: 109
+Frame idx: 110, Phase transition idx: 110
+Frame idx: 111, Phase transition idx: 111
+Frame idx: 112, Phase transition idx: 112
+Frame idx: 113, Phase transition idx: 113
+Frame idx: 114, Phase transition idx: 114
+Frame idx: 115, Phase transition idx: 115
+Frame idx: 116, Phase transition idx: 116
+Frame idx: 117, Phase transition idx: 117
+Frame idx: 118, Phase transition idx: 118
+Frame idx: 119, Phase transition idx: 119
+Frame idx: 120, Phase transition idx: 120
+Frame idx: 121, Phase transition idx: 121
+Frame idx: 122, Phase transition idx: 122
+Frame idx: 123, Phase transition idx: 123
+Frame idx: 124, Phase transition idx: 124
+Frame idx: 125, Phase transition idx: 125
+Frame idx: 126, Phase transition idx: 126
+Frame idx: 127, Phase transition idx: 127
+Frame idx: 128, Phase transition idx: 128
+Frame idx: 129, Phase transition idx: 129
+Frame idx: 130, Phase transition idx: 130
+Frame idx: 131, Phase transition idx: 131
+Frame idx: 132, Phase transition idx: 132
+Frame idx: 133, Phase transition idx: 133
+Frame idx: 134, Phase transition idx: 134
+Frame idx: 135, Phase transition idx: 135
+Frame idx: 136, Phase transition idx: 136
+Frame idx: 137, Phase transition idx: 137
+Frame idx: 138, Phase transition idx: 138
+Frame idx: 139, Phase transition idx: 139
+Frame idx: 140, Phase transition idx: 140
+Frame idx: 141, Phase transition idx: 141
+Frame idx: 142, Phase transition idx: 142
+Frame idx: 143, Phase transition idx: 143
+Frame idx: 144, Phase transition idx: 144
+Frame idx: 145, Phase transition idx: 145
+Frame idx: 146, Phase transition idx: 146
+Frame idx: 147, Phase transition idx: 147
+Frame idx: 148, Phase transition idx: 148
+Frame idx: 149, Phase transition idx: 149
+Frame idx: 150, Phase transition idx: 150
+Frame idx: 151, Phase transition idx: 151
+Frame idx: 152, Phase transition idx: 152
+Frame idx: 153, Phase transition idx: 153
+Frame idx: 154, Phase transition idx: 154
+Frame idx: 155, Phase transition idx: 155
+Frame idx: 156, Phase transition idx: 156
+Frame idx: 157, Phase transition idx: 157
+Frame idx: 158, Phase transition idx: 158
+Frame idx: 159, Phase transition idx: 159
+Frame idx: 160, Phase transition idx: 160
+Frame idx: 161, Phase transition idx: 161
+Frame idx: 162, Phase transition idx: 162
+Frame idx: 163, Phase transition idx: 163
+Frame idx: 164, Phase transition idx: 164
+Frame idx: 165, Phase transition idx: 165
+Frame idx: 166, Phase transition idx: 166
+Frame idx: 167, Phase transition idx: 167
+Frame idx: 168, Phase transition idx: 168
+Frame idx: 169, Phase transition idx: 169
+Frame idx: 170, Phase transition idx: 170
+Frame idx: 171, Phase transition idx: 171
+Frame idx: 172, Phase transition idx: 172
+Frame idx: 173, Phase transition idx: 173
+Frame idx: 174, Phase transition idx: 174
+Frame idx: 175, Phase transition idx: 175
+Frame idx: 176, Phase transition idx: 176
+Frame idx: 177, Phase transition idx: 177
+Frame idx: 178, Phase transition idx: 178
+Frame idx: 179, Phase transition idx: 179
+Frame idx: 180, Phase transition idx: 180
+Frame idx: 181, Phase transition idx: 181
+Frame idx: 182, Phase transition idx: 182
+Frame idx: 183, Phase transition idx: 183
+Frame idx: 184, Phase transition idx: 184
+Frame idx: 185, Phase transition idx: 185
+Frame idx: 186, Phase transition idx: 186
+Frame idx: 187, Phase transition idx: 187
+Frame idx: 188, Phase transition idx: 188
+Frame idx: 189, Phase transition idx: 189
+Frame idx: 190, Phase transition idx: 190
+Frame idx: 191, Phase transition idx: 191
+Frame idx: 192, Phase transition idx: 192
+Frame idx: 193, Phase transition idx: 193
+Frame idx: 194, Phase transition idx: 194
+Frame idx: 195, Phase transition idx: 195
+Frame idx: 196, Phase transition idx: 196
+Frame idx: 197, Phase transition idx: 197
+Frame idx: 198, Phase transition idx: 198
+Frame idx: 199, Phase transition idx: 199
+Frame idx: 200, Phase transition idx: 200
+Frame idx: 201, Phase transition idx: 201
+Frame idx: 202, Phase transition idx: 202
+Frame idx: 203, Phase transition idx: 203
+Frame idx: 204, Phase transition idx: 204
+Frame idx: 205, Phase transition idx: 205
+Frame idx: 206, Phase transition idx: 206
+Frame idx: 207, Phase transition idx: 207
+Frame idx: 208, Phase transition idx: 208
+Frame idx: 209, Phase transition idx: 209
+Frame idx: 210, Phase transition idx: 210
+Frame idx: 211, Phase transition idx: 211
+Frame idx: 212, Phase transition idx: 212
+Frame idx: 213, Phase transition idx: 213
+Frame idx: 214, Phase transition idx: 214
+Frame idx: 215, Phase transition idx: 215
+Frame idx: 216, Phase transition idx: 216
+Frame idx: 217, Phase transition idx: 217
+Frame idx: 218, Phase transition idx: 218
+Frame idx: 219, Phase transition idx: 219
+Frame idx: 220, Phase transition idx: 220
+Frame idx: 221, Phase transition idx: 221
+Frame idx: 222, Phase transition idx: 222
+Frame idx: 223, Phase transition idx: 223
+Frame idx: 224, Phase transition idx: 224
+Frame idx: 225, Phase transition idx: 225
+Frame idx: 226, Phase transition idx: 226
+Frame idx: 227, Phase transition idx: 227
+Frame idx: 228, Phase transition idx: 228
+Frame idx: 229, Phase transition idx: 229
+Frame idx: 230, Phase transition idx: 230
+Frame idx: 231, Phase transition idx: 231
+Frame idx: 232, Phase transition idx: 232
+Frame idx: 233, Phase transition idx: 233
+Frame idx: 234, Phase transition idx: 234
+Frame idx: 235, Phase transition idx: 235
+Frame idx: 236, Phase transition idx: 236
+Frame idx: 237, Phase transition idx: 237
+Frame idx: 238, Phase transition idx: 238
+Frame idx: 239, Phase transition idx: 239
+Frame idx: 240, Phase transition idx: 240
+Frame idx: 241, Phase transition idx: 241
+Frame idx: 242, Phase transition idx: 242
+Frame idx: 243, Phase transition idx: 243
+Frame idx: 244, Phase transition idx: 244
+Frame idx: 245, Phase transition idx: 245
+Frame idx: 246, Phase transition idx: 246
+Frame idx: 247, Phase transition idx: 247
+Frame idx: 248, Phase transition idx: 248
+Frame idx: 249, Phase transition idx: 249
+Frame idx: 250, Phase transition idx: 250
+Frame idx: 251, Phase transition idx: 251
+Frame idx: 252, Phase transition idx: 252
+Frame idx: 253, Phase transition idx: 253
+Frame idx: 254, Phase transition idx: 254
+Frame idx: 255, Phase transition idx: 255
+Frame idx: 256, Phase transition idx: 256
+Frame idx: 257, Phase transition idx: 257
+Frame idx: 258, Phase transition idx: 258
+Frame idx: 259, Phase transition idx: 259
+Frame idx: 260, Phase transition idx: 260
+Frame idx: 261, Phase transition idx: 261
+Frame idx: 262, Phase transition idx: 262
+Frame idx: 263, Phase transition idx: 263
+Frame idx: 264, Phase transition idx: 264
+Frame idx: 265, Phase transition idx: 265
+Frame idx: 266, Phase transition idx: 266
+Frame idx: 267, Phase transition idx: 267
+Frame idx: 268, Phase transition idx: 268
+Frame idx: 269, Phase transition idx: 269
+Frame idx: 270, Phase transition idx: 270
+Frame idx: 271, Phase transition idx: 271
+Frame idx: 272, Phase transition idx: 272
+Frame idx: 273, Phase transition idx: 273
+Frame idx: 274, Phase transition idx: 274
+Frame idx: 275, Phase transition idx: 275
+Frame idx: 276, Phase transition idx: 276
+Frame idx: 277, Phase transition idx: 277
+Frame idx: 278, Phase transition idx: 278
+Frame idx: 279, Phase transition idx: 279
+Frame idx: 280, Phase transition idx: 280
+Frame idx: 281, Phase transition idx: 281
+Frame idx: 282, Phase transition idx: 282
+Frame idx: 283, Phase transition idx: 283
+Frame idx: 284, Phase transition idx: 284
+Frame idx: 285, Phase transition idx: 285
+Frame idx: 286, Phase transition idx: 286
+Frame idx: 287, Phase transition idx: 287
+Frame idx: 288, Phase transition idx: 288
+Frame idx: 289, Phase transition idx: 289
+Frame idx: 290, Phase transition idx: 290
+Frame idx: 291, Phase transition idx: 291
+Frame idx: 292, Phase transition idx: 292
+Frame idx: 293, Phase transition idx: 293
+Frame idx: 294, Phase transition idx: 294
+Frame idx: 295, Phase transition idx: 295
+Frame idx: 296, Phase transition idx: 296
+Frame idx: 297, Phase transition idx: 297
+Frame idx: 298, Phase transition idx: 298
+Frame idx: 299, Phase transition idx: 299
+Frame idx: 300, Phase transition idx: 300
+Frame idx: 301, Phase transition idx: 301
+Frame idx: 302, Phase transition idx: 302
+Frame idx: 303, Phase transition idx: 303
+Frame idx: 304, Phase transition idx: 304
+Frame idx: 305, Phase transition idx: 305
+Frame idx: 306, Phase transition idx: 306
+Frame idx: 307, Phase transition idx: 307
+Frame idx: 308, Phase transition idx: 308
+Frame idx: 309, Phase transition idx: 309
+Frame idx: 310, Phase transition idx: 310
+Frame idx: 311, Phase transition idx: 311
+Frame idx: 312, Phase transition idx: 312
+Frame idx: 313, Phase transition idx: 313
+Frame idx: 314, Phase transition idx: 314
+Frame idx: 315, Phase transition idx: 315
+Frame idx: 316, Phase transition idx: 316
+Frame idx: 317, Phase transition idx: 317
+Frame idx: 318, Phase transition idx: 318
+Frame idx: 319, Phase transition idx: 319
+Frame idx: 320, Phase transition idx: 320
+Frame idx: 321, Phase transition idx: 321
+Frame idx: 322, Phase transition idx: 322
+Frame idx: 323, Phase transition idx: 323
+Frame idx: 324, Phase transition idx: 324
+Frame idx: 325, Phase transition idx: 325
+Frame idx: 326, Phase transition idx: 326
+Frame idx: 327, Phase transition idx: 327
+Frame idx: 328, Phase transition idx: 328
+Frame idx: 329, Phase transition idx: 329
+Frame idx: 330, Phase transition idx: 330
+Frame idx: 331, Phase transition idx: 331
+Frame idx: 332, Phase transition idx: 332
+Frame idx: 333, Phase transition idx: 333
+Frame idx: 334, Phase transition idx: 334
+Frame idx: 335, Phase transition idx: 335
+Frame idx: 336, Phase transition idx: 336
+Frame idx: 337, Phase transition idx: 337
+Frame idx: 338, Phase transition idx: 338
+Frame idx: 339, Phase transition idx: 339
+Frame idx: 340, Phase transition idx: 340
+Frame idx: 341, Phase transition idx: 341
+Frame idx: 342, Phase transition idx: 342
+Frame idx: 343, Phase transition idx: 343
+Frame idx: 344, Phase transition idx: 344
+Frame idx: 345, Phase transition idx: 345
+Frame idx: 346, Phase transition idx: 346
+Frame idx: 347, Phase transition idx: 347
+Frame idx: 348, Phase transition idx: 348
+Frame idx: 349, Phase transition idx: 349
+Frame idx: 350, Phase transition idx: 350
+Frame idx: 351, Phase transition idx: 351
+Frame idx: 352, Phase transition idx: 352
+Frame idx: 353, Phase transition idx: 353
+Frame idx: 354, Phase transition idx: 354
+Frame idx: 355, Phase transition idx: 355
+Frame idx: 356, Phase transition idx: 356
+Frame idx: 357, Phase transition idx: 357
+Frame idx: 358, Phase transition idx: 358
+Frame idx: 359, Phase transition idx: 359
+Frame idx: 360, Phase transition idx: 360
+Frame idx: 361, Phase transition idx: 361
+Frame idx: 362, Phase transition idx: 362
+Frame idx: 363, Phase transition idx: 363
+Frame idx: 364, Phase transition idx: 364
+Frame idx: 365, Phase transition idx: 365
+Frame idx: 366, Phase transition idx: 366
+Frame idx: 367, Phase transition idx: 367
+Frame idx: 368, Phase transition idx: 368
+Frame idx: 369, Phase transition idx: 369
+Frame idx: 370, Phase transition idx: 370
+Frame idx: 371, Phase transition idx: 371
+Frame idx: 372, Phase transition idx: 372
+Frame idx: 373, Phase transition idx: 373
+Frame idx: 374, Phase transition idx: 374
+Frame idx: 375, Phase transition idx: 375
+Frame idx: 376, Phase transition idx: 376
+Frame idx: 377, Phase transition idx: 377
+Frame idx: 378, Phase transition idx: 378
+Frame idx: 379, Phase transition idx: 379
+Frame idx: 380, Phase transition idx: 380
+Frame idx: 381, Phase transition idx: 381
+Frame idx: 382, Phase transition idx: 382
+Frame idx: 383, Phase transition idx: 383
+Frame idx: 384, Phase transition idx: 384
+Frame idx: 385, Phase transition idx: 385
+Frame idx: 386, Phase transition idx: 386
+Frame idx: 387, Phase transition idx: 387
+Frame idx: 388, Phase transition idx: 388
+Frame idx: 389, Phase transition idx: 389
+Frame idx: 390, Phase transition idx: 390
+Frame idx: 391, Phase transition idx: 391
+Frame idx: 392, Phase transition idx: 392
+Frame idx: 393, Phase transition idx: 393
+Frame idx: 394, Phase transition idx: 394
+Frame idx: 395, Phase transition idx: 395
+Frame idx: 396, Phase transition idx: 396
+Frame idx: 397, Phase transition idx: 397
+Frame idx: 398, Phase transition idx: 398
+Frame idx: 399, Phase transition idx: 399
+Frame idx: 400, Phase transition idx: 400
+Frame idx: 401, Phase transition idx: 401
+Frame idx: 402, Phase transition idx: 402
+Frame idx: 403, Phase transition idx: 403
+Frame idx: 404, Phase transition idx: 404
+Frame idx: 405, Phase transition idx: 405
+Frame idx: 406, Phase transition idx: 406
+Frame idx: 407, Phase transition idx: 407
+Frame idx: 408, Phase transition idx: 408
+Frame idx: 409, Phase transition idx: 409
+Frame idx: 410, Phase transition idx: 410
+Frame idx: 411, Phase transition idx: 411
+Frame idx: 412, Phase transition idx: 412
+Frame idx: 413, Phase transition idx: 413
+Frame idx: 414, Phase transition idx: 414
+Frame idx: 415, Phase transition idx: 415
+Frame idx: 416, Phase transition idx: 416
+Frame idx: 417, Phase transition idx: 417
+Frame idx: 418, Phase transition idx: 418
+Frame idx: 419, Phase transition idx: 419
+Frame idx: 420, Phase transition idx: 420
+Frame idx: 421, Phase transition idx: 421
+Frame idx: 422, Phase transition idx: 422
+Frame idx: 423, Phase transition idx: 423
+Frame idx: 424, Phase transition idx: 424
+Frame idx: 425, Phase transition idx: 425
+Frame idx: 426, Phase transition idx: 426
+Frame idx: 427, Phase transition idx: 427
+Frame idx: 428, Phase transition idx: 428
+Frame idx: 429, Phase transition idx: 429
+Frame idx: 430, Phase transition idx: 430
+Frame idx: 431, Phase transition idx: 431
+Frame idx: 432, Phase transition idx: 432
+Frame idx: 433, Phase transition idx: 433
+Frame idx: 434, Phase transition idx: 434
+Frame idx: 435, Phase transition idx: 435
+Frame idx: 436, Phase transition idx: 436
+Frame idx: 437, Phase transition idx: 437
+Frame idx: 438, Phase transition idx: 438
+Frame idx: 439, Phase transition idx: 439
+Frame idx: 440, Phase transition idx: 440
+Frame idx: 441, Phase transition idx: 441
+Frame idx: 442, Phase transition idx: 442
+Frame idx: 443, Phase transition idx: 443
+Frame idx: 444, Phase transition idx: 444
+Frame idx: 445, Phase transition idx: 445
+Frame idx: 446, Phase transition idx: 446
+Frame idx: 447, Phase transition idx: 447
+Frame idx: 448, Phase transition idx: 448
+Frame idx: 449, Phase transition idx: 449
+Frame idx: 450, Phase transition idx: 450
+Frame idx: 451, Phase transition idx: 451
+Frame idx: 452, Phase transition idx: 452
+Frame idx: 453, Phase transition idx: 453
+Frame idx: 454, Phase transition idx: 454
+Frame idx: 455, Phase transition idx: 455
+Frame idx: 456, Phase transition idx: 456
+Frame idx: 457, Phase transition idx: 457
+Frame idx: 458, Phase transition idx: 458
+Frame idx: 459, Phase transition idx: 459
+Frame idx: 460, Phase transition idx: 460
+Frame idx: 461, Phase transition idx: 461
+Frame idx: 462, Phase transition idx: 462
+Frame idx: 463, Phase transition idx: 463
+Frame idx: 464, Phase transition idx: 464
+Frame idx: 465, Phase transition idx: 465
+Frame idx: 466, Phase transition idx: 466
+Frame idx: 467, Phase transition idx: 467
+Frame idx: 468, Phase transition idx: 468
+Frame idx: 469, Phase transition idx: 469
+Frame idx: 470, Phase transition idx: 470
+Frame idx: 471, Phase transition idx: 471
+Frame idx: 472, Phase transition idx: 472
+Frame idx: 473, Phase transition idx: 473
+Frame idx: 474, Phase transition idx: 474
+Frame idx: 475, Phase transition idx: 475
+Frame idx: 476, Phase transition idx: 476
+Frame idx: 477, Phase transition idx: 477
+Frame idx: 478, Phase transition idx: 478
+Frame idx: 479, Phase transition idx: 479
+Frame idx: 480, Phase transition idx: 480
+Frame idx: 481, Phase transition idx: 481
+Frame idx: 482, Phase transition idx: 482
+Frame idx: 483, Phase transition idx: 483
+Frame idx: 484, Phase transition idx: 484
+Frame idx: 485, Phase transition idx: 485
+Frame idx: 486, Phase transition idx: 486
+Frame idx: 487, Phase transition idx: 487
+Frame idx: 488, Phase transition idx: 488
+Frame idx: 489, Phase transition idx: 489
+Frame idx: 490, Phase transition idx: 490
+Frame idx: 491, Phase transition idx: 491
+Frame idx: 492, Phase transition idx: 492
+Frame idx: 493, Phase transition idx: 493
+Frame idx: 494, Phase transition idx: 494
+Frame idx: 495, Phase transition idx: 495
+Frame idx: 496, Phase transition idx: 496
+Frame idx: 497, Phase transition idx: 497
+Frame idx: 498, Phase transition idx: 498
+Frame idx: 499, Phase transition idx: 499
+Frame idx: 500, Phase transition idx: 500
+Frame idx: 501, Phase transition idx: 501
+Frame idx: 502, Phase transition idx: 502
+Frame idx: 503, Phase transition idx: 503
+Frame idx: 504, Phase transition idx: 504
+Frame idx: 505, Phase transition idx: 505
+Frame idx: 506, Phase transition idx: 506
+Frame idx: 507, Phase transition idx: 507
+Frame idx: 508, Phase transition idx: 508
+Frame idx: 509, Phase transition idx: 509
+Frame idx: 510, Phase transition idx: 510
+Frame idx: 511, Phase transition idx: 511
+Frame idx: 512, Phase transition idx: 512
+Frame idx: 513, Phase transition idx: 513
+Frame idx: 514, Phase transition idx: 514
+Frame idx: 515, Phase transition idx: 515
+Frame idx: 516, Phase transition idx: 516
+Frame idx: 517, Phase transition idx: 517
+Frame idx: 518, Phase transition idx: 518
+Frame idx: 519, Phase transition idx: 519
+Frame idx: 520, Phase transition idx: 520
+Frame idx: 521, Phase transition idx: 521
+Frame idx: 522, Phase transition idx: 522
+Frame idx: 523, Phase transition idx: 523
+Frame idx: 524, Phase transition idx: 524
+Frame idx: 525, Phase transition idx: 525
+Frame idx: 526, Phase transition idx: 526
+Frame idx: 527, Phase transition idx: 527
+Frame idx: 528, Phase transition idx: 528
+Frame idx: 529, Phase transition idx: 529
+Frame idx: 530, Phase transition idx: 530
+Frame idx: 531, Phase transition idx: 531
+Frame idx: 532, Phase transition idx: 532
+Frame idx: 533, Phase transition idx: 533
+Frame idx: 534, Phase transition idx: 534
+Frame idx: 535, Phase transition idx: 535
+Frame idx: 536, Phase transition idx: 536
+Frame idx: 537, Phase transition idx: 537
+Frame idx: 538, Phase transition idx: 538
+Frame idx: 539, Phase transition idx: 539
+Frame idx: 540, Phase transition idx: 540
+Frame idx: 541, Phase transition idx: 541
+Frame idx: 542, Phase transition idx: 542
+Frame idx: 543, Phase transition idx: 543
+Frame idx: 544, Phase transition idx: 544
+Frame idx: 545, Phase transition idx: 545
+Frame idx: 546, Phase transition idx: 546
+Frame idx: 547, Phase transition idx: 547
+Frame idx: 548, Phase transition idx: 548
+Frame idx: 549, Phase transition idx: 549
+Frame idx: 550, Phase transition idx: 550
+Frame idx: 551, Phase transition idx: 551
+Frame idx: 552, Phase transition idx: 552
+Frame idx: 553, Phase transition idx: 553
+Frame idx: 554, Phase transition idx: 554
+Frame idx: 555, Phase transition idx: 555
+Frame idx: 556, Phase transition idx: 556
+Frame idx: 557, Phase transition idx: 557
+Frame idx: 558, Phase transition idx: 558
+Frame idx: 559, Phase transition idx: 559
+Frame idx: 560, Phase transition idx: 560
+Frame idx: 561, Phase transition idx: 561
+Frame idx: 562, Phase transition idx: 562
+Frame idx: 563, Phase transition idx: 563
+Frame idx: 564, Phase transition idx: 564
+Frame idx: 565, Phase transition idx: 565
+Frame idx: 566, Phase transition idx: 566
+Frame idx: 567, Phase transition idx: 567
+Frame idx: 568, Phase transition idx: 568
+Frame idx: 569, Phase transition idx: 569
+Frame idx: 570, Phase transition idx: 570
+Frame idx: 571, Phase transition idx: 571
+Frame idx: 572, Phase transition idx: 572
+Frame idx: 573, Phase transition idx: 573
+Frame idx: 574, Phase transition idx: 574
+Frame idx: 575, Phase transition idx: 575
+Frame idx: 576, Phase transition idx: 576
+Frame idx: 577, Phase transition idx: 577
+Frame idx: 578, Phase transition idx: 578
+Frame idx: 579, Phase transition idx: 579
+Frame idx: 580, Phase transition idx: 580
+Frame idx: 581, Phase transition idx: 581
+Frame idx: 582, Phase transition idx: 582
+Frame idx: 583, Phase transition idx: 583
+Frame idx: 584, Phase transition idx: 584
+Frame idx: 585, Phase transition idx: 585
+Frame idx: 586, Phase transition idx: 586
+Frame idx: 587, Phase transition idx: 587
+Frame idx: 588, Phase transition idx: 588
+Frame idx: 589, Phase transition idx: 589
+Frame idx: 590, Phase transition idx: 590
+Frame idx: 591, Phase transition idx: 591
+Frame idx: 592, Phase transition idx: 592
+Frame idx: 593, Phase transition idx: 593
+Frame idx: 594, Phase transition idx: 594
+Frame idx: 595, Phase transition idx: 595
+Frame idx: 596, Phase transition idx: 596
+Frame idx: 597, Phase transition idx: 597
+Frame idx: 598, Phase transition idx: 598
+Frame idx: 599, Phase transition idx: 599
+Frame idx: 600, Phase transition idx: 600
+Frame idx: 601, Phase transition idx: 601
+Frame idx: 602, Phase transition idx: 602
+Frame idx: 603, Phase transition idx: 603
+Frame idx: 604, Phase transition idx: 604
+Frame idx: 605, Phase transition idx: 605
+Frame idx: 606, Phase transition idx: 606
+Frame idx: 607, Phase transition idx: 607
+Frame idx: 608, Phase transition idx: 608
+Frame idx: 609, Phase transition idx: 609
+Frame idx: 610, Phase transition idx: 610
+Frame idx: 611, Phase transition idx: 611
+Frame idx: 612, Phase transition idx: 612
+Frame idx: 613, Phase transition idx: 613
+Frame idx: 614, Phase transition idx: 614
+Frame idx: 615, Phase transition idx: 615
+Frame idx: 616, Phase transition idx: 616
+Frame idx: 617, Phase transition idx: 617
+Frame idx: 618, Phase transition idx: 618
+Frame idx: 619, Phase transition idx: 619
+Frame idx: 620, Phase transition idx: 620
+Frame idx: 621, Phase transition idx: 621
+Frame idx: 622, Phase transition idx: 622
+Frame idx: 623, Phase transition idx: 623
+Frame idx: 624, Phase transition idx: 624
+Frame idx: 625, Phase transition idx: 625
+Frame idx: 626, Phase transition idx: 626
+Frame idx: 627, Phase transition idx: 627
+Frame idx: 628, Phase transition idx: 628
+Frame idx: 629, Phase transition idx: 629
+Frame idx: 630, Phase transition idx: 630
+Frame idx: 631, Phase transition idx: 631
+Frame idx: 632, Phase transition idx: 632
+Frame idx: 633, Phase transition idx: 633
+Frame idx: 634, Phase transition idx: 634
+Frame idx: 635, Phase transition idx: 635
+Frame idx: 636, Phase transition idx: 636
+Frame idx: 637, Phase transition idx: 637
+Frame idx: 638, Phase transition idx: 638
+Frame idx: 639, Phase transition idx: 639
+Frame idx: 640, Phase transition idx: 640
+Frame idx: 641, Phase transition idx: 641
+Frame idx: 642, Phase transition idx: 642
+Frame idx: 643, Phase transition idx: 643
+Frame idx: 644, Phase transition idx: 644
+Frame idx: 645, Phase transition idx: 645
+Frame idx: 646, Phase transition idx: 646
+Frame idx: 647, Phase transition idx: 647
+Frame idx: 648, Phase transition idx: 648
+Frame idx: 649, Phase transition idx: 649
+Frame idx: 650, Phase transition idx: 650
+Frame idx: 651, Phase transition idx: 651
+Frame idx: 652, Phase transition idx: 652
+Frame idx: 653, Phase transition idx: 653
+Frame idx: 654, Phase transition idx: 654
+Frame idx: 655, Phase transition idx: 655
+Frame idx: 656, Phase transition idx: 656
+Frame idx: 657, Phase transition idx: 657
+Frame idx: 658, Phase transition idx: 658
+Frame idx: 659, Phase transition idx: 659
+Frame idx: 660, Phase transition idx: 660
+Frame idx: 661, Phase transition idx: 661
+Frame idx: 662, Phase transition idx: 662
+Frame idx: 663, Phase transition idx: 663
+Frame idx: 664, Phase transition idx: 664
+Frame idx: 665, Phase transition idx: 665
+Frame idx: 666, Phase transition idx: 666
+Frame idx: 667, Phase transition idx: 667
+Frame idx: 668, Phase transition idx: 668
+Frame idx: 669, Phase transition idx: 669
+Frame idx: 670, Phase transition idx: 670
+Frame idx: 671, Phase transition idx: 671
+Frame idx: 672, Phase transition idx: 672
+Frame idx: 673, Phase transition idx: 673
+Frame idx: 674, Phase transition idx: 674
+Frame idx: 675, Phase transition idx: 675
+Frame idx: 676, Phase transition idx: 676
+Frame idx: 677, Phase transition idx: 677
+Frame idx: 678, Phase transition idx: 678
+Frame idx: 679, Phase transition idx: 679
+Frame idx: 680, Phase transition idx: 680
+Frame idx: 681, Phase transition idx: 681
+Frame idx: 682, Phase transition idx: 682
+Frame idx: 683, Phase transition idx: 683
+Frame idx: 684, Phase transition idx: 684
+Frame idx: 685, Phase transition idx: 685
+Frame idx: 686, Phase transition idx: 686
+Frame idx: 687, Phase transition idx: 687
+Frame idx: 688, Phase transition idx: 688
+Frame idx: 689, Phase transition idx: 689
+Frame idx: 690, Phase transition idx: 690
+Frame idx: 691, Phase transition idx: 691
+Frame idx: 692, Phase transition idx: 692
+Frame idx: 693, Phase transition idx: 693
+Frame idx: 694, Phase transition idx: 694
+Frame idx: 695, Phase transition idx: 695
+Frame idx: 696, Phase transition idx: 696
+Frame idx: 697, Phase transition idx: 697
+Frame idx: 698, Phase transition idx: 698
+Frame idx: 699, Phase transition idx: 699
+Frame idx: 700, Phase transition idx: 700
+Frame idx: 701, Phase transition idx: 701
+Frame idx: 702, Phase transition idx: 702
+Frame idx: 703, Phase transition idx: 703
+Frame idx: 704, Phase transition idx: 704
+Frame idx: 705, Phase transition idx: 705
+Frame idx: 706, Phase transition idx: 706
+Frame idx: 707, Phase transition idx: 707
+Frame idx: 708, Phase transition idx: 708
+Frame idx: 709, Phase transition idx: 709
+Frame idx: 710, Phase transition idx: 710
+Frame idx: 711, Phase transition idx: 711
+Frame idx: 712, Phase transition idx: 712
+Frame idx: 713, Phase transition idx: 713
+Frame idx: 714, Phase transition idx: 714
+Frame idx: 715, Phase transition idx: 715
+Frame idx: 716, Phase transition idx: 716
+Frame idx: 717, Phase transition idx: 717
+Frame idx: 718, Phase transition idx: 718
+Frame idx: 719, Phase transition idx: 719
+Frame idx: 720, Phase transition idx: 720
+Frame idx: 721, Phase transition idx: 721
+Frame idx: 722, Phase transition idx: 722
+Frame idx: 723, Phase transition idx: 723
+Frame idx: 724, Phase transition idx: 724
+Frame idx: 725, Phase transition idx: 725
+Frame idx: 726, Phase transition idx: 726
+Frame idx: 727, Phase transition idx: 727
+Frame idx: 728, Phase transition idx: 728
+Frame idx: 729, Phase transition idx: 729
+Frame idx: 730, Phase transition idx: 730
+Frame idx: 731, Phase transition idx: 731
+Frame idx: 732, Phase transition idx: 732
+Frame idx: 733, Phase transition idx: 733
+Frame idx: 734, Phase transition idx: 734
+Frame idx: 735, Phase transition idx: 735
+Frame idx: 736, Phase transition idx: 736
+Frame idx: 737, Phase transition idx: 737
+Frame idx: 738, Phase transition idx: 738
+Frame idx: 739, Phase transition idx: 739
+Frame idx: 740, Phase transition idx: 740
+Frame idx: 741, Phase transition idx: 741
+Frame idx: 742, Phase transition idx: 742
+Frame idx: 743, Phase transition idx: 743
+Frame idx: 744, Phase transition idx: 744
+Frame idx: 745, Phase transition idx: 745
+Frame idx: 746, Phase transition idx: 746
+Frame idx: 747, Phase transition idx: 747
+Frame idx: 748, Phase transition idx: 748
+Frame idx: 749, Phase transition idx: 749
+Frame idx: 750, Phase transition idx: 750
+Frame idx: 751, Phase transition idx: 751
+Frame idx: 752, Phase transition idx: 752
+Frame idx: 753, Phase transition idx: 753
+Frame idx: 754, Phase transition idx: 754
+Frame idx: 755, Phase transition idx: 755
+Frame idx: 756, Phase transition idx: 756
+Frame idx: 757, Phase transition idx: 757
+Frame idx: 758, Phase transition idx: 758
+Frame idx: 759, Phase transition idx: 759
+Frame idx: 760, Phase transition idx: 760
+Frame idx: 761, Phase transition idx: 761
+Frame idx: 762, Phase transition idx: 762
+Frame idx: 763, Phase transition idx: 763
+Frame idx: 764, Phase transition idx: 764
+Frame idx: 765, Phase transition idx: 765
+Frame idx: 766, Phase transition idx: 766
+Frame idx: 767, Phase transition idx: 767
+Frame idx: 768, Phase transition idx: 768
+Frame idx: 769, Phase transition idx: 769
+Frame idx: 770, Phase transition idx: 770
+Frame idx: 771, Phase transition idx: 771
+Frame idx: 772, Phase transition idx: 772
+Frame idx: 773, Phase transition idx: 773
+Frame idx: 774, Phase transition idx: 774
+Frame idx: 775, Phase transition idx: 775
+Frame idx: 776, Phase transition idx: 776
+Frame idx: 777, Phase transition idx: 777
+Frame idx: 778, Phase transition idx: 778
+Frame idx: 779, Phase transition idx: 779
+Frame idx: 780, Phase transition idx: 780
+Frame idx: 781, Phase transition idx: 781
+Frame idx: 782, Phase transition idx: 782
+Frame idx: 783, Phase transition idx: 783
+Frame idx: 784, Phase transition idx: 784
+Frame idx: 785, Phase transition idx: 785
+Frame idx: 786, Phase transition idx: 786
+Frame idx: 787, Phase transition idx: 787
+Frame idx: 788, Phase transition idx: 788
+Frame idx: 789, Phase transition idx: 789
+Frame idx: 790, Phase transition idx: 790
+Frame idx: 791, Phase transition idx: 791
+Frame idx: 792, Phase transition idx: 792
+Frame idx: 793, Phase transition idx: 793
+Frame idx: 794, Phase transition idx: 794
+Frame idx: 795, Phase transition idx: 795
+Frame idx: 796, Phase transition idx: 796
+Frame idx: 797, Phase transition idx: 797
+Frame idx: 798, Phase transition idx: 798
+Frame idx: 799, Phase transition idx: 799
+Frame idx: 800, Phase transition idx: 800
+Frame idx: 801, Phase transition idx: 801
+Frame idx: 802, Phase transition idx: 802
+Frame idx: 803, Phase transition idx: 803
+Frame idx: 804, Phase transition idx: 804
+Frame idx: 805, Phase transition idx: 805
+Frame idx: 806, Phase transition idx: 806
+Frame idx: 807, Phase transition idx: 807
+Frame idx: 808, Phase transition idx: 808
+Frame idx: 809, Phase transition idx: 809
+Frame idx: 810, Phase transition idx: 810
+Frame idx: 811, Phase transition idx: 811
+Frame idx: 812, Phase transition idx: 812
+Frame idx: 813, Phase transition idx: 813
+Frame idx: 814, Phase transition idx: 814
+Frame idx: 815, Phase transition idx: 815
+Frame idx: 816, Phase transition idx: 816
+Frame idx: 817, Phase transition idx: 817
+Frame idx: 818, Phase transition idx: 818
+Frame idx: 819, Phase transition idx: 819
+Frame idx: 820, Phase transition idx: 820
+Frame idx: 821, Phase transition idx: 821
+Frame idx: 822, Phase transition idx: 822
+Frame idx: 823, Phase transition idx: 823
+Frame idx: 824, Phase transition idx: 824
+Frame idx: 825, Phase transition idx: 825
+Frame idx: 826, Phase transition idx: 826
+Frame idx: 827, Phase transition idx: 827
+Frame idx: 828, Phase transition idx: 828
+Frame idx: 829, Phase transition idx: 829
+Frame idx: 830, Phase transition idx: 830
+Frame idx: 831, Phase transition idx: 831
+Frame idx: 832, Phase transition idx: 832
+Frame idx: 833, Phase transition idx: 833
+Frame idx: 834, Phase transition idx: 834
+Frame idx: 835, Phase transition idx: 835
+Frame idx: 836, Phase transition idx: 836
+Frame idx: 837, Phase transition idx: 837
+Frame idx: 838, Phase transition idx: 838
+Frame idx: 839, Phase transition idx: 839
+Frame idx: 840, Phase transition idx: 840
+Frame idx: 841, Phase transition idx: 841
+Frame idx: 842, Phase transition idx: 842
+Frame idx: 843, Phase transition idx: 843
+Frame idx: 844, Phase transition idx: 844
+Frame idx: 845, Phase transition idx: 845
+Frame idx: 846, Phase transition idx: 846
+Frame idx: 847, Phase transition idx: 847
+Frame idx: 848, Phase transition idx: 848
+Frame idx: 849, Phase transition idx: 849
+Frame idx: 850, Phase transition idx: 850
+Frame idx: 851, Phase transition idx: 851
+Frame idx: 852, Phase transition idx: 852
+Frame idx: 853, Phase transition idx: 853
+Frame idx: 854, Phase transition idx: 854
+Frame idx: 855, Phase transition idx: 855
+Frame idx: 856, Phase transition idx: 856
+Frame idx: 857, Phase transition idx: 857
+Frame idx: 858, Phase transition idx: 858
+Frame idx: 859, Phase transition idx: 859
+Frame idx: 860, Phase transition idx: 860
+Frame idx: 861, Phase transition idx: 861
+Frame idx: 862, Phase transition idx: 862
+Frame idx: 863, Phase transition idx: 863
+Frame idx: 864, Phase transition idx: 864
+Frame idx: 865, Phase transition idx: 865
+Frame idx: 866, Phase transition idx: 866
+Frame idx: 867, Phase transition idx: 867
+Frame idx: 868, Phase transition idx: 868
+Frame idx: 869, Phase transition idx: 869
+Frame idx: 870, Phase transition idx: 870
+Frame idx: 871, Phase transition idx: 871
+Frame idx: 872, Phase transition idx: 872
+Frame idx: 873, Phase transition idx: 873
+Frame idx: 874, Phase transition idx: 874
+Frame idx: 875, Phase transition idx: 875
+Frame idx: 876, Phase transition idx: 876
+Frame idx: 877, Phase transition idx: 877
+Frame idx: 878, Phase transition idx: 878
+Frame idx: 879, Phase transition idx: 879
+Frame idx: 880, Phase transition idx: 880
+Frame idx: 881, Phase transition idx: 881
+Frame idx: 882, Phase transition idx: 882
+Frame idx: 883, Phase transition idx: 883
+Frame idx: 884, Phase transition idx: 884
+Frame idx: 885, Phase transition idx: 885
+Frame idx: 886, Phase transition idx: 886
+Frame idx: 887, Phase transition idx: 887
+Frame idx: 888, Phase transition idx: 888
+Frame idx: 889, Phase transition idx: 889
+Frame idx: 890, Phase transition idx: 890
+Frame idx: 891, Phase transition idx: 891
+Frame idx: 892, Phase transition idx: 892
+Frame idx: 893, Phase transition idx: 893
+Frame idx: 894, Phase transition idx: 894
+Frame idx: 895, Phase transition idx: 895
+Frame idx: 896, Phase transition idx: 896
+Frame idx: 897, Phase transition idx: 897
+Frame idx: 898, Phase transition idx: 898
+Frame idx: 899, Phase transition idx: 899
+Frame idx: 900, Phase transition idx: 900
+Frame idx: 901, Phase transition idx: 901
+Frame idx: 902, Phase transition idx: 902
+Frame idx: 903, Phase transition idx: 903
+Frame idx: 904, Phase transition idx: 904
+Frame idx: 905, Phase transition idx: 905
+Frame idx: 906, Phase transition idx: 906
+Frame idx: 907, Phase transition idx: 907
+Frame idx: 908, Phase transition idx: 908
+Frame idx: 909, Phase transition idx: 909
+Frame idx: 910, Phase transition idx: 910
+Frame idx: 911, Phase transition idx: 911
+Frame idx: 912, Phase transition idx: 912
+Frame idx: 913, Phase transition idx: 913
+Frame idx: 914, Phase transition idx: 914
+Frame idx: 915, Phase transition idx: 915
+Frame idx: 916, Phase transition idx: 916
+Frame idx: 917, Phase transition idx: 917
+Frame idx: 918, Phase transition idx: 918
+Frame idx: 919, Phase transition idx: 919
+Frame idx: 920, Phase transition idx: 920
+Frame idx: 921, Phase transition idx: 921
+Frame idx: 922, Phase transition idx: 922
+Frame idx: 923, Phase transition idx: 923
+Frame idx: 924, Phase transition idx: 924
+Frame idx: 925, Phase transition idx: 925
+Frame idx: 926, Phase transition idx: 926
+Frame idx: 927, Phase transition idx: 927
+Frame idx: 928, Phase transition idx: 928
+Frame idx: 929, Phase transition idx: 929
+Frame idx: 930, Phase transition idx: 930
+Frame idx: 931, Phase transition idx: 931
+Frame idx: 932, Phase transition idx: 932
+Frame idx: 933, Phase transition idx: 933
+Frame idx: 934, Phase transition idx: 934
+Frame idx: 935, Phase transition idx: 935
+Frame idx: 936, Phase transition idx: 936
+Frame idx: 937, Phase transition idx: 937
+Frame idx: 938, Phase transition idx: 938
+Frame idx: 939, Phase transition idx: 939
+Frame idx: 940, Phase transition idx: 940
+Frame idx: 941, Phase transition idx: 941
+Frame idx: 942, Phase transition idx: 942
+Frame idx: 943, Phase transition idx: 943
+Frame idx: 944, Phase transition idx: 944
+Frame idx: 945, Phase transition idx: 945
+Frame idx: 946, Phase transition idx: 946
+Frame idx: 947, Phase transition idx: 947
+Frame idx: 948, Phase transition idx: 948
+Frame idx: 949, Phase transition idx: 949
+Frame idx: 950, Phase transition idx: 950
+Frame idx: 951, Phase transition idx: 951
+Frame idx: 952, Phase transition idx: 952
+Frame idx: 953, Phase transition idx: 953
+Frame idx: 954, Phase transition idx: 954
+Frame idx: 955, Phase transition idx: 955
+Frame idx: 956, Phase transition idx: 956
+Frame idx: 957, Phase transition idx: 957
+Frame idx: 958, Phase transition idx: 958
+Frame idx: 959, Phase transition idx: 959
+Frame idx: 960, Phase transition idx: 960
+Frame idx: 961, Phase transition idx: 961
+Frame idx: 962, Phase transition idx: 962
+Frame idx: 963, Phase transition idx: 963
+Frame idx: 964, Phase transition idx: 964
+Frame idx: 965, Phase transition idx: 965
+Frame idx: 966, Phase transition idx: 966
+Frame idx: 967, Phase transition idx: 967
+Frame idx: 968, Phase transition idx: 968
+Frame idx: 969, Phase transition idx: 969
+Frame idx: 970, Phase transition idx: 970
+Frame idx: 971, Phase transition idx: 971
+Frame idx: 972, Phase transition idx: 972
+Frame idx: 973, Phase transition idx: 973
+Frame idx: 974, Phase transition idx: 974
+Frame idx: 975, Phase transition idx: 975
+Frame idx: 976, Phase transition idx: 976
+Frame idx: 977, Phase transition idx: 977
+Frame idx: 978, Phase transition idx: 978
+Frame idx: 979, Phase transition idx: 979
+Frame idx: 980, Phase transition idx: 980
+Frame idx: 981, Phase transition idx: 981
+Frame idx: 982, Phase transition idx: 982
+Frame idx: 983, Phase transition idx: 983
+Frame idx: 984, Phase transition idx: 984
+Frame idx: 985, Phase transition idx: 985
+Frame idx: 986, Phase transition idx: 986
+Frame idx: 987, Phase transition idx: 987
+Frame idx: 988, Phase transition idx: 988
+Frame idx: 989, Phase transition idx: 989
+Frame idx: 990, Phase transition idx: 990
+Frame idx: 991, Phase transition idx: 991
+Frame idx: 992, Phase transition idx: 992
+Frame idx: 993, Phase transition idx: 993
+Frame idx: 994, Phase transition idx: 994
+Frame idx: 995, Phase transition idx: 995
+Frame idx: 996, Phase transition idx: 996
+Frame idx: 997, Phase transition idx: 997
+Frame idx: 998, Phase transition idx: 998
+Frame idx: 999, Phase transition idx: 999
+Frame idx: 1000, Phase transition idx: 1000
+Frame idx: 1001, Phase transition idx: 1001
+Frame idx: 1002, Phase transition idx: 1002
+Frame idx: 1003, Phase transition idx: 1003
+Frame idx: 1004, Phase transition idx: 1004
+Frame idx: 1005, Phase transition idx: 1005
+Frame idx: 1006, Phase transition idx: 1006
+Frame idx: 1007, Phase transition idx: 1007
+Frame idx: 1008, Phase transition idx: 1008
+Frame idx: 1009, Phase transition idx: 1009
+Frame idx: 1010, Phase transition idx: 1010
+Frame idx: 1011, Phase transition idx: 1011
+Frame idx: 1012, Phase transition idx: 1012
+Frame idx: 1013, Phase transition idx: 1013
+Frame idx: 1014, Phase transition idx: 1014
+Frame idx: 1015, Phase transition idx: 1015
+Frame idx: 1016, Phase transition idx: 1016
+Frame idx: 1017, Phase transition idx: 1017
+Frame idx: 1018, Phase transition idx: 1018
+Frame idx: 1019, Phase transition idx: 1019
+Frame idx: 1020, Phase transition idx: 1020
+Frame idx: 1021, Phase transition idx: 1021
+Frame idx: 1022, Phase transition idx: 1022
+Frame idx: 1023, Phase transition idx: 1023
+Frame idx: 1024, Phase transition idx: 1024
+Frame idx: 1025, Phase transition idx: 1025
+Frame idx: 1026, Phase transition idx: 1026
+Frame idx: 1027, Phase transition idx: 1027
+Frame idx: 1028, Phase transition idx: 1028
+Frame idx: 1029, Phase transition idx: 1029
+Frame idx: 1030, Phase transition idx: 1030
+Frame idx: 1031, Phase transition idx: 1031
+Frame idx: 1032, Phase transition idx: 1032
+Frame idx: 1033, Phase transition idx: 1033
+Frame idx: 1034, Phase transition idx: 1034
+Frame idx: 1035, Phase transition idx: 1035
+Frame idx: 1036, Phase transition idx: 1036
+Frame idx: 1037, Phase transition idx: 1037
+Frame idx: 1038, Phase transition idx: 1038
+Frame idx: 1039, Phase transition idx: 1039
+Frame idx: 1040, Phase transition idx: 1040
+Frame idx: 1041, Phase transition idx: 1041
+Frame idx: 1042, Phase transition idx: 1042
+Frame idx: 1043, Phase transition idx: 1043
+Frame idx: 1044, Phase transition idx: 1044
+Frame idx: 1045, Phase transition idx: 1045
+Frame idx: 1046, Phase transition idx: 1046
+Frame idx: 1047, Phase transition idx: 1047
+Frame idx: 1048, Phase transition idx: 1048
+Frame idx: 1049, Phase transition idx: 1049
+Frame idx: 1050, Phase transition idx: 1050
+Frame idx: 1051, Phase transition idx: 1051
+Frame idx: 1052, Phase transition idx: 1052
+Frame idx: 1053, Phase transition idx: 1053
+Frame idx: 1054, Phase transition idx: 1054
+Frame idx: 1055, Phase transition idx: 1055
+Frame idx: 1056, Phase transition idx: 1056
+Frame idx: 1057, Phase transition idx: 1057
+Frame idx: 1058, Phase transition idx: 1058
+Frame idx: 1059, Phase transition idx: 1059
+Frame idx: 1060, Phase transition idx: 1060
+Frame idx: 1061, Phase transition idx: 1061
+Frame idx: 1062, Phase transition idx: 1062
+Frame idx: 1063, Phase transition idx: 1063
+Frame idx: 1064, Phase transition idx: 1064
+Frame idx: 1065, Phase transition idx: 1065
+Frame idx: 1066, Phase transition idx: 1066
+Frame idx: 1067, Phase transition idx: 1067
+Frame idx: 1068, Phase transition idx: 1068
+Frame idx: 1069, Phase transition idx: 1069
+Frame idx: 1070, Phase transition idx: 1070
+Frame idx: 1071, Phase transition idx: 1071
+Frame idx: 1072, Phase transition idx: 1072
+Frame idx: 1073, Phase transition idx: 1073
+Frame idx: 1074, Phase transition idx: 1074
+Frame idx: 1075, Phase transition idx: 1075
+Frame idx: 1076, Phase transition idx: 1076
+Frame idx: 1077, Phase transition idx: 1077
+Frame idx: 1078, Phase transition idx: 1078
+Frame idx: 1079, Phase transition idx: 1079
+Frame idx: 1080, Phase transition idx: 1080
+Frame idx: 1081, Phase transition idx: 1081
+Frame idx: 1082, Phase transition idx: 1082
+Frame idx: 1083, Phase transition idx: 1083
+Frame idx: 1084, Phase transition idx: 1084
+Frame idx: 1085, Phase transition idx: 1085
+Frame idx: 1086, Phase transition idx: 1086
+Frame idx: 1087, Phase transition idx: 1087
+Frame idx: 1088, Phase transition idx: 1088
+Frame idx: 1089, Phase transition idx: 1089
+Frame idx: 1090, Phase transition idx: 1090
+Frame idx: 1091, Phase transition idx: 1091
+Frame idx: 1092, Phase transition idx: 1092
+Frame idx: 1093, Phase transition idx: 1093
+Frame idx: 1094, Phase transition idx: 1094
+Frame idx: 1095, Phase transition idx: 1095
+Frame idx: 1096, Phase transition idx: 1096
+Frame idx: 1097, Phase transition idx: 1097
+Frame idx: 1098, Phase transition idx: 1098
+Frame idx: 1099, Phase transition idx: 1099
+Frame idx: 1100, Phase transition idx: 1100
+Frame idx: 1101, Phase transition idx: 1101
+Frame idx: 1102, Phase transition idx: 1102
+Frame idx: 1103, Phase transition idx: 1103
+Frame idx: 1104, Phase transition idx: 1104
+Frame idx: 1105, Phase transition idx: 1105
+Frame idx: 1106, Phase transition idx: 1106
+Frame idx: 1107, Phase transition idx: 1107
+Frame idx: 1108, Phase transition idx: 1108
+Frame idx: 1109, Phase transition idx: 1109
+Frame idx: 1110, Phase transition idx: 1110
+Frame idx: 1111, Phase transition idx: 1111
+Frame idx: 1112, Phase transition idx: 1112
+Frame idx: 1113, Phase transition idx: 1113
+Frame idx: 1114, Phase transition idx: 1114
+Frame idx: 1115, Phase transition idx: 1115
+Frame idx: 1116, Phase transition idx: 1116
+Frame idx: 1117, Phase transition idx: 1117
+Frame idx: 1118, Phase transition idx: 1118
+Frame idx: 1119, Phase transition idx: 1119
+Frame idx: 1120, Phase transition idx: 1120
+Frame idx: 1121, Phase transition idx: 1121
+Frame idx: 1122, Phase transition idx: 1122
+Frame idx: 1123, Phase transition idx: 1123
+Frame idx: 1124, Phase transition idx: 1124
+Frame idx: 1125, Phase transition idx: 1125
+Frame idx: 1126, Phase transition idx: 1126
+Frame idx: 1127, Phase transition idx: 1127
+Frame idx: 1128, Phase transition idx: 1128
+Frame idx: 1129, Phase transition idx: 1129
+Frame idx: 1130, Phase transition idx: 1130
+Frame idx: 1131, Phase transition idx: 1131
+Frame idx: 1132, Phase transition idx: 1132
+Frame idx: 1133, Phase transition idx: 1133
+Frame idx: 1134, Phase transition idx: 1134
+Frame idx: 1135, Phase transition idx: 1135
+Frame idx: 1136, Phase transition idx: 1136
+Frame idx: 1137, Phase transition idx: 1137
+Frame idx: 1138, Phase transition idx: 1138
+Frame idx: 1139, Phase transition idx: 1139
+Frame idx: 1140, Phase transition idx: 1140
+Frame idx: 1141, Phase transition idx: 1141
+Frame idx: 1142, Phase transition idx: 1142
+Frame idx: 1143, Phase transition idx: 1143
+Frame idx: 1144, Phase transition idx: 1144
+Frame idx: 1145, Phase transition idx: 1145
+Frame idx: 1146, Phase transition idx: 1146
+Frame idx: 1147, Phase transition idx: 1147
+Frame idx: 1148, Phase transition idx: 1148
+Frame idx: 1149, Phase transition idx: 1149
+Frame idx: 1150, Phase transition idx: 1150
+Frame idx: 1151, Phase transition idx: 1151
+Frame idx: 1152, Phase transition idx: 1152
+Frame idx: 1153, Phase transition idx: 1153
+Frame idx: 1154, Phase transition idx: 1154
+Frame idx: 1155, Phase transition idx: 1155
+Frame idx: 1156, Phase transition idx: 1156
+Frame idx: 1157, Phase transition idx: 1157
+Frame idx: 1158, Phase transition idx: 1158
+Frame idx: 1159, Phase transition idx: 1159
+Frame idx: 1160, Phase transition idx: 1160
+Frame idx: 1161, Phase transition idx: 1161
+Frame idx: 1162, Phase transition idx: 1162
+Frame idx: 1163, Phase transition idx: 1163
+Frame idx: 1164, Phase transition idx: 1164
+Frame idx: 1165, Phase transition idx: 1165
+Frame idx: 1166, Phase transition idx: 1166
+Frame idx: 1167, Phase transition idx: 1167
+Frame idx: 1168, Phase transition idx: 1168
+Frame idx: 1169, Phase transition idx: 1169
+Frame idx: 1170, Phase transition idx: 1170
+Frame idx: 1171, Phase transition idx: 1171
+Frame idx: 1172, Phase transition idx: 1172
+Frame idx: 1173, Phase transition idx: 1173
+Frame idx: 1174, Phase transition idx: 1174
+Frame idx: 1175, Phase transition idx: 1175
+Frame idx: 1176, Phase transition idx: 1176
+Frame idx: 1177, Phase transition idx: 1177
+Frame idx: 1178, Phase transition idx: 1178
+Frame idx: 1179, Phase transition idx: 1179
+Frame idx: 1180, Phase transition idx: 1180
+Frame idx: 1181, Phase transition idx: 1181
+Frame idx: 1182, Phase transition idx: 1182
+Frame idx: 1183, Phase transition idx: 1183
+Frame idx: 1184, Phase transition idx: 1184
+Frame idx: 1185, Phase transition idx: 1185
+Frame idx: 1186, Phase transition idx: 1186
+Frame idx: 1187, Phase transition idx: 1187
+Frame idx: 1188, Phase transition idx: 1188
+Frame idx: 1189, Phase transition idx: 1189
+Frame idx: 1190, Phase transition idx: 1190
+Frame idx: 1191, Phase transition idx: 1191
+Frame idx: 1192, Phase transition idx: 1192
+Frame idx: 1193, Phase transition idx: 1193
+Frame idx: 1194, Phase transition idx: 1194
+Frame idx: 1195, Phase transition idx: 1195
+Frame idx: 1196, Phase transition idx: 1196
+Frame idx: 1197, Phase transition idx: 1197
+Frame idx: 1198, Phase transition idx: 1198
+Frame idx: 1199, Phase transition idx: 1199
+Frame idx: 1200, Phase transition idx: 1200
+Frame idx: 1201, Phase transition idx: 1201
+Frame idx: 1202, Phase transition idx: 1202
+Frame idx: 1203, Phase transition idx: 1203
+Frame idx: 1204, Phase transition idx: 1204
+Frame idx: 1205, Phase transition idx: 1205
+Frame idx: 1206, Phase transition idx: 1206
+Frame idx: 1207, Phase transition idx: 1207
+Frame idx: 1208, Phase transition idx: 1208
+Frame idx: 1209, Phase transition idx: 1209
+Frame idx: 1210, Phase transition idx: 1210
+Frame idx: 1211, Phase transition idx: 1211
+Frame idx: 1212, Phase transition idx: 1212
+Frame idx: 1213, Phase transition idx: 1213
+Frame idx: 1214, Phase transition idx: 1214
+Frame idx: 1215, Phase transition idx: 1215
+Frame idx: 1216, Phase transition idx: 1216
+Frame idx: 1217, Phase transition idx: 1217
+Frame idx: 1218, Phase transition idx: 1218
+Frame idx: 1219, Phase transition idx: 1219
+Frame idx: 1220, Phase transition idx: 1220
+Frame idx: 1221, Phase transition idx: 1221
+Frame idx: 1222, Phase transition idx: 1222
+Frame idx: 1223, Phase transition idx: 1223
+Frame idx: 1224, Phase transition idx: 1224
+Frame idx: 1225, Phase transition idx: 1225
+Frame idx: 1226, Phase transition idx: 1226
+Frame idx: 1227, Phase transition idx: 1227
+Frame idx: 1228, Phase transition idx: 1228
+Frame idx: 1229, Phase transition idx: 1229
+Frame idx: 1230, Phase transition idx: 1230
+Frame idx: 1231, Phase transition idx: 1231
+Frame idx: 1232, Phase transition idx: 1232
+Frame idx: 1233, Phase transition idx: 1233
+Frame idx: 1234, Phase transition idx: 1234
+Frame idx: 1235, Phase transition idx: 1235
+Frame idx: 1236, Phase transition idx: 1236
+Frame idx: 1237, Phase transition idx: 1237
+Frame idx: 1238, Phase transition idx: 1238
+Frame idx: 1239, Phase transition idx: 1239
+Frame idx: 1240, Phase transition idx: 1240
+Frame idx: 1241, Phase transition idx: 1241
+Frame idx: 1242, Phase transition idx: 1242
+Frame idx: 1243, Phase transition idx: 1243
+Frame idx: 1244, Phase transition idx: 1244
+Frame idx: 1245, Phase transition idx: 1245
+Frame idx: 1246, Phase transition idx: 1246
+Frame idx: 1247, Phase transition idx: 1247
+Frame idx: 1248, Phase transition idx: 1248
+Frame idx: 1249, Phase transition idx: 1249
+Frame idx: 1250, Phase transition idx: 1250
+Frame idx: 1251, Phase transition idx: 1251
+Frame idx: 1252, Phase transition idx: 1252
+Frame idx: 1253, Phase transition idx: 1253
+Frame idx: 1254, Phase transition idx: 1254
+Frame idx: 1255, Phase transition idx: 1255
+Frame idx: 1256, Phase transition idx: 1256
+Frame idx: 1257, Phase transition idx: 1257
+Frame idx: 1258, Phase transition idx: 1258
+Frame idx: 1259, Phase transition idx: 1259
+Frame idx: 1260, Phase transition idx: 1260
+Frame idx: 1261, Phase transition idx: 1261
+Frame idx: 1262, Phase transition idx: 1262
+Frame idx: 1263, Phase transition idx: 1263
+Frame idx: 1264, Phase transition idx: 1264
+Frame idx: 1265, Phase transition idx: 1265
+Frame idx: 1266, Phase transition idx: 1266
+Frame idx: 1267, Phase transition idx: 1267
+Frame idx: 1268, Phase transition idx: 1268
+Frame idx: 1269, Phase transition idx: 1269
+Frame idx: 1270, Phase transition idx: 1270
+Frame idx: 1271, Phase transition idx: 1271
+Frame idx: 1272, Phase transition idx: 1272
+Frame idx: 1273, Phase transition idx: 1273
+Frame idx: 1274, Phase transition idx: 1274
+Frame idx: 1275, Phase transition idx: 1275
+Frame idx: 1276, Phase transition idx: 1276
+Frame idx: 1277, Phase transition idx: 1277
+Frame idx: 1278, Phase transition idx: 1278
+Frame idx: 1279, Phase transition idx: 1279
+Frame idx: 1280, Phase transition idx: 1280
+Frame idx: 1281, Phase transition idx: 1281
+Frame idx: 1282, Phase transition idx: 1282
+Frame idx: 1283, Phase transition idx: 1283
+Frame idx: 1284, Phase transition idx: 1284
+Frame idx: 1285, Phase transition idx: 1285
+Frame idx: 1286, Phase transition idx: 1286
+Frame idx: 1287, Phase transition idx: 1287
+Baseline frame idx: 0
+Baseline frame idx: 1
+Baseline frame idx: 2
+Baseline frame idx: 3
+Baseline frame idx: 4
+Baseline frame idx: 5
+Baseline frame idx: 6
+Baseline frame idx: 7
+Baseline frame idx: 8
+Baseline frame idx: 9
+Baseline frame idx: 10
+Baseline frame idx: 11
+Baseline frame idx: 12
+Baseline frame idx: 13
+Baseline frame idx: 14
+Baseline frame idx: 15
+Baseline frame idx: 16
+Baseline frame idx: 17
+Baseline frame idx: 18
+Baseline frame idx: 19
+Baseline frame idx: 20
+Baseline frame idx: 21
+Baseline frame idx: 22
+Baseline frame idx: 23
+Baseline frame idx: 24
+Baseline frame idx: 25
+Baseline frame idx: 26
+Baseline frame idx: 27
+Baseline frame idx: 28
+Baseline frame idx: 29
+Baseline frame idx: 30
+Baseline frame idx: 31
+Baseline frame idx: 32
+Baseline frame idx: 33
+Baseline frame idx: 34
+Baseline frame idx: 35
+Baseline frame idx: 36
+Baseline frame idx: 37
+Baseline frame idx: 38
+Baseline frame idx: 39
+Baseline frame idx: 40
+Baseline frame idx: 41
+Baseline frame idx: 42
+Baseline frame idx: 43
+Baseline frame idx: 44
+Baseline frame idx: 45
+Baseline frame idx: 46
+Baseline frame idx: 47
+Baseline frame idx: 48
+Baseline frame idx: 49
+Baseline frame idx: 50
+Baseline frame idx: 51
+Baseline frame idx: 52
+Baseline frame idx: 53
+Baseline frame idx: 54
+Baseline frame idx: 55
+Baseline frame idx: 56
+Baseline frame idx: 57
+Baseline frame idx: 58
+Baseline frame idx: 59
+Baseline frame idx: 60
+Baseline frame idx: 61
+Baseline frame idx: 62
+Baseline frame idx: 63
+Baseline frame idx: 64
+Baseline frame idx: 65
+Baseline frame idx: 66
+Baseline frame idx: 67
+Baseline frame idx: 68
+Baseline frame idx: 69
+Baseline frame idx: 70
+Baseline frame idx: 71
+Baseline frame idx: 72
+Baseline frame idx: 73
+Baseline frame idx: 74
+Baseline frame idx: 75
+Baseline frame idx: 76
+Baseline frame idx: 77
+Baseline frame idx: 78
+Baseline frame idx: 79
+Baseline frame idx: 80
+Baseline frame idx: 81
+Baseline frame idx: 82
+Baseline frame idx: 83
+Baseline frame idx: 84
+Baseline frame idx: 85
+Baseline frame idx: 86
+Baseline frame idx: 87
+Baseline frame idx: 88
+Baseline frame idx: 89
+Baseline frame idx: 90
+Baseline frame idx: 91
+Baseline frame idx: 92
+Baseline frame idx: 93
+Baseline frame idx: 94
+Baseline frame idx: 95
+Baseline frame idx: 96
+Baseline frame idx: 97
+Baseline frame idx: 98
+Baseline frame idx: 99
+Baseline frame idx: 100
+Baseline frame idx: 101
+Baseline frame idx: 102
+Baseline frame idx: 103
+Baseline frame idx: 104
+Baseline frame idx: 105
+Baseline frame idx: 106
+Baseline frame idx: 107
+Baseline frame idx: 108
+Baseline frame idx: 109
+Baseline frame idx: 110
+Baseline frame idx: 111
+Baseline frame idx: 112
+Baseline frame idx: 113
+Baseline frame idx: 114
+Baseline frame idx: 115
+Baseline frame idx: 116
+Baseline frame idx: 117
+Baseline frame idx: 118
+Baseline frame idx: 119
+Baseline frame idx: 120
+Baseline frame idx: 121
+Baseline frame idx: 122
+Baseline frame idx: 123
+Baseline frame idx: 124
+Baseline frame idx: 125
+Baseline frame idx: 126
+Baseline frame idx: 127
+Baseline frame idx: 128
+Baseline frame idx: 129
+Baseline frame idx: 130
+Baseline frame idx: 131
+Baseline frame idx: 132
+Baseline frame idx: 133
+Baseline frame idx: 134
+Baseline frame idx: 135
+Baseline frame idx: 136
+Baseline frame idx: 137
+Baseline frame idx: 138
+Baseline frame idx: 139
+Baseline frame idx: 140
+Baseline frame idx: 141
+Baseline frame idx: 142
+Baseline frame idx: 143
+Baseline frame idx: 144
+Baseline frame idx: 145
+Baseline frame idx: 146
+Baseline frame idx: 147
+Baseline frame idx: 148
+Baseline frame idx: 149
+Baseline frame idx: 150
+Baseline frame idx: 151
+Baseline frame idx: 152
+Baseline frame idx: 153
+Baseline frame idx: 154
+Baseline frame idx: 155
+Baseline frame idx: 156
+Baseline frame idx: 157
+Baseline frame idx: 158
+Baseline frame idx: 159
+Baseline frame idx: 160
+Baseline frame idx: 161
+Baseline frame idx: 162
+Baseline frame idx: 163
+Baseline frame idx: 164
+Baseline frame idx: 165
+Baseline frame idx: 166
+Baseline frame idx: 167
+Baseline frame idx: 168
+Baseline frame idx: 169
+Baseline frame idx: 170
+Baseline frame idx: 171
+Baseline frame idx: 172
+Baseline frame idx: 173
+Baseline frame idx: 174
+Baseline frame idx: 175
+Baseline frame idx: 176
+Baseline frame idx: 177
+Baseline frame idx: 178
+Baseline frame idx: 179
+Baseline frame idx: 180
+Baseline frame idx: 181
+Baseline frame idx: 182
+Baseline frame idx: 183
+Baseline frame idx: 184
+Baseline frame idx: 185
+Baseline frame idx: 186
+Baseline frame idx: 187
+Baseline frame idx: 188
+Baseline frame idx: 189
+Baseline frame idx: 190
+Baseline frame idx: 191
+Baseline frame idx: 192
+Baseline frame idx: 193
+Baseline frame idx: 194
+Baseline frame idx: 195
+Baseline frame idx: 196
+Baseline frame idx: 197
+Baseline frame idx: 198
+Baseline frame idx: 199
+Baseline frame idx: 200
+Baseline frame idx: 201
+Baseline frame idx: 202
+Baseline frame idx: 203
+Baseline frame idx: 204
+Baseline frame idx: 205
+Baseline frame idx: 206
+Baseline frame idx: 207
+Baseline frame idx: 208
+Baseline frame idx: 209
+Baseline frame idx: 210
+Baseline frame idx: 211
+Baseline frame idx: 212
+Baseline frame idx: 213
+Baseline frame idx: 214
+Baseline frame idx: 215
+Baseline frame idx: 216
+Baseline frame idx: 217
+Baseline frame idx: 218
+Baseline frame idx: 219
+Baseline frame idx: 220
+Baseline frame idx: 221
+Baseline frame idx: 222
+Baseline frame idx: 223
+Baseline frame idx: 224
+Baseline frame idx: 225
+Baseline frame idx: 226
+Baseline frame idx: 227
+Baseline frame idx: 228
+Baseline frame idx: 229
+Baseline frame idx: 230
+Baseline frame idx: 231
+Baseline frame idx: 232
+Baseline frame idx: 233
+Baseline frame idx: 234
+Baseline frame idx: 235
+Baseline frame idx: 236
+Baseline frame idx: 237
+Baseline frame idx: 238
+Baseline frame idx: 239
+Baseline frame idx: 240
+Baseline frame idx: 241
+Baseline frame idx: 242
+Baseline frame idx: 243
+Baseline frame idx: 244
+Baseline frame idx: 245
+Baseline frame idx: 246
+Baseline frame idx: 247
+Baseline frame idx: 248
+Baseline frame idx: 249
+Baseline frame idx: 250
+Baseline frame idx: 251
+Baseline frame idx: 252
+Baseline frame idx: 253
+Baseline frame idx: 254
+Baseline frame idx: 255
+Baseline frame idx: 256
+Baseline frame idx: 257
+Baseline frame idx: 258
+Baseline frame idx: 259
+Baseline frame idx: 260
+Baseline frame idx: 261
+Baseline frame idx: 262
+Baseline frame idx: 263
+Baseline frame idx: 264
+Baseline frame idx: 265
+Baseline frame idx: 266
+Baseline frame idx: 267
+Baseline frame idx: 268
+Baseline frame idx: 269
+Baseline frame idx: 270
+Baseline frame idx: 271
+Baseline frame idx: 272
+Baseline frame idx: 273
+Baseline frame idx: 274
+Baseline frame idx: 275
+Baseline frame idx: 276
+Baseline frame idx: 277
+Baseline frame idx: 278
+Baseline frame idx: 279
+Baseline frame idx: 280
+Baseline frame idx: 281
+Baseline frame idx: 282
+Baseline frame idx: 283
+Baseline frame idx: 284
+Baseline frame idx: 285
+Baseline frame idx: 286
+Baseline frame idx: 287
+Baseline frame idx: 288
+Baseline frame idx: 289
+Baseline frame idx: 290
+Baseline frame idx: 291
+Baseline frame idx: 292
+Baseline frame idx: 293
+Baseline frame idx: 294
+Baseline frame idx: 295
+Baseline frame idx: 296
+Baseline frame idx: 297
+Baseline frame idx: 298
+Baseline frame idx: 299
+Baseline frame idx: 300
+Baseline frame idx: 301
+Baseline frame idx: 302
+Baseline frame idx: 303
+Baseline frame idx: 304
+Baseline frame idx: 305
+Baseline frame idx: 306
+Baseline frame idx: 307
+Baseline frame idx: 308
+Baseline frame idx: 309
+Baseline frame idx: 310
+Baseline frame idx: 311
+Baseline frame idx: 312
+Baseline frame idx: 313
+Baseline frame idx: 314
+Baseline frame idx: 315
+Baseline frame idx: 316
+Baseline frame idx: 317
+Baseline frame idx: 318
+Baseline frame idx: 319
+Baseline frame idx: 320
+Baseline frame idx: 321
+Baseline frame idx: 322
+Baseline frame idx: 323
+Baseline frame idx: 324
+Baseline frame idx: 325
+Baseline frame idx: 326
+Baseline frame idx: 327
+Baseline frame idx: 328
+Baseline frame idx: 329
+Baseline frame idx: 330
+Baseline frame idx: 331
+Baseline frame idx: 332
+Baseline frame idx: 333
+Baseline frame idx: 334
+Baseline frame idx: 335
+Baseline frame idx: 336
+Baseline frame idx: 337
+Baseline frame idx: 338
+Baseline frame idx: 339
+Baseline frame idx: 340
+Baseline frame idx: 341
+Baseline frame idx: 342
+Baseline frame idx: 343
+Baseline frame idx: 344
+Baseline frame idx: 345
+Baseline frame idx: 346
+Baseline frame idx: 347
+Baseline frame idx: 348
+Baseline frame idx: 349
+Baseline frame idx: 350
+Baseline frame idx: 351
+Baseline frame idx: 352
+Baseline frame idx: 353
+Baseline frame idx: 354
+Baseline frame idx: 355
+Baseline frame idx: 356
+Baseline frame idx: 357
+Baseline frame idx: 358
+Baseline frame idx: 359
+Baseline frame idx: 360
+Baseline frame idx: 361
+Baseline frame idx: 362
+Baseline frame idx: 363
+Baseline frame idx: 364
+Baseline frame idx: 365
+Baseline frame idx: 366
+Baseline frame idx: 367
+Baseline frame idx: 368
+Baseline frame idx: 369
+Baseline frame idx: 370
+Baseline frame idx: 371
+Baseline frame idx: 372
+Baseline frame idx: 373
+Baseline frame idx: 374
+Baseline frame idx: 375
+Baseline frame idx: 376
+Baseline frame idx: 377
+Baseline frame idx: 378
+Baseline frame idx: 379
+Baseline frame idx: 380
+Baseline frame idx: 381
+Baseline frame idx: 382
+Baseline frame idx: 383
+Baseline frame idx: 384
+Baseline frame idx: 385
+Baseline frame idx: 386
+Baseline frame idx: 387
+Baseline frame idx: 388
+Baseline frame idx: 389
+Baseline frame idx: 390
+Baseline frame idx: 391
+Baseline frame idx: 392
+Baseline frame idx: 393
+Baseline frame idx: 394
+Baseline frame idx: 395
+Baseline frame idx: 396
+Baseline frame idx: 397
+Baseline frame idx: 398
+Baseline frame idx: 399
+Baseline frame idx: 400
+Baseline frame idx: 401
+Baseline frame idx: 402
+Baseline frame idx: 403
+Baseline frame idx: 404
+Baseline frame idx: 405
+Baseline frame idx: 406
+Baseline frame idx: 407
+Baseline frame idx: 408
+Baseline frame idx: 409
+Baseline frame idx: 410
+Baseline frame idx: 411
+Baseline frame idx: 412
+Baseline frame idx: 413
+Baseline frame idx: 414
+Baseline frame idx: 415
+Baseline frame idx: 416
+Baseline frame idx: 417
+Baseline frame idx: 418
+Baseline frame idx: 419
+Baseline frame idx: 420
+Baseline frame idx: 421
+Baseline frame idx: 422
+Baseline frame idx: 423
+Baseline frame idx: 424
+Baseline frame idx: 425
+Baseline frame idx: 426
+Baseline frame idx: 427
+Baseline frame idx: 428
+Baseline frame idx: 429
+Baseline frame idx: 430
+Baseline frame idx: 431
+Baseline frame idx: 432
+Baseline frame idx: 433
+Baseline frame idx: 434
+Baseline frame idx: 435
+Baseline frame idx: 436
+Baseline frame idx: 437
+Baseline frame idx: 438
+Baseline frame idx: 439
+Baseline frame idx: 440
+Baseline frame idx: 441
+Baseline frame idx: 442
+Baseline frame idx: 443
+Baseline frame idx: 444
+Baseline frame idx: 445
+Baseline frame idx: 446
+Baseline frame idx: 447
+Baseline frame idx: 448
+Baseline frame idx: 449
+Baseline frame idx: 450
+Baseline frame idx: 451
+Baseline frame idx: 452
+Baseline frame idx: 453
+Baseline frame idx: 454
+Baseline frame idx: 455
+Baseline frame idx: 456
+Baseline frame idx: 457
+Baseline frame idx: 458
+Baseline frame idx: 459
+Baseline frame idx: 460
+Baseline frame idx: 461
+Baseline frame idx: 462
+Baseline frame idx: 463
+Baseline frame idx: 464
+Baseline frame idx: 465
+Baseline frame idx: 466
+Baseline frame idx: 467
+Baseline frame idx: 468
+Baseline frame idx: 469
+Baseline frame idx: 470
+Baseline frame idx: 471
+Baseline frame idx: 472
+Baseline frame idx: 473
+Baseline frame idx: 474
+Baseline frame idx: 475
+Baseline frame idx: 476
+Baseline frame idx: 477
+Baseline frame idx: 478
+Baseline frame idx: 479
+Baseline frame idx: 480
+Baseline frame idx: 481
+Baseline frame idx: 482
+Baseline frame idx: 483
+Baseline frame idx: 484
+Baseline frame idx: 485
+Baseline frame idx: 486
+Baseline frame idx: 487
+Baseline frame idx: 488
+Baseline frame idx: 489
+Baseline frame idx: 490
+Baseline frame idx: 491
+Baseline frame idx: 492
+Baseline frame idx: 493
+Baseline frame idx: 494
+Baseline frame idx: 495
+Baseline frame idx: 496
+Baseline frame idx: 497
+Baseline frame idx: 498
+Baseline frame idx: 499
+Baseline frame idx: 500
+Baseline frame idx: 501
+Baseline frame idx: 502
+Baseline frame idx: 503
+Baseline frame idx: 504
+Baseline frame idx: 505
+Baseline frame idx: 506
+Baseline frame idx: 507
+Baseline frame idx: 508
+Baseline frame idx: 509
+Baseline frame idx: 510
+Baseline frame idx: 511
+Baseline frame idx: 512
+Baseline frame idx: 513
+Baseline frame idx: 514
+Baseline frame idx: 515
+Baseline frame idx: 516
+Baseline frame idx: 517
+Baseline frame idx: 518
+Baseline frame idx: 519
+Baseline frame idx: 520
+Baseline frame idx: 521
+Baseline frame idx: 522
+Baseline frame idx: 523
+Baseline frame idx: 524
+Baseline frame idx: 525
+Baseline frame idx: 526
+Baseline frame idx: 527
+Baseline frame idx: 528
+Baseline frame idx: 529
+Baseline frame idx: 530
+Baseline frame idx: 531
+Baseline frame idx: 532
+Baseline frame idx: 533
+Baseline frame idx: 534
+Baseline frame idx: 535
+Baseline frame idx: 536
+Baseline frame idx: 537
+Baseline frame idx: 538
+Baseline frame idx: 539
+Baseline frame idx: 540
+Baseline frame idx: 541
+Baseline frame idx: 542
+Baseline frame idx: 543
+Baseline frame idx: 544
+Baseline frame idx: 545
+Baseline frame idx: 546
+Baseline frame idx: 547
+Baseline frame idx: 548
+Baseline frame idx: 549
+Baseline frame idx: 550
+Baseline frame idx: 551
+Baseline frame idx: 552
+Baseline frame idx: 553
+Baseline frame idx: 554
+Baseline frame idx: 555
+Baseline frame idx: 556
+Baseline frame idx: 557
+Baseline frame idx: 558
+Baseline frame idx: 559
+Baseline frame idx: 560
+Baseline frame idx: 561
+Baseline frame idx: 562
+Baseline frame idx: 563
+Baseline frame idx: 564
+Baseline frame idx: 565
+Baseline frame idx: 566
+Baseline frame idx: 567
+Baseline frame idx: 568
+Baseline frame idx: 569
+Baseline frame idx: 570
+Baseline frame idx: 571
+Baseline frame idx: 572
+Baseline frame idx: 573
+Baseline frame idx: 574
+Baseline frame idx: 575
+Baseline frame idx: 576
+Baseline frame idx: 577
+Baseline frame idx: 578
+Baseline frame idx: 579
+Baseline frame idx: 580
+Baseline frame idx: 581
+Baseline frame idx: 582
+Baseline frame idx: 583
+Baseline frame idx: 584
+Baseline frame idx: 585
+Baseline frame idx: 586
+Baseline frame idx: 587
+Baseline frame idx: 588
+Baseline frame idx: 589
+Baseline frame idx: 590
+Baseline frame idx: 591
+Baseline frame idx: 592
+Baseline frame idx: 593
+Baseline frame idx: 594
+Baseline frame idx: 595
+Baseline frame idx: 596
+Baseline frame idx: 597
+Baseline frame idx: 598
+Baseline frame idx: 599
+Baseline frame idx: 600
+Baseline frame idx: 601
+Baseline frame idx: 602
+Baseline frame idx: 603
+Baseline frame idx: 604
+Baseline frame idx: 605
+Baseline frame idx: 606
+Baseline frame idx: 607
+Baseline frame idx: 608
+Baseline frame idx: 609
+Baseline frame idx: 610
+Baseline frame idx: 611
+Baseline frame idx: 612
+Baseline frame idx: 613
+Baseline frame idx: 614
+Baseline frame idx: 615
+Baseline frame idx: 616
+Baseline frame idx: 617
+Baseline frame idx: 618
+Baseline frame idx: 619
+Baseline frame idx: 620
+Baseline frame idx: 621
+Baseline frame idx: 622
+Baseline frame idx: 623
+Baseline frame idx: 624
+Baseline frame idx: 625
+Baseline frame idx: 626
+Baseline frame idx: 627
+Baseline frame idx: 628
+Baseline frame idx: 629
+Baseline frame idx: 630
+Baseline frame idx: 631
+Baseline frame idx: 632
+Baseline frame idx: 633
+Baseline frame idx: 634
+Baseline frame idx: 635
+Baseline frame idx: 636
+Baseline frame idx: 637
+Baseline frame idx: 638
+Baseline frame idx: 639
+Baseline frame idx: 640
+Baseline frame idx: 641
+Baseline frame idx: 642
+Baseline frame idx: 643
+Baseline frame idx: 644
+Baseline frame idx: 645
+Baseline frame idx: 646
+Baseline frame idx: 647
+Baseline frame idx: 648
+Baseline frame idx: 649
+Baseline frame idx: 650
+Baseline frame idx: 651
+Baseline frame idx: 652
+Baseline frame idx: 653
+Baseline frame idx: 654
+Baseline frame idx: 655
+Baseline frame idx: 656
+Baseline frame idx: 657
+Baseline frame idx: 658
+Baseline frame idx: 659
+Baseline frame idx: 660
+Baseline frame idx: 661
+Baseline frame idx: 662
+Baseline frame idx: 663
+Baseline frame idx: 664
+Baseline frame idx: 665
+Baseline frame idx: 666
+Baseline frame idx: 667
+Baseline frame idx: 668
+Baseline frame idx: 669
+Baseline frame idx: 670
+Baseline frame idx: 671
+Baseline frame idx: 672
+Baseline frame idx: 673
+Baseline frame idx: 674
+Baseline frame idx: 675
+Baseline frame idx: 676
+Baseline frame idx: 677
+Baseline frame idx: 678
+Baseline frame idx: 679
+Baseline frame idx: 680
+Baseline frame idx: 681
+Baseline frame idx: 682
+Baseline frame idx: 683
+Baseline frame idx: 684
+Baseline frame idx: 685
+Baseline frame idx: 686
+Baseline frame idx: 687
+Baseline frame idx: 688
+Baseline frame idx: 689
+Baseline frame idx: 690
+Baseline frame idx: 691
+Baseline frame idx: 692
+Baseline frame idx: 693
+Baseline frame idx: 694
+Baseline frame idx: 695
+Baseline frame idx: 696
+Baseline frame idx: 697
+Baseline frame idx: 698
+Baseline frame idx: 699
+Baseline frame idx: 700
+Baseline frame idx: 701
+Baseline frame idx: 702
+Baseline frame idx: 703
+Baseline frame idx: 704
+Baseline frame idx: 705
+Baseline frame idx: 706
+Baseline frame idx: 707
+Baseline frame idx: 708
+Baseline frame idx: 709
+Baseline frame idx: 710
+Baseline frame idx: 711
+Baseline frame idx: 712
+Baseline frame idx: 713
+Baseline frame idx: 714
+Baseline frame idx: 715
+Baseline frame idx: 716
+Baseline frame idx: 717
+Baseline frame idx: 718
+Baseline frame idx: 719
+Baseline frame idx: 720
+Baseline frame idx: 721
+Baseline frame idx: 722
+Baseline frame idx: 723
+Baseline frame idx: 724
+Baseline frame idx: 725
+Baseline frame idx: 726
+Baseline frame idx: 727
+Baseline frame idx: 728
+Baseline frame idx: 729
+Baseline frame idx: 730
+Baseline frame idx: 731
+Baseline frame idx: 732
+Baseline frame idx: 733
+Baseline frame idx: 734
+Baseline frame idx: 735
+Baseline frame idx: 736
+Baseline frame idx: 737
+Baseline frame idx: 738
+Baseline frame idx: 739
+Baseline frame idx: 740
+Baseline frame idx: 741
+Baseline frame idx: 742
+Baseline frame idx: 743
+Baseline frame idx: 744
+Baseline frame idx: 745
+Baseline frame idx: 746
+Baseline frame idx: 747
+Baseline frame idx: 748
+Baseline frame idx: 749
+Baseline frame idx: 750
+Baseline frame idx: 751
+Baseline frame idx: 752
+Baseline frame idx: 753
+Baseline frame idx: 754
+Baseline frame idx: 755
+Baseline frame idx: 756
+Baseline frame idx: 757
+Baseline frame idx: 758
+Baseline frame idx: 759
+Baseline frame idx: 760
+Baseline frame idx: 761
+Baseline frame idx: 762
+Baseline frame idx: 763
+Baseline frame idx: 764
+Baseline frame idx: 765
+Baseline frame idx: 766
+Baseline frame idx: 767
+Baseline frame idx: 768
+Baseline frame idx: 769
+Baseline frame idx: 770
+Baseline frame idx: 771
+Baseline frame idx: 772
+Baseline frame idx: 773
+Baseline frame idx: 774
+Baseline frame idx: 775
+Baseline frame idx: 776
+Baseline frame idx: 777
+Baseline frame idx: 778
+Baseline frame idx: 779
+Baseline frame idx: 780
+Baseline frame idx: 781
+Baseline frame idx: 782
+Baseline frame idx: 783
+Baseline frame idx: 784
+Baseline frame idx: 785
+Baseline frame idx: 786
+Baseline frame idx: 787
+Baseline frame idx: 788
+Baseline frame idx: 789
+Baseline frame idx: 790
+Baseline frame idx: 791
+Baseline frame idx: 792
+Baseline frame idx: 793
+Baseline frame idx: 794
+Baseline frame idx: 795
+Baseline frame idx: 796
+Baseline frame idx: 797
+Baseline frame idx: 798
+Baseline frame idx: 799
+Baseline frame idx: 800
+Baseline frame idx: 801
+Baseline frame idx: 802
+Baseline frame idx: 803
+Baseline frame idx: 804
+Baseline frame idx: 805
+Baseline frame idx: 806
+Baseline frame idx: 807
+Baseline frame idx: 808
+Baseline frame idx: 809
+Baseline frame idx: 810
+Baseline frame idx: 811
+Baseline frame idx: 812
+Baseline frame idx: 813
+Baseline frame idx: 814
+Baseline frame idx: 815
+Baseline frame idx: 816
+Baseline frame idx: 817
+Baseline frame idx: 818
+Baseline frame idx: 819
+Baseline frame idx: 820
+Baseline frame idx: 821
+Baseline frame idx: 822
+Baseline frame idx: 823
+Baseline frame idx: 824
+Baseline frame idx: 825
+Baseline frame idx: 826
+Baseline frame idx: 827
+Baseline frame idx: 828
+Baseline frame idx: 829
+Baseline frame idx: 830
+Baseline frame idx: 831
+Baseline frame idx: 832
+Baseline frame idx: 833
+Baseline frame idx: 834
+Baseline frame idx: 835
+Baseline frame idx: 836
+Baseline frame idx: 837
+Baseline frame idx: 838
+Baseline frame idx: 839
+Baseline frame idx: 840
+Baseline frame idx: 841
+Baseline frame idx: 842
+Baseline frame idx: 843
+Baseline frame idx: 844
+Baseline frame idx: 845
+Baseline frame idx: 846
+Baseline frame idx: 847
+Baseline frame idx: 848
+Baseline frame idx: 849
+Baseline frame idx: 850
+Baseline frame idx: 851
+Baseline frame idx: 852
+Baseline frame idx: 853
+Baseline frame idx: 854
+Baseline frame idx: 855
+Baseline frame idx: 856
+Baseline frame idx: 857
+Baseline frame idx: 858
+Baseline frame idx: 859
+Baseline frame idx: 860
+Baseline frame idx: 861
+Baseline frame idx: 862
+Baseline frame idx: 863
+Baseline frame idx: 864
+Baseline frame idx: 865
+Baseline frame idx: 866
+Baseline frame idx: 867
+Baseline frame idx: 868
+Baseline frame idx: 869
+Baseline frame idx: 870
+Baseline frame idx: 871
+Baseline frame idx: 872
+Baseline frame idx: 873
+Baseline frame idx: 874
+Baseline frame idx: 875
+Baseline frame idx: 876
+Baseline frame idx: 877
+Baseline frame idx: 878
+Baseline frame idx: 879
+Baseline frame idx: 880
+Baseline frame idx: 881
+Baseline frame idx: 882
+Baseline frame idx: 883
+Baseline frame idx: 884
+Baseline frame idx: 885
+Baseline frame idx: 886
+Baseline frame idx: 887
+Baseline frame idx: 888
+Baseline frame idx: 889
+Baseline frame idx: 890
+Baseline frame idx: 891
+Baseline frame idx: 892
+Baseline frame idx: 893
+Baseline frame idx: 894
+Baseline frame idx: 895
+Baseline frame idx: 896
+Baseline frame idx: 897
+Baseline frame idx: 898
+Baseline frame idx: 899
+Baseline frame idx: 900
+Baseline frame idx: 901
+Baseline frame idx: 902
+Baseline frame idx: 903
+Baseline frame idx: 904
+Baseline frame idx: 905
+Baseline frame idx: 906
+Baseline frame idx: 907
+Baseline frame idx: 908
+Baseline frame idx: 909
+Baseline frame idx: 910
+Baseline frame idx: 911
+Baseline frame idx: 912
+Baseline frame idx: 913
+Baseline frame idx: 914
+Baseline frame idx: 915
+Baseline frame idx: 916
+Baseline frame idx: 917
+Baseline frame idx: 918
+Baseline frame idx: 919
+Baseline frame idx: 920
+Baseline frame idx: 921
+Baseline frame idx: 922
+Baseline frame idx: 923
+Baseline frame idx: 924
+Baseline frame idx: 925
+Baseline frame idx: 926
+Baseline frame idx: 927
+Baseline frame idx: 928
+Baseline frame idx: 929
+Baseline frame idx: 930
+Baseline frame idx: 931
+Baseline frame idx: 932
+Baseline frame idx: 933
+Baseline frame idx: 934
+Baseline frame idx: 935
+Baseline frame idx: 936
+Baseline frame idx: 937
+Baseline frame idx: 938
+Baseline frame idx: 939
+Baseline frame idx: 940
+Baseline frame idx: 941
+Baseline frame idx: 942
+Baseline frame idx: 943
+Baseline frame idx: 944
+Baseline frame idx: 945
+Baseline frame idx: 946
+Baseline frame idx: 947
+Baseline frame idx: 948
+Baseline frame idx: 949
+Baseline frame idx: 950
+Baseline frame idx: 951
+Baseline frame idx: 952
+Baseline frame idx: 953
+Baseline frame idx: 954
+Baseline frame idx: 955
+Baseline frame idx: 956
+Baseline frame idx: 957
+Baseline frame idx: 958
+Baseline frame idx: 959
+Baseline frame idx: 960
+Baseline frame idx: 961
+Baseline frame idx: 962
+Baseline frame idx: 963
+Baseline frame idx: 964
+Baseline frame idx: 965
+Baseline frame idx: 966
+Baseline frame idx: 967
+Baseline frame idx: 968
+Baseline frame idx: 969
+Baseline frame idx: 970
+Baseline frame idx: 971
+Baseline frame idx: 972
+Baseline frame idx: 973
+Baseline frame idx: 974
+Baseline frame idx: 975
+Baseline frame idx: 976
+Baseline frame idx: 977
+Baseline frame idx: 978
+Baseline frame idx: 979
+Baseline frame idx: 980
+Baseline frame idx: 981
+Baseline frame idx: 982
+Baseline frame idx: 983
+Baseline frame idx: 984
+Baseline frame idx: 985
+Baseline frame idx: 986
+Baseline frame idx: 987
+Baseline frame idx: 988
+Baseline frame idx: 989
+Baseline frame idx: 990
+Baseline frame idx: 991
+Baseline frame idx: 992
+Baseline frame idx: 993
+Baseline frame idx: 994
+Baseline frame idx: 995
+Baseline frame idx: 996
+Baseline frame idx: 997
+Baseline frame idx: 998
+Baseline frame idx: 999
+Baseline frame idx: 1000
+Baseline frame idx: 1001
+Baseline frame idx: 1002
+Baseline frame idx: 1003
+Baseline frame idx: 1004
+Baseline frame idx: 1005
+Baseline frame idx: 1006
+Baseline frame idx: 1007
+Baseline frame idx: 1008
+Baseline frame idx: 1009
+Baseline frame idx: 1010
+Baseline frame idx: 1011
+Baseline frame idx: 1012
+Baseline frame idx: 1013
+Baseline frame idx: 1014
+Baseline frame idx: 1015
+Baseline frame idx: 1016
+Baseline frame idx: 1017
+Baseline frame idx: 1018
+Baseline frame idx: 1019
+Baseline frame idx: 1020
+Baseline frame idx: 1021
+Baseline frame idx: 1022
+Baseline frame idx: 1023
+Baseline frame idx: 1024
+Baseline frame idx: 1025
+Baseline frame idx: 1026
+Baseline frame idx: 1027
+Baseline frame idx: 1028
+Baseline frame idx: 1029
+Baseline frame idx: 1030
+Baseline frame idx: 1031
+Baseline frame idx: 1032
+Baseline frame idx: 1033
+Baseline frame idx: 1034
+Baseline frame idx: 1035
+Baseline frame idx: 1036
+Baseline frame idx: 1037
+Baseline frame idx: 1038
+Baseline frame idx: 1039
+Baseline frame idx: 1040
+Baseline frame idx: 1041
+Baseline frame idx: 1042
+Baseline frame idx: 1043
+Baseline frame idx: 1044
+Baseline frame idx: 1045
+Baseline frame idx: 1046
+Baseline frame idx: 1047
+Baseline frame idx: 1048
+Baseline frame idx: 1049
+Baseline frame idx: 1050
+Baseline frame idx: 1051
+Baseline frame idx: 1052
+Baseline frame idx: 1053
+Baseline frame idx: 1054
+Baseline frame idx: 1055
+Baseline frame idx: 1056
+Baseline frame idx: 1057
+Baseline frame idx: 1058
+Baseline frame idx: 1059
+Baseline frame idx: 1060
+Baseline frame idx: 1061
+Baseline frame idx: 1062
+Baseline frame idx: 1063
+Baseline frame idx: 1064
+Baseline frame idx: 1065
+Baseline frame idx: 1066
+Baseline frame idx: 1067
+Baseline frame idx: 1068
+Baseline frame idx: 1069
+Baseline frame idx: 1070
+Baseline frame idx: 1071
+Baseline frame idx: 1072
+Baseline frame idx: 1073
+Baseline frame idx: 1074
+Baseline frame idx: 1075
+Baseline frame idx: 1076
+Baseline frame idx: 1077
+Baseline frame idx: 1078
+Baseline frame idx: 1079
+Baseline frame idx: 1080
+Baseline frame idx: 1081
+Baseline frame idx: 1082
+Baseline frame idx: 1083
+Baseline frame idx: 1084
+Baseline frame idx: 1085
+Baseline frame idx: 1086
+Baseline frame idx: 1087
+Baseline frame idx: 1088
+Baseline frame idx: 1089
+Baseline frame idx: 1090
+Baseline frame idx: 1091
+Baseline frame idx: 1092
+Baseline frame idx: 1093
+Baseline frame idx: 1094
+Baseline frame idx: 1095
+Baseline frame idx: 1096
+Baseline frame idx: 1097
+Baseline frame idx: 1098
+Baseline frame idx: 1099
+Baseline frame idx: 1100
+Baseline frame idx: 1101
+Baseline frame idx: 1102
+Baseline frame idx: 1103
+Baseline frame idx: 1104
+Baseline frame idx: 1105
+Baseline frame idx: 1106
+Baseline frame idx: 1107
+Baseline frame idx: 1108
+Baseline frame idx: 1109
+Baseline frame idx: 1110
+Baseline frame idx: 1111
+Baseline frame idx: 1112
+Baseline frame idx: 1113
+Baseline frame idx: 1114
+Baseline frame idx: 1115
+Baseline frame idx: 1116
+Baseline frame idx: 1117
+Baseline frame idx: 1118
+Baseline frame idx: 1119
+Baseline frame idx: 1120
+Baseline frame idx: 1121
+Baseline frame idx: 1122
+Baseline frame idx: 1123
+Baseline frame idx: 1124
+Baseline frame idx: 1125
+Baseline frame idx: 1126
+Baseline frame idx: 1127
+Baseline frame idx: 1128
+Baseline frame idx: 1129
+Baseline frame idx: 1130
+Baseline frame idx: 1131
+Baseline frame idx: 1132
+Baseline frame idx: 1133
+Baseline frame idx: 1134
+Baseline frame idx: 1135
+Baseline frame idx: 1136
+Baseline frame idx: 1137
+Baseline frame idx: 1138
+Baseline frame idx: 1139
+Baseline frame idx: 1140
+Baseline frame idx: 1141
+Baseline frame idx: 1142
+Baseline frame idx: 1143
+Baseline frame idx: 1144
+Baseline frame idx: 1145
+Baseline frame idx: 1146
+Baseline frame idx: 1147
+Baseline frame idx: 1148
+Baseline frame idx: 1149
+Baseline frame idx: 1150
+Baseline frame idx: 1151
+Baseline frame idx: 1152
+Baseline frame idx: 1153
+Baseline frame idx: 1154
+Baseline frame idx: 1155
+Baseline frame idx: 1156
+Baseline frame idx: 1157
+Baseline frame idx: 1158
+Baseline frame idx: 1159
+Baseline frame idx: 1160
+Baseline frame idx: 1161
+Baseline frame idx: 1162
+Baseline frame idx: 1163
+Baseline frame idx: 1164
+Baseline frame idx: 1165
+Baseline frame idx: 1166
+Baseline frame idx: 1167
+Baseline frame idx: 1168
+Baseline frame idx: 1169
+Baseline frame idx: 1170
+Baseline frame idx: 1171
+Baseline frame idx: 1172
+Baseline frame idx: 1173
+Baseline frame idx: 1174
+Baseline frame idx: 1175
+Baseline frame idx: 1176
+Baseline frame idx: 1177
+Baseline frame idx: 1178
+Baseline frame idx: 1179
+Baseline frame idx: 1180
+Baseline frame idx: 1181
+Baseline frame idx: 1182
+Baseline frame idx: 1183
+Baseline frame idx: 1184
+Baseline frame idx: 1185
+Baseline frame idx: 1186
+Baseline frame idx: 1187
+Baseline frame idx: 1188
+Baseline frame idx: 1189
+Baseline frame idx: 1190
+Baseline frame idx: 1191
+Baseline frame idx: 1192
+Baseline frame idx: 1193
+Baseline frame idx: 1194
+Baseline frame idx: 1195
+Baseline frame idx: 1196
+Baseline frame idx: 1197
+Baseline frame idx: 1198
+Baseline frame idx: 1199
+Baseline frame idx: 1200
+Baseline frame idx: 1201
+Baseline frame idx: 1202
+Baseline frame idx: 1203
+Baseline frame idx: 1204
+Baseline frame idx: 1205
+Baseline frame idx: 1206
+Baseline frame idx: 1207
+Baseline frame idx: 1208
+Baseline frame idx: 1209
+Baseline frame idx: 1210
+Baseline frame idx: 1211
+Baseline frame idx: 1212
+Baseline frame idx: 1213
+Baseline frame idx: 1214
+Baseline frame idx: 1215
+Baseline frame idx: 1216
+Baseline frame idx: 1217
+Baseline frame idx: 1218
+Baseline frame idx: 1219
+Baseline frame idx: 1220
+Baseline frame idx: 1221
+Baseline frame idx: 1222
+Baseline frame idx: 1223
+Baseline frame idx: 1224
+Baseline frame idx: 1225
+Baseline frame idx: 1226
+Baseline frame idx: 1227
+Baseline frame idx: 1228
+Baseline frame idx: 1229
+Baseline frame idx: 1230
+Baseline frame idx: 1231
+Baseline frame idx: 1232
+Baseline frame idx: 1233
+Baseline frame idx: 1234
+Baseline frame idx: 1235
+Baseline frame idx: 1236
+Baseline frame idx: 1237
+Baseline frame idx: 1238
+Baseline frame idx: 1239
+Baseline frame idx: 1240
+Baseline frame idx: 1241
+Baseline frame idx: 1242
+Baseline frame idx: 1243
+Baseline frame idx: 1244
+Baseline frame idx: 1245
+Baseline frame idx: 1246
+Baseline frame idx: 1247
+Baseline frame idx: 1248
+Baseline frame idx: 1249
+Baseline frame idx: 1250
+Baseline frame idx: 1251
+Baseline frame idx: 1252
+Baseline frame idx: 1253
+Baseline frame idx: 1254
+Baseline frame idx: 1255
+Baseline frame idx: 1256
+Baseline frame idx: 1257
+Baseline frame idx: 1258
+Baseline frame idx: 1259
+Baseline frame idx: 1260
+Baseline frame idx: 1261
+Baseline frame idx: 1262
+Baseline frame idx: 1263
+Baseline frame idx: 1264
+Baseline frame idx: 1265
+Baseline frame idx: 1266
+Baseline frame idx: 1267
+Baseline frame idx: 1268
+Baseline frame idx: 1269
+Baseline frame idx: 1270
+Baseline frame idx: 1271
+Baseline frame idx: 1272
+Baseline frame idx: 1273
+Baseline frame idx: 1274
+Baseline frame idx: 1275
+Baseline frame idx: 1276
+Baseline frame idx: 1277
+Baseline frame idx: 1278
+Baseline frame idx: 1279
+Baseline frame idx: 1280
+Baseline frame idx: 1281
+Baseline frame idx: 1282
+Baseline frame idx: 1283
+Baseline frame idx: 1284
+Baseline frame idx: 1285
+Baseline frame idx: 1286
+Baseline frame idx: 1287
+Mean volume difference (in dB) for beta 0.25: -0.22661972406517478
+
+Stdev. volume difference (in dB) for beta 0.25: 0.0
+
+Mean volume ratio for beta 0.25: 0.9742468578956391
+
+Stdev. volume ratio (in dB) for beta 0.25: 0.0
+

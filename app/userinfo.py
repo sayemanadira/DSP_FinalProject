@@ -36,15 +36,16 @@ def get_resource_path(relative_path):
 
 engine_pairs = [
                 # ("Hybrid","Hybrid"),
-                # ("Hybrid","PV"),
+                ("Hybrid","PV"),
                 # ("Hybrid","OPT0.08"),
                 ("Hybrid","OPT0.25"),
-                # ("Hybrid","OPT0.1"),
+                ("Hybrid","OPT0.125"),
                 # ("Hybrid","OPT0.2"),
                 # ("Hybrid","OPT0.3"),
-                # ("Hybrid","OPT0.5"),
+                ("Hybrid","OPT0.5"),
                 # ("Hybrid","OPT0.7"),
                 # ("Hybrid","OPT0.9"),
+                ("Hybrid", "OPT0.0625")
                 ]
 def get_all_tasks():
     logger.info(f"getting all tasks")

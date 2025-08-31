@@ -4,6 +4,7 @@ import pyaudio
 import threading
 import librosa as lb
 from scipy.signal import medfilt
+import scipy
 import time
 import csv
 
@@ -32,13 +33,13 @@ class EngineBase:
         self.filename = filename
         self.L = fft_size
         self.Hs = self.L // 4
-        self.window = np.hanning(self.L)
+        self.window = scipy.signal.windows.hann(self.L, sym=False)
         self.alpha = 1.0
-        self.gain = gain
+        # self.gain = gain
         
-        if self.gain is None:
-            self.gain = random.uniform(0.5, 1)
-            logger.info(f"using gain {self.gain:.3f}")
+        # if self.gain is None:
+        #     self.gain = random.uniform(0.5, 1)
+        #     logger.info(f"using gain {self.gain:.3f}")
         
         self.chunk_size = 512
         
@@ -177,8 +178,8 @@ class OLAEngine(EngineBase):
                 self.output_buffer[:self.L] += synthesis_buffer
 
                 chunk_to_write = self.output_buffer[:self.Hs]
-                chunk_with_gain = chunk_to_write * self.gain
-                final_chunk = np.clip(chunk_with_gain, -1.0, 1.0)
+                # chunk_with_gain = chunk_to_write * self.gain
+                final_chunk = np.clip(chunk_to_write, -1.0, 1.0)
                 self.stream.write(self.float2pcm(final_chunk).astype(np.int16).tobytes())
                 
                 pos += Ha
@@ -231,13 +232,13 @@ class PVEngine(EngineBase):
                 self.output_buffer[-self.Hs:] = 0
                 self.output_buffer += frame_mod * self.window
 
-                # chunk_to_write = self.output_buffer[:self.Hs]
+                chunk_to_write = self.output_buffer[:self.Hs]
                 # chunk_with_gain = chunk_to_write * self.gain
-                # final_chunk = np.clip(chunk_with_gain, -1.0, 1.0)
-                # self.stream.write(self.float2pcm(final_chunk).astype(np.int16).tobytes())
+                final_chunk = np.clip(chunk_to_write, -1.0, 1.0)
+                self.stream.write(self.float2pcm(final_chunk).astype(np.int16).tobytes())
                 
-                output_int16 = np.clip(self.output_buffer[:self.Hs] * self.gain, -32768, 32767).astype(np.int16)
-                self.stream.write(output_int16.tobytes())
+                # output_int16 = np.clip(self.output_buffer[:self.Hs] * self.gain, -32768, 32767).astype(np.int16)
+                # self.stream.write(output_int16.tobytes())
 
                 self.prev_fft = S
                 pos += Ha
@@ -380,6 +381,7 @@ class OPTEngine(EngineBase):
         super().__init__(filename, gain=None, fft_size=2048, on_complete=on_complete)
 
         self.beta = beta
+        print("beta type:", type(beta), "value:", beta)
         self.L_ola = 256
         self.Hs_ola = self.L_ola // 2
         self.prev_phase = np.zeros(self.L//2 + 1)
@@ -398,9 +400,8 @@ class OPTEngine(EngineBase):
         self.prev_phase = None
         self.setup_audio_stream()
     
-    def manual_stft_numpy(xh, beta, L=2048, sr=22050):
-        Ha_lookup = int(round(beta * L))
-        window = np.hanning(L)
+    def manual_stft_numpy(self, xh, Ha_lookup, L=2048, sr=22050):
+        window = scipy.signal.windows.hann(L, sym=False)
         n_frames = int(np.round((len(xh) - L) / Ha_lookup))
         k_bins = 1 + L // 2
         S_lookup = np.zeros((k_bins, n_frames), dtype=np.complex64)
@@ -409,7 +410,7 @@ class OPTEngine(EngineBase):
             end = start + L
             if end > len(xh):
                 break
-            S_lookup[:, i] = np.fft.rfft(xh[start:end])
+            S_lookup[:, i] = np.fft.rfft(xh[start:end] * window)
         return S_lookup
 
     def prepare_hpss(self):
@@ -426,7 +427,7 @@ class OPTEngine(EngineBase):
 
         # self.S_lookup = lb.core.stft(self.xh, n_fft=self.L, hop_length=Ha_lookup, win_length=self.L, center=False, dtype=np.complex64)
         
-        self.S_lookup = self.manual_stft_numpy(self.xh, self.beta)
+        self.S_lookup = self.manual_stft_numpy(self.xh, Ha_lookup)
         self.S_phase_lookup = np.angle(self.S_lookup)
         self.S_mag_lookup = np.abs(self.S_lookup)
         

@@ -2247,3 +2247,484 @@ INFO:root:engine reset state
 INFO:root:engine reset state
 INFO:root:engine reset state
 INFO:__main__:Started
+INFO:__main__:Started
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/reggae/reggae.00034.wav,['Hybrid', 'OPT0.25']
+INFO:audio:using gain 0.632
+INFO:root:engine reset state
+INFO:audio:using gain 0.769
+INFO:root:engine reset state
+INFO:__main__:Started
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/pop/pop.00088.wav,['Hybrid', 'OPT0.25']
+INFO:audio:using gain 0.620
+INFO:root:engine reset state
+INFO:audio:using gain 0.762
+INFO:root:engine reset state
+INFO:__main__:Started
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/reggae/reggae.00078.wav,['Hybrid', 'OPT0.25']
+INFO:audio:using gain 0.649
+INFO:root:engine reset state
+INFO:audio:using gain 0.572
+INFO:root:engine reset state
+INFO:__main__:Started
+INFO:userinfo:🆕 Created new user 'yes'
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/classical/classical.00058.wav,['Hybrid', 'OPT0.25']
+INFO:audio:using gain 0.586
+INFO:root:engine reset state
+INFO:audio:using gain 0.572
+INFO:root:engine reset state
+INFO:__main__:Started
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/metal/metal.00030.wav,['Hybrid', 'OPT0.25']
+INFO:audio:using gain 0.935
+INFO:root:engine reset state
+INFO:audio:using gain 0.872
+INFO:root:engine reset state
+INFO:__main__:Finished
+INFO:__main__:Started
+INFO:userinfo:🆕 Created new user 'fdf'
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/metal/metal.00039.wav,['Hybrid', 'OPT0.25']
+INFO:audio:using gain 0.847
+INFO:root:engine reset state
+INFO:audio:using gain 0.815
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 0.5148431166212666
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:__main__:Finished
+INFO:__main__:Started
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/hiphop/hiphop.00098.wav,['Hybrid', 'OPT0.25']
+INFO:audio:using gain 0.865
+INFO:root:engine reset state
+INFO:audio:using gain 0.795
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 0.5177390653797106
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/hiphop/hiphop.00098.wav, ['Hybrid', 'OPT0.25'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/reggae/reggae.00004.wav,['Hybrid', 'OPT0.25']
+INFO:audio:using gain 0.850
+INFO:root:engine reset state
+INFO:audio:using gain 0.926
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 1.918034391450477
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: Hybrid
+INFO:userinfo:logging /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/reggae/reggae.00004.wav, ['Hybrid', 'OPT0.25'], Hybrid
+INFO:player:finished logging choice: Hybrid
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/classical/classical.00080.wav,['Hybrid', 'OPT0.25']
+INFO:audio:using gain 0.801
+INFO:root:engine reset state
+INFO:audio:using gain 0.796
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 1.8152183316181527
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: Hybrid
+INFO:userinfo:logging /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/classical/classical.00080.wav, ['Hybrid', 'OPT0.25'], Hybrid
+INFO:player:finished logging choice: Hybrid
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/reggae/reggae.00028.wav,['Hybrid', 'OPT0.25']
+INFO:audio:using gain 0.572
+INFO:root:engine reset state
+INFO:audio:using gain 0.763
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 0.5127355930930396
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/reggae/reggae.00028.wav, ['Hybrid', 'OPT0.25'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/pop/pop.00015.wav,['Hybrid', 'OPT0.25']
+INFO:audio:using gain 0.613
+INFO:root:engine reset state
+INFO:audio:using gain 0.505
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 0.9071626061569031
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/pop/pop.00015.wav, ['Hybrid', 'OPT0.25'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/reggae/reggae.00010.wav,['Hybrid', 'OPT0.25']
+INFO:audio:using gain 0.649
+INFO:root:engine reset state
+INFO:audio:using gain 0.657
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 1.9432590666786362
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/reggae/reggae.00010.wav, ['Hybrid', 'OPT0.25'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/classical/classical.00039.wav,['Hybrid', 'OPT0.25']
+INFO:audio:using gain 0.906
+INFO:root:engine reset state
+INFO:audio:using gain 0.858
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 1.1681746357173712
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/classical/classical.00039.wav, ['Hybrid', 'OPT0.25'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/metal/metal.00054.wav,['Hybrid', 'OPT0.25']
+INFO:audio:using gain 0.519
+INFO:root:engine reset state
+INFO:audio:using gain 0.897
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 1.639306593011362
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/classical/classical.00090.wav,['Hybrid', 'OPT0.25']
+INFO:audio:using gain 0.862
+INFO:root:engine reset state
+INFO:audio:using gain 0.621
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 0.5442000877963951
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/classical/classical.00090.wav, ['Hybrid', 'OPT0.25'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/metal/metal.00027.wav,['Hybrid', 'OPT0.25']
+INFO:audio:using gain 0.841
+INFO:root:engine reset state
+INFO:audio:using gain 0.630
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 1.5664086520497993
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/metal/metal.00027.wav, ['Hybrid', 'OPT0.25'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/pop/pop.00012.wav,['Hybrid', 'OPT0.25']
+INFO:audio:using gain 0.516
+INFO:root:engine reset state
+INFO:audio:using gain 0.883
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 0.5671151862202165
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/pop/pop.00012.wav, ['Hybrid', 'OPT0.25'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/rock/rock.00032.wav,['Hybrid', 'OPT0.25']
+INFO:audio:using gain 0.755
+INFO:root:engine reset state
+INFO:audio:using gain 0.859
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 0.8420069487909894
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:__main__:Started
+INFO:userinfo:🆕 Created new user 'tyr'
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/pop/pop.00015.wav,['Hybrid', 'OPT0.25']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 0.8602304024267867
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/pop/pop.00015.wav, ['Hybrid', 'OPT0.25'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/country/country.00032.wav,['Hybrid', 'OPT0.25']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 1.032185557149464
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/country/country.00032.wav, ['Hybrid', 'OPT0.25'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/metal/metal.00011.wav,['Hybrid', 'OPT0.25']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 0.8188460418360418
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/metal/metal.00011.wav, ['Hybrid', 'OPT0.25'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/pop/pop.00064.wav,['Hybrid', 'OPT0.25']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 0.5845201367151421
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/pop/pop.00064.wav, ['Hybrid', 'OPT0.25'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/rock/rock.00017.wav,['Hybrid', 'OPT0.25']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 0.6718600081082106
+INFO:__main__:Finished
+INFO:__main__:Started
+INFO:userinfo:🆕 Created new user 'yieeoe'
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/metal/metal.00077.wav,['Hybrid', 'OPT0.25']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 0.8423435285628496
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/metal/metal.00077.wav, ['Hybrid', 'OPT0.25'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/classical/classical.00071.wav,['Hybrid', 'OPT0.5']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 1.160188265869946
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:__main__:Finished
+INFO:__main__:Started
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/jazz/jazz.00057.wav,['Hybrid', 'OPT0.5']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 1.223138650409464
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: Hybrid
+INFO:userinfo:logging /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/jazz/jazz.00057.wav, ['Hybrid', 'OPT0.5'], Hybrid
+INFO:player:finished logging choice: Hybrid
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/rock/rock.00023.wav,['Hybrid', 'OPT0.0625']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 1.9250390170183957
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/rock/rock.00023.wav, ['Hybrid', 'OPT0.0625'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/rock/rock.00018.wav,['Hybrid', 'OPT0.25']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 0.6603101515678059
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/rock/rock.00018.wav, ['Hybrid', 'OPT0.25'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/metal/metal.00018.wav,['Hybrid', 'OPT0.125']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 0.8563531221480855
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/metal/metal.00018.wav, ['Hybrid', 'OPT0.125'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/jazz/jazz.00050.wav,['Hybrid', 'OPT0.5']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 1.6533698248463387
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: Hybrid
+INFO:userinfo:logging /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/jazz/jazz.00050.wav, ['Hybrid', 'OPT0.5'], Hybrid
+INFO:player:finished logging choice: Hybrid
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/pop/pop.00094.wav,['Hybrid', 'OPT0.0625']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 0.547896847618651
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: OPT0.0625
+INFO:userinfo:logging /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/pop/pop.00094.wav, ['Hybrid', 'OPT0.0625'], OPT0.0625
+INFO:player:finished logging choice: OPT0.0625
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/disco/disco.00064.wav,['Hybrid', 'OPT0.5']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 1.1895704142262034
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/disco/disco.00064.wav, ['Hybrid', 'OPT0.5'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/hiphop/hiphop.00028.wav,['Hybrid', 'OPT0.0625']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 0.9177455470160382
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/hiphop/hiphop.00028.wav, ['Hybrid', 'OPT0.0625'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/metal/metal.00068.wav,['Hybrid', 'OPT0.0625']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 1.28121702717276
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/metal/metal.00068.wav, ['Hybrid', 'OPT0.0625'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/blues/blues.00059.wav,['Hybrid', 'OPT0.125']
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:RANDOM ALPHA 0.5086220102910713
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:root:engine reset state
+INFO:player:start logging choice: SAME
+INFO:userinfo:logging /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/blues/blues.00059.wav, ['Hybrid', 'OPT0.125'], SAME
+INFO:player:finished logging choice: SAME
+INFO:userinfo:Get next task
+INFO:userinfo:getting all tasks
+INFO:userinfo:['pop', '.DS_Store', 'metal', 'disco', 'blues', 'reggae', 'classical', 'rock', 'hiphop', 'country', 'jazz'], /Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original
+INFO:userinfo:/Users/server/Documents/GitHub/DSP_FinalProject/app/samples/genres_original/metal/metal.00023.wav,['Hybrid', 'PV']
+INFO:root:engine reset state
+INFO:__main__:Started

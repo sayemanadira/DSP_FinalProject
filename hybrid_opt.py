@@ -6,6 +6,7 @@ import keyboard
 import librosa as lb
 from scipy.signal import medfilt
 import scipy.io.wavfile as wavfile
+import scipy
 import csv
 
 def calc_sum_squared_window(window, hop_length):
@@ -138,7 +139,7 @@ keyboard.on_press(on_alpha_change)
 
 def manual_stft_numpy(xh, beta, L=2048, sr=22050):
         Ha_lookup = int(round(beta * L))
-        window = np.hanning(L)
+        window = scipy.signal.windows.hann(L, sym=False)
         n_frames = int(np.round((len(xh) - L) / Ha_lookup))
         k_bins = 1 + L // 2
         S_lookup = np.zeros((k_bins, n_frames), dtype=np.complex64)
@@ -147,7 +148,7 @@ def manual_stft_numpy(xh, beta, L=2048, sr=22050):
             end = start + L
             if end > len(xh):
                 break
-            S_lookup[:, i] = np.fft.rfft(xh[start:end])
+            S_lookup[:, i] = np.fft.rfft(xh[start:end] * window)
         return S_lookup
 
 file_name = sys.argv[1]
@@ -159,8 +160,8 @@ L_ola = 256
 Hs = L // 4
 Hs_ola = L_ola // 2
 alpha = 1.00
-window = np.hanning(L)
-window_ola = np.hanning(L_ola)
+window = scipy.signal.windows.hann(L, sym=False)
+window_ola = scipy.signal.windows.hann(L_ola, sym=False)
 output_buffer = np.zeros(int(L))
 normalization = np.zeros(int(L))
 prev_fft = None
@@ -170,8 +171,7 @@ runtimes = []
 pos = 0
 pos_ola = 0
 # Determines the phase vocoder look-up analysis hopsize e.g. beta = 0.125 is 12.5% overlap
-beta = 0.24
-gain = 0
+beta = 0.25
 
 xh, xp, _, _ = harmonic_percussive_separation(x=audio_data, sr=audio_sr)
 
@@ -190,27 +190,6 @@ S_mag_lookup = np.abs(S_lookup)
 w_if_lookup = estimateIF(S_lookup, audio_sr, Ha_lookup)
 prev_phase = None
 ratio = Hs//Hs_ola
-
-# def get_exact_norm(window, Hs, beta):
-#     """Returns the exact normalization factor for perfect volume matching"""
-#     L = len(window)
-#     Ha_lookup = int(beta * L)
-    
-#     # 1. Compute ACTUAL overlap count
-#     actual_overlaps = L / Ha_lookup
-    
-#     # 2. Compute BASELINE overlap count (for β=0.25)
-#     baseline_overlaps = L / Hs  # Typically 4 for Hs=L/4
-    
-#     # 3. Energy compensation factor (FIXED)
-#     # We need to ensure RMS matches, so we must account for the window's energy
-#     window_energy = np.sum(window ** 2)  # Total energy in window
-#     energy_ratio = np.sqrt(baseline_overlaps / actual_overlaps * (L / window_energy))
-    
-#     # 4. Final normalization (scales window to correct RMS)
-#     return window * energy_ratio
-
-# norm = get_exact_norm(window, Hs, beta)
 
 # To save audio file
 output_filename = f"output/output_{beta}.wav"  # Name of the output file
@@ -253,17 +232,8 @@ try:
 
         output_buffer[:-Hs] = output_buffer[Hs:]
         output_buffer[-Hs:] = 0
-        if beta == 0.25:
-            gain = 1.38
-            output_buffer += pv_frame_mod * ((window.reshape((-1,1))/(den.reshape((-1,1)))).flatten() * gain)
-        else:
-            gain = 2
-            output_buffer += pv_frame_mod * ((window.reshape((-1,1))/(den.reshape((-1,1)))).flatten() * gain)
+        output_buffer += pv_frame_mod * ((window.reshape((-1,1))/(den.reshape((-1,1)))).flatten())
 
-        # gain = (window / den)[:len(pv_frame_mod)]
-        # output_buffer[:len(gain)] += pv_frame_mod[:len(gain)] * gain
-        # # output_buffer += pv_frame_mod * norm
-        
         # #TODO: REMINDER - uncomment to try "OLA Lookup"
         # nn_frame_OLA = int(round(pos/Ha_lookup_ola))       
     
