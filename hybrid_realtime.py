@@ -6,6 +6,7 @@ import keyboard
 import librosa as lb
 from scipy.signal import medfilt
 import scipy.io.wavfile as wavfile
+import scipy
 import csv
 
 
@@ -14,8 +15,8 @@ L_ola = 256
 Hs = L // 4
 Hs_ola = L_ola // 2
 alpha = 1.00
-window = np.hanning(L)
-window_ola = np.hanning(L_ola)
+window = scipy.signal.windows.hann(L, sym=False)
+window_ola = scipy.signal.windows.hann(L_ola, sym=False)
 output_buffer = np.zeros(int(L))
 prev_fft = None
 prev_phase = np.zeros(L//2 + 1)

@@ -1,3 +1,4 @@
+from fileinput import filename
 import glob
 import random
 import datetime
@@ -35,7 +36,7 @@ def get_resource_path(relative_path):
 # === Generate All Possible Tasks (filename + engine pairs) ===
 
 engine_pairs = [
-                # ("Hybrid","Hybrid"),
+                ("Hybrid","Hybrid"),
                 ("Hybrid","PV"),
                 # ("Hybrid","OPT0.08"),
                 ("Hybrid","OPT0.25"),
@@ -43,9 +44,12 @@ engine_pairs = [
                 # ("Hybrid","OPT0.2"),
                 # ("Hybrid","OPT0.3"),
                 ("Hybrid","OPT0.5"),
+                # ("Hybrid","OPT0.6"),
+                # ("Hybrid","OPT0.4"),
                 # ("Hybrid","OPT0.7"),
                 # ("Hybrid","OPT0.9"),
-                ("Hybrid", "OPT0.0625")
+                ("Hybrid", "OPT0.0625"),
+                ("Hybrid", "OPT1.0"),
                 ]
 def get_all_tasks():
     logger.info(f"getting all tasks")
@@ -104,10 +108,15 @@ class UserInfo:
         if self._current_task_id == task_id and self._current_task_start:
             duration = round(time.time() - self._current_task_start, 2)  # ⏱ seconds, rounded
 
+        # Extract genre
+        genre = os.path.basename(os.path.dirname(filename))
+
+
         self.completed_tasks[task_id] = {
             "chosen_engine": chosen_engine,
             "timestamp": datetime.datetime.utcnow().isoformat(),
-            "duration_sec": duration  # 💾 Save time spent
+            "duration_sec": duration,  # 💾 Save time spent
+            "genre": genre
         }
 
         users_collection.update_one(

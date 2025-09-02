@@ -5,6 +5,7 @@ runtime_analysis/**
 *.log        # Log files
 *.png        # Plot files
 *.txt        # Text files
+*.ipynb     # Jupyter notebooks
 
 echo "hybrid_runtime_pv.py"
 

@@ -200,20 +200,28 @@ class PVEngine(EngineBase):
     def _run(self):
         num_samples = self.wf.getnframes()
         pos = int(random.random() * len(self.window))
-
-        try:
+        x, sr = lb.load(self.filename, sr=22050)
+        
+        try:  
             while self.running and pos <= num_samples - self.L:
-                self.wf.setpos(pos)
-                data = self.wf.readframes(self.L)
-                x = np.frombuffer(data, dtype=np.int16).astype(np.float32)
-
                 Ha = int(np.round(self.Hs / self.alpha))
 
                 if len(x) < self.L:
                     x = np.pad(x, (0, self.L - len(x)))
 
-                frame = x[:self.L] * self.window
+                frame = x[pos:pos+self.L] * self.window
                 S = np.fft.rfft(frame)
+
+                # Phase Vocoder analysis
+                # if prev_fft is None:
+                #     w_if = np.zeros_like(omega_nom)
+                # else:
+                #     dphi = np.angle(S) - np.angle(prev_fft)
+                #     dphi = dphi - omega_nom * (Ha / audio_sr)
+                #     dphi = (dphi + np.pi) % (2 * np.pi) - np.pi
+                #     w_if = omega_nom + dphi * (audio_sr / Ha)
+
+                # prev_phase = prev_phase + w_if * (Hs / audio_sr)
 
                 if self.prev_fft is None:
                     w_if = np.zeros_like(self.omega_nom)
@@ -222,8 +230,8 @@ class PVEngine(EngineBase):
                     dphi = dphi - self.omega_nom * (Ha / self.audio_sr)
                     dphi = (dphi + np.pi) % (2 * np.pi) - np.pi
                     w_if = self.omega_nom + dphi * (self.audio_sr / Ha)
-
-                self.prev_phase = self.prev_phase + w_if * (self.Hs / self.audio_sr)
+                
+                self.prev_phase += w_if * (self.Hs / self.audio_sr)
 
                 X_mod = np.abs(S) * np.exp(1j * self.prev_phase)
                 frame_mod = np.fft.irfft(X_mod)
@@ -232,9 +240,8 @@ class PVEngine(EngineBase):
                 self.output_buffer[-self.Hs:] = 0
                 self.output_buffer += frame_mod * self.window
 
-                chunk_to_write = self.output_buffer[:self.Hs]
-                # chunk_with_gain = chunk_to_write * self.gain
-                final_chunk = np.clip(chunk_to_write, -1.0, 1.0)
+                # chunk_to_write = self.output_buffer[:self.Hs]
+                final_chunk = np.clip(self.output_buffer[:self.Hs], -1.0, 1.0)
                 self.stream.write(self.float2pcm(final_chunk).astype(np.int16).tobytes())
                 
                 # output_int16 = np.clip(self.output_buffer[:self.Hs] * self.gain, -32768, 32767).astype(np.int16)
@@ -299,6 +306,7 @@ class HybridEngine(EngineBase):
         
         self.omega_nom = None
         self.den = None
+        self.x = None
         self.xh = None
         self.xp = None
         self.separate_hpss()
@@ -311,9 +319,9 @@ class HybridEngine(EngineBase):
         self.setup_audio_stream()
 
     def separate_hpss(self):
-        x, self.audio_sr = lb.load(self.filename, sr=22050)
+        self.x, self.audio_sr = lb.load(self.filename, sr=22050)
         
-        xh, xp = harmonic_percussive_separation(x, self.audio_sr)
+        xh, xp = harmonic_percussive_separation(self.x, self.audio_sr)
         
         self.xh = xh
         self.xp = xp
@@ -326,15 +334,15 @@ class HybridEngine(EngineBase):
         
         pos = int(random.random() * len(self.window))
         ratio = self.Hs // self.Hs_ola
-        windowOLA = np.hanning(self.L_ola)
+        windowOLA = scipy.signal.windows.hann(self.L_ola, sym=False)
         try:
-            while self.running and pos <= len(self.xh) - self.L:
+            while self.running and pos <= len(self.x) - self.L:
                 Ha = int(self.Hs / self.alpha)
                 Ha_ola = int(self.Hs_ola / self.alpha)
 
                 #TODO: Uncomment when done with comparing OLA parts
                 # Phase Vocoder (harmonic)
-                pv_win = self.xh[pos:pos + self.L] * self.window
+                pv_win = self.x[pos:pos + self.L] * self.window
                 S = np.fft.rfft(pv_win)
 
                 if self.prev_fft is not None:
@@ -390,6 +398,7 @@ class OPTEngine(EngineBase):
         self.S_phase_lookup = None
         self.S_mag_lookup = None
         self.w_if_lookup = None
+        self.x = None
         self.xh = None
         self.xp = None
 
@@ -414,10 +423,10 @@ class OPTEngine(EngineBase):
         return S_lookup
 
     def prepare_hpss(self):
-        x, self.audio_sr = lb.load(self.filename, sr=22050)
-        self.audio_data = x
+        self.x, self.audio_sr = lb.load(self.filename, sr=22050)
+        self.audio_data = self.x
         # HPSS separation
-        xh, xp = self.harmonic_percussive_separation(x, self.audio_sr)
+        xh, xp = self.harmonic_percussive_separation(self.x, self.audio_sr)
         
         self.xh = xh
         self.xp = xp
@@ -427,7 +436,7 @@ class OPTEngine(EngineBase):
 
         # self.S_lookup = lb.core.stft(self.xh, n_fft=self.L, hop_length=Ha_lookup, win_length=self.L, center=False, dtype=np.complex64)
         
-        self.S_lookup = self.manual_stft_numpy(self.xh, Ha_lookup)
+        self.S_lookup = self.manual_stft_numpy(self.x, Ha_lookup)
         self.S_phase_lookup = np.angle(self.S_lookup)
         self.S_mag_lookup = np.abs(self.S_lookup)
         
@@ -499,7 +508,6 @@ class OPTEngine(EngineBase):
         Ha_lookup = int(self.beta* self.L)
         ratio = self.Hs // self.Hs_ola
         windowOLA = np.hanning(self.L_ola)
-        norm = (self.window / np.sqrt(np.mean(self.window**2))) * 1 / np.sqrt(1.3)
         self.prev_phase = np.zeros(self.S_phase_lookup[:, 0].shape)
 
         try:
