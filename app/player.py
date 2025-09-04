@@ -77,7 +77,8 @@ class Player:
         self.filename, engine_pair = task
         self.engines, self.engine_names = self.prepare_engines(engine_pair)
         
-        random_alpha = math.exp(float(random.random() * (math.log(2) - math.log(0.5))) + math.log(0.5))
+        # random_alpha = math.exp(float(random.random() * (math.log(2) - math.log(0.5))) + math.log(0.5))
+        random_alpha = 2**np.random.uniform(-1,1)
         logger.info(f"RANDOM ALPHA {random_alpha}")
         self.alphas = [random_alpha] * len(self.engines)
 
@@ -136,8 +137,8 @@ class Player:
         # Normal instructions
         instruction_text_part1 = (
             "Which player has better quality?\n"
-            "1. Try to find the option with the fewest audio artifacts\n"
-            "2. Check the box to indicate which player has the best quality, or whether they both sound the same\n"
+            "1. Listen to both audio samples.\n"
+            "2. Check the box to indicate which player has the best quality, or whether they sound the same\n"
             "3. Click 'Submit' to save your choice and move to the next pair."
         )
         Label(instruction_frame, text=instruction_text_part1, justify=CENTER).pack()
@@ -178,9 +179,9 @@ class Player:
          # --- Add alpha display label at the top ---
         # If all alphas are the same, just show one value
         if all(a == self.alphas[0] for a in self.alphas):
-            alpha_text = f"Current α (alpha): {self.alphas[0]:.3f}"
+            alpha_text = f"Tempo change: {self.alphas[0]:.3f}"
         else:
-            alpha_text = "Current α (alpha) values: " + ", ".join(f"{a:.3f}" for a in self.alphas)
+            alpha_text = "Tempo change: " + ", ".join(f"{a:.3f}" for a in self.alphas)
         self.alpha_label = Label(self.window, text=alpha_text, font=("Arial", 14, "bold"))
         self.alpha_label.pack(pady=(0, 10))
         # ------------------------------------------
@@ -244,7 +245,6 @@ class Player:
         # )
         # slider.set(math.log(1.0))
         # slider.pack()
-        Label(frame, text=f"Player {index}", font=("Arial", 12, "bold")).pack()
 
         # # Add alpha label
         # alpha_label = Label(frame, text=f"Alpha: {self.alphas[index-1]:.3f}", font=("Arial", 10))
@@ -267,13 +267,13 @@ class Player:
         # Update the alpha label at the top
         if hasattr(self, "alpha_label"):
             if all(a == self.alphas[0] for a in self.alphas):
-                alpha_text = f"Current α (alpha): {self.alphas[0]:.3f}"
+                alpha_text = f"Tempo change: {self.alphas[0]:.3f}"
             else:
-                alpha_text = "Current α (alpha) values: " + ", ".join(f"{a:.3f}" for a in self.alphas)
+                alpha_text = "Tempo change: " + ", ".join(f"{a:.3f}" for a in self.alphas)
             self.alpha_label.config(text=alpha_text)
         if self.current_playing == player_idx - 1 and self.engine:
             self.engine.set_alpha(value)
-            
+
     # def update_alpha(self, player_idx, value, label):
     #     label.config(text=f"Factor: {(1 / value):.1f}")
     #     self.alphas[player_idx - 1] = value

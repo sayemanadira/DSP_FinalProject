@@ -63,6 +63,7 @@ class EngineBase:
     def load_audio(self):
         logging.info(f'engine loading {self.filename}')
         self.audio_data, self.audio_sr = lb.load(self.filename, sr=22050)
+        self.audio_data = self.audio_data[:int(15 * self.audio_sr)]  # Limit to first 15 seconds
         # logger.info(self.audio_sr)
 
     def setup_audio_stream(self):
@@ -160,7 +161,7 @@ class OLAEngine(EngineBase):
     def _run(self):
 
         num_samples = self.wf.getnframes()
-        pos = int(random.random() * len(self.window))
+        pos = 0
 
         try:
             while self.running and pos <= num_samples - self.L:
@@ -201,6 +202,8 @@ class PVEngine(EngineBase):
         num_samples = self.wf.getnframes()
         pos = int(random.random() * len(self.window))
         x, sr = lb.load(self.filename, sr=22050)
+        x = x[:int(15 * self.audio_sr)]  # Limit to first 15 seconds
+
         
         try:  
             while self.running and pos <= num_samples - self.L:
@@ -320,6 +323,8 @@ class HybridEngine(EngineBase):
 
     def separate_hpss(self):
         self.x, self.audio_sr = lb.load(self.filename, sr=22050)
+        self.x = self.x[:int(15 * self.audio_sr)]  # Limit to first 15 seconds
+
         
         xh, xp = harmonic_percussive_separation(self.x, self.audio_sr)
         
@@ -332,7 +337,7 @@ class HybridEngine(EngineBase):
     def _run(self):
         """Threading implementation for consistency with base class"""
         
-        pos = int(random.random() * len(self.window))
+        pos = 0
         ratio = self.Hs // self.Hs_ola
         windowOLA = scipy.signal.windows.hann(self.L_ola, sym=False)
         try:
@@ -389,7 +394,6 @@ class OPTEngine(EngineBase):
         super().__init__(filename, gain=None, fft_size=2048, on_complete=on_complete)
 
         self.beta = beta
-        print("beta type:", type(beta), "value:", beta)
         self.L_ola = 256
         self.Hs_ola = self.L_ola // 2
         self.prev_phase = np.zeros(self.L//2 + 1)
@@ -424,7 +428,7 @@ class OPTEngine(EngineBase):
 
     def prepare_hpss(self):
         self.x, self.audio_sr = lb.load(self.filename, sr=22050)
-        self.audio_data = self.x
+        self.audio_data = self.x[:int(15 * self.audio_sr)]  # Limit to first 15 seconds
         # HPSS separation
         xh, xp = self.harmonic_percussive_separation(self.x, self.audio_sr)
         
@@ -504,7 +508,7 @@ class OPTEngine(EngineBase):
         return y
 
     def _run(self):
-        pos = int(random.random() * len(self.window))
+        pos = 0
         Ha_lookup = int(self.beta* self.L)
         ratio = self.Hs // self.Hs_ola
         windowOLA = np.hanning(self.L_ola)
