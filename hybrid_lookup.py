@@ -104,6 +104,22 @@ def invert_stft(S, hop_length, window):
     return y
 
 def harmonic_percussive_separation(x, sr=22050, fft_size = 2048, hop_length=512, lh=6, lp=6):
+    """
+    Perform Harmonic/Percussive source separation using median filtering.
+    Inputs
+    x: input audio signal
+    sr: sampling rate
+    fft_size: size of the FFT window
+    hop_length: hop size for STFT
+    lh: half-length of the median filter for harmonic components (in frames)
+    lp: half-length of the median filter for percussive components (in frequency bins)
+
+    Outputs
+    xh: harmonic component of the signal
+    xp: percussive component of the signal
+    Xh: STFT of the harmonic component
+    Xp: STFT of the percussive component"""
+
     window = np.hanning(fft_size)
     X = lb.core.stft(x, n_fft=fft_size, hop_length=512, window=window, center=False)
     Y = np.abs(X)
@@ -119,7 +135,13 @@ def harmonic_percussive_separation(x, sr=22050, fft_size = 2048, hop_length=512,
     return xh, xp, Xh, Xp
 
 def float2pcm(sig, dtype='int16'):
-    # assert sig <= 1 and sig >= -1, "Data must be normalized between -1.0 and 1.0"
+    """Convert floating point signal to PCM format.
+    Inputs:
+    sig: floating point input signal (numpy array)
+    dtype: target PCM format (default: int16)
+    Outputs:
+    sig_pcm: PCM signal (numpy array)"""
+    
     sig = np.asarray(sig)
     dtype = np.dtype(dtype)
     i = np.iinfo(dtype)
@@ -128,6 +150,7 @@ def float2pcm(sig, dtype='int16'):
     return (sig * abs_max + offset).clip(i.min, i.max).astype(dtype)
 
 def on_alpha_change(e):
+    '''Callback function to handle alpha changes via keyboard input.'''
     global alpha
     if e.name == 'up' and alpha < 2.00:
         alpha += 0.01
@@ -138,18 +161,28 @@ def on_alpha_change(e):
 keyboard.on_press(on_alpha_change)
 
 def manual_stft_numpy(xh, beta, L=2048, sr=22050):
-        Ha_lookup = int(round(beta * L))
-        window = scipy.signal.windows.hann(L, sym=False)
-        n_frames = int(np.round((len(xh) - L) / Ha_lookup))
-        k_bins = 1 + L // 2
-        S_lookup = np.zeros((k_bins, n_frames), dtype=np.complex64)
-        for i in range(n_frames):
-            start = i * Ha_lookup
-            end = start + L
-            if end > len(xh):
-                break
-            S_lookup[:, i] = np.fft.rfft(xh[start:end] * window)
-        return S_lookup
+    """Manual STFT implementation using NumPy.
+    Inputs:
+    xh: input signal
+    beta: overlap factor (e.g., 0.25 for 75% overlap)
+    L: FFT size (default: 2048)
+    sr: sampling rate (default: 22050)
+    
+    Outputs:
+    S_lookup: STFT matrix (numpy array)"""
+
+    Ha_lookup = int(round(beta * L))
+    window = scipy.signal.windows.hann(L, sym=False)
+    n_frames = int(np.round((len(xh) - L) / Ha_lookup))
+    k_bins = 1 + L // 2
+    S_lookup = np.zeros((k_bins, n_frames), dtype=np.complex64)
+    for i in range(n_frames):
+        start = i * Ha_lookup
+        end = start + L
+        if end > len(xh):
+            break
+        S_lookup[:, i] = np.fft.rfft(xh[start:end] * window)
+    return S_lookup
 
 file_name = sys.argv[1]
 audio_data, audio_sr = lb.load(file_name)
@@ -167,23 +200,21 @@ normalization = np.zeros(int(L))
 prev_fft = None
 prev_phase = np.zeros(L//2 + 1)
 runtimes = []
-
 pos = 0
 pos_ola = 0
+omega_nom = np.arange(L//2 + 1) * 2 *np.pi * audio_sr / L
+
 # Determines the phase vocoder look-up analysis hopsize e.g. beta = 0.125 is 12.5% overlap
 beta = 0.25
 
+# Seperate harmonic and percussive components
 xh, xp, _, _ = harmonic_percussive_separation(x=audio_data, sr=audio_sr)
-
-omega_nom = np.arange(L//2 + 1) * 2 *np.pi * audio_sr / L
-
 
 #Phase vocoder Look-up
 Ha_lookup = int(round((beta)*L))
 den = calc_sum_squared_window(window, Hs)
 
 S_lookup = manual_stft_numpy(xh, beta)
-# S_lookup = lb.core.stft(xh, n_fft=L, hop_length=Ha_lookup, center=False, win_length=L) # shape = (1 + n_fft/2, n_frames)
 S_phase_lookup = np.angle(S_lookup)
 S_mag_lookup = np.abs(S_lookup)
 
@@ -216,9 +247,7 @@ try:
             prev_phase = S_phase_lookup[:, 0]
             S_mod = S_mag_lookup[:, 0] * np.exp(1j * prev_phase)
         else:
-            # nn_frame = int(round(pos / Ha_lookup))  # lookup is always on Ha_lookup
-            # lb_frame = min(int(pos/Ha_lookup), w_if_lookup.shape[1] - 1)
-            # Get current frame index (for magnitude)
+            #Get FRAME index (current frame)
             frame_idx = min(int(round(pos / Ha_lookup)), S_mag_lookup.shape[1] - 1)
             
             # Get PHASE TRANSITION index (previous to current frame)
@@ -226,21 +255,16 @@ try:
             
             phase_increment = w_if_lookup[:, phase_trans_idx] * (Hs / audio_sr)
             prev_phase += phase_increment  # Update phase correctly for current alpha
-            S_mod = S_mag_lookup[:, frame_idx] * np.exp(1j * prev_phase)
+            S_mod = S_mag_lookup[:, frame_idx] * np.exp(1j * prev_phase) # Modified STFT frame
 
-        pv_frame_mod = np.fft.irfft(S_mod)
+        pv_frame_mod = np.fft.irfft(S_mod) # Inverse FFT to get time-domain frame
 
+        # Updates the buffer by shifting and adding the new frame
         output_buffer[:-Hs] = output_buffer[Hs:]
         output_buffer[-Hs:] = 0
         output_buffer += pv_frame_mod * ((window.reshape((-1,1))/(den.reshape((-1,1)))).flatten())
 
-        # #TODO: REMINDER - uncomment to try "OLA Lookup"
-        # nn_frame_OLA = int(round(pos/Ha_lookup_ola))       
-    
-        # for offset in OLA_offsets:
-        #     output_buffer[offset: offset+L_ola] += OLA_frame_lookup[nn_frame_OLA]
-            
-        #TODO: Uncomment when NO LOOK-UP
+        # OLA for percussive component
         for i in range(ratio):
             ola_win_synth = xp[pos + (Ha_ola*i):pos +(Ha_ola*i) + L_ola] * window_ola
             offset = i * Hs_ola
@@ -251,7 +275,7 @@ try:
         stream.write(float2pcm(output_buffer[:Hs]).astype(np.int16).tobytes())  # Convert to int16 at last moment
 
         # Store for WAV file
-        output_frames.append(float2pcm(output_buffer[:Hs]).astype(np.int16).copy())  # Store the chunk
+        output_frames.append(float2pcm(output_buffer[:Hs]).astype(np.int16).copy()) 
 
         pos += Ha
 
@@ -269,7 +293,3 @@ if output_frames:
     # Save as WAV
     wavfile.write(output_filename, audio_sr, full_audio)
     print(f"\nSaved processed audio to {output_filename}")
-
-# input_rms = np.sqrt(np.mean(xh**2))
-# output_rms = np.sqrt(np.mean(np.array(output_frames)**2))
-# print(f"Input RMS: {input_rms:.3f}, Output RMS: {output_rms:.3f}")

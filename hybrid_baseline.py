@@ -10,18 +10,7 @@ import scipy
 import csv
 
 
-CHUNK = L = 2048
-L_ola = 256
-Hs = L // 4
-Hs_ola = L_ola // 2
-alpha = 1.00
-window = scipy.signal.windows.hann(L, sym=False)
-window_ola = scipy.signal.windows.hann(L_ola, sym=False)
-output_buffer = np.zeros(int(L))
-prev_fft = None
-prev_phase = np.zeros(L//2 + 1)
-runtimes = []
-
+#Helper functions
 
 def calc_sum_squared_window(window, hop_length):
     '''
@@ -82,6 +71,22 @@ def invert_stft(S, hop_length, window):
     return y
 
 def harmonic_percussive_separation(x, sr=22050, fft_size = 2048, hop_length=512, lh=6, lp=6):
+    """
+    Perform Harmonic/Percussive source separation using median filtering.
+    Inputs
+    x: input audio signal
+    sr: sampling rate
+    fft_size: size of the FFT window
+    hop_length: hop size for STFT
+    lh: half-length of the median filter for harmonic components (in frames)
+    lp: half-length of the median filter for percussive components (in frequency bins)
+
+    Outputs
+    xh: harmonic component of the signal
+    xp: percussive component of the signal
+    Xh: STFT of the harmonic component
+    Xp: STFT of the percussive component"""
+
     window = np.hanning(fft_size)
     X = lb.core.stft(x, n_fft=fft_size, hop_length=512, window=window, center=False)
     Y = np.abs(X)
@@ -97,7 +102,13 @@ def harmonic_percussive_separation(x, sr=22050, fft_size = 2048, hop_length=512,
     return xh, xp, Xh, Xp
 
 def float2pcm(sig, dtype='int16'):
-    # assert sig <= 1 and sig >= -1, "Data must be normalized between -1.0 and 1.0"
+    """Convert floating point signal to PCM format.
+    Inputs:
+    sig: floating point input signal (numpy array)
+    dtype: target PCM format (default: int16)
+    Outputs:
+    sig_pcm: PCM signal (numpy array)"""
+
     sig = np.asarray(sig)
     dtype = np.dtype(dtype)
     i = np.iinfo(dtype)
@@ -105,20 +116,8 @@ def float2pcm(sig, dtype='int16'):
     offset = i.min + abs_max
     return (sig * abs_max + offset).clip(i.min, i.max).astype(dtype)
 
-# file_name = 'samples/fred_10sec.wav'
-file_name = sys.argv[1]
-audio_data, audio_sr = lb.load(file_name)
-
-
-xh, xp, _, _ = harmonic_percussive_separation(x=audio_data, sr=audio_sr)
-
-omega_nom = np.arange(L//2 + 1) * 2 *np.pi * audio_sr / L
-den = calc_sum_squared_window(window, Hs)
-# norm = (window / np.sqrt(np.mean(window**2)))
-
-
-
 def on_alpha_change(e):
+    '''Callback function to handle alpha changes via keyboard input.'''
     global alpha
     if e.name == 'up' and alpha < 2.00:
         alpha += 0.01
@@ -127,6 +126,35 @@ def on_alpha_change(e):
     print(f"\rCurrent alpha: {alpha:.2f}", end="", flush=True)
 
 keyboard.on_press(on_alpha_change)
+
+file_name = sys.argv[1]
+
+# Check for save option
+if len(sys.argv) >= 2 and sys.argv[2] == '-s':
+        save_option = True
+audio_data, audio_sr = lb.load(file_name) #load audio file
+
+# Separate harmonic and percussive components
+xh, xp, _, _ = harmonic_percussive_separation(x=audio_data, sr=audio_sr)
+
+#Constants
+CHUNK = L = 2048
+L_ola = 256
+Hs = L // 4
+Hs_ola = L_ola // 2
+alpha = 1.00
+window = scipy.signal.windows.hann(L, sym=False)
+window_ola = scipy.signal.windows.hann(L_ola, sym=False)
+output_buffer = np.zeros(int(L))
+prev_fft = None
+prev_phase = np.zeros(L//2 + 1)
+omega_nom = np.arange(L//2 + 1) * 2 *np.pi * audio_sr / L
+den = calc_sum_squared_window(window, Hs)
+pos = 0
+pos_ola = 0
+saved_frames = []
+Ha = 0
+ratio = Hs//Hs_ola
 
 p = pyaudio.PyAudio()
 
@@ -140,24 +168,14 @@ stream = p.open(format=pyaudio.paInt16,
                 output=True,
                 frames_per_buffer=512)
 
-pos = 0
-pos_ola = 0
-
-saved_frames = []
-Ha = 0
-
-ratio = Hs//Hs_ola
-
 try:
     while pos <= len(xh) - L:
         Ha = int(round(Hs/alpha))
         Ha_ola = int(round(Hs_ola/alpha))
         
-        # start_time = time.perf_counter()
-
         # Phase Vocoder       
         # STFT processing
-        pv_win = xh[pos:pos+L]
+        pv_win = xh[pos:pos+L] * window
         S = np.fft.rfft(pv_win)
         magnitude = np.abs(S)
         if prev_fft is not None:
@@ -169,30 +187,28 @@ try:
         else:
             prev_phase = np.angle(S)
         
-        X_mod = magnitude * np.exp(1j * prev_phase)
-        pv_frame_mod = np.fft.irfft(X_mod)
+        X_mod = magnitude * np.exp(1j * prev_phase) #Apply modified phase
+        pv_frame_mod = np.fft.irfft(X_mod) #iFFT
 
         #shift and add to stream
         output_buffer[:-Hs] = output_buffer[Hs:]
         output_buffer[-Hs:] = 0
         output_buffer += pv_frame_mod * (window.reshape((-1, 1))/den.reshape((-1,1))).flatten()
-        # output_buffer += pv_frame_mod * norm
 
-
+        #OLA processing
         for i in range(ratio):
             ola_win_synth = xp[pos + (Ha_ola*i):pos +(Ha_ola*i) + L_ola] * window_ola
             offset = i * Hs_ola
             output_buffer[offset:offset + L_ola] += ola_win_synth
-    
-        output_buffer = np.clip(output_buffer, -1.0, 1.0)  # FLoat range
-        stream.write(float2pcm(output_buffer[:Hs]).astype(np.int16).tobytes())
+
+        output_buffer = np.clip(output_buffer, -1.0, 1.0)  # Float range
+        stream.write(float2pcm(output_buffer[:Hs]).astype(np.int16).tobytes()) # Convert to int16 to add to stream
 
         # To save
         saved_frames.append(output_buffer[:Hs].copy())
 
-        # print(output_buffer)
         prev_fft = S
-        pos += Ha
+        pos += Ha # Advance by analysis hop size
 
 except KeyboardInterrupt:
     print("\nStream stopped by user!")
