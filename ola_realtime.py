@@ -4,6 +4,7 @@ import pyaudio
 import numpy as np
 import keyboard 
 
+#Constants
 CHUNK = L = 256
 Hs = L // 2
 alpha = 1.0
@@ -12,6 +13,7 @@ output_buffer = np.zeros(int(L))
 
 
 def on_alpha_change(e):
+    """Adjust alpha based on key press."""
     global alpha
     if e.name == 'up' and alpha < 2.00:
         alpha += 0.05
@@ -54,7 +56,6 @@ with wave.open(sys.argv[1], 'rb') as wf:
             synthesis_buffer = analysis_buffer
             
             numFrames = (num_samples - L) // Ha + 1
-            # output_buffer = np.zeros(Hs * (numFrames-1) + L)
 
             # 4. Overlap-add to output
             output_buffer[:-Hs] = output_buffer[Hs:]  # Shift buffer (first half = the second half)

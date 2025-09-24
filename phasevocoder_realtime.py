@@ -6,7 +6,7 @@ import keyboard
 import librosa as lb
 
 def float2pcm(sig, dtype='int16'):
-    # assert sig <= 1 and sig >= -1, "Data must be normalized between -1.0 and 1.0"
+    """Convert floating point signal to PCM format."""
     sig = np.asarray(sig)
     dtype = np.dtype(dtype)
     i = np.iinfo(dtype)
@@ -14,17 +14,8 @@ def float2pcm(sig, dtype='int16'):
     offset = i.min + abs_max
     return (sig * abs_max + offset).clip(i.min, i.max).astype(dtype)
 
-
-CHUNK = L = 2048
-Hs = L // 4
-window = np.hanning(L)
-output_buffer = np.zeros(L)
-alpha = 1.0
-
-prev_fft = None
-prev_phase = np.zeros(L//2 + 1)
-
 def on_alpha_change(e):
+    """Adjust alpha based on key press."""
     global alpha
     if e.name == 'up' and alpha < 2.0:
         alpha += 0.05
@@ -35,8 +26,17 @@ def on_alpha_change(e):
 keyboard.on_press(on_alpha_change)
 
 file_name = sys.argv[1]
-audio_data, audio_sr = lb.load(file_name)
-omega_nom = np.arange(L//2 + 1) * 2 * np.pi * audio_sr / L  # update with real sample rate
+audio_data, audio_sr = lb.load(file_name, mono=True, sr=22050)
+#Constants
+CHUNK = L = 2048
+Hs = L // 4
+window = np.hanning(L)
+output_buffer = np.zeros(L)
+alpha = 1.0
+prev_fft = None
+prev_phase = np.zeros(L//2 + 1)
+omega_nom = np.arange(L//2 + 1) * 2 * np.pi * audio_sr / L 
+
 p = pyaudio.PyAudio()
 stream = p.open(format=pyaudio.paInt16,
                 channels=1,
